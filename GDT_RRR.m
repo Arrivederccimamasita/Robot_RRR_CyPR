@@ -18,7 +18,7 @@ t_tray   = in(9);
 x_init=3.5; y_init=0; z_init=4;
 x_fin =2.5; y_fin=0 ; z_fin=5;
 n_ptos=5; t_tray=1; t_init=0.5;
-t=[0:2/6:2];
+% t=[0:2/6:2];
 
 %% Obtencion de la trayectoria en el espacio cartesiano
 pos_init=[x_init y_init z_init];
@@ -104,6 +104,29 @@ for k=1:(length(q2)-1)
   
 end
 polinomio
+
+
+% Implementacion de una funcion cubica u otra
+figure;
+for t=0:0.01:1
+    if (t>=0 && t<t_tray)
+        selec=(floor(t/T)+1);
+        A=polinomio(selec,2);
+        B=polinomio(selec,3);
+        C=polinomio(selec,4);
+        D=polinomio(selec,5);
+        t_tramo=polinomio(selec,1);
+        
+    end
+        
+    qr_tramo= A*( t-t_tramo ).^3 + B*(t-t_tramo).^2 + C*( t-t_tramo) + D;
+    
+    hold on
+    plot(t,qr_tramo,'*');grid
+    
+end
+
+hold off
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Se devuelve la posicion, velocidad y aceleracion de referencia
 % q_r=[q1_r   q2_r   q3_r];
