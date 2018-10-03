@@ -138,7 +138,9 @@ figure;
 for t=0:0.01:1.5 % La instruccion 'for' solo es valida para plotear el resultado, se debe eliminar al tener l entrada de reloj
     
     if(t>t_init && t<1.5)
-        selec=(floor(t/T)-2);
+        offset=(floor(t_init/T)-1);
+        selec=(floor(t/T)-offset);
+        
         Aq1=poliq1(selec,2);
         Bq1=poliq1(selec,3);
         Cq1=poliq1(selec,4);
@@ -196,7 +198,7 @@ for t=0:0.01:1.5 % La instruccion 'for' solo es valida para plotear el resultado
 %     plot(t,qd1_r,'*');grid
 %     plot(t,qd2_r,'*');grid
 %     plot(t,qd3_r,'*');grid
-    
+%     
 %      %Ploteo Aceleraciones
 %     plot(t,qdd1_r,'*');grid
 %     plot(t,qdd2_r,'*');grid
