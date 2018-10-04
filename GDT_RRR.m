@@ -1,7 +1,11 @@
 %% GENERADOR DE TRAYECTORIAS DEL ROBOT RRR
-% En primera instancia se disenara un GDT lineal
+% En primera instancia se disenara un GDT lineal.
 
-function [q_r qd_r qdd_r] = GDT_RRR(in)
+% SOLO ESTA IMPLEMENTADO EN SIMULINK LA POSICION, HABRIA QUE ANADIR TAMBIEN
+% LA VELOCIDAD Y LA ACELERACION. SIN EMBARGO, DA PROBLEMAS CON EL TEMA DE
+% LAS ENTRADAS Y SALIDAS DE LOS BLOQUES.
+
+function [q_r] = GDT_RRR(in)
 % Variables de entrada en la funcion
 x_init   = in(1);
 y_init   = in(2);
@@ -12,12 +16,11 @@ z_fin    = in(6);
 n_ptos   = in(7);
 t_init   = in(8);
 t_tray   = in(9);
-% t_sim    = in(10);
-
+t    = in(10);
 %% Inicializacion de variables para testear la funcion
-x_init=3.5; y_init=0; z_init=4;
-x_fin =2.5; y_fin=0 ; z_fin=5;
-n_ptos=5; t_init=0.5; t_tray=1;
+% x_init=3.5; y_init=0; z_init=4;
+% x_fin =2.5; y_fin=0 ; z_fin=5;
+% n_ptos=5; t_init=0.5; t_tray=1;
 
 %% Obtencion de la trayectoria en el espacio cartesiano
 pos_init=[x_init y_init z_init];
@@ -55,7 +58,7 @@ q_r=[q1  q2  q3];
 qd=[];
 
 for k=1:3
-    
+ 
     qaux=q_r(:,k);
     qdaux=zeros(size(qaux));
     var_ant=zeros(size(qaux));
@@ -95,14 +98,13 @@ end
 % Una vez obtenidos los vectores de posiciones y velocidades
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Se define de manera independiente porque T sera cte.
-mat_spline=[ 0     0  0 1  ;
-    T^3   T^2 T 1  ;
-    0     0  1 0  ;
-    3*(T^2) 2*T 1 0 ];
+mat_spline=[ 0       0  0 1  ;
+            T^3     T^2 T 1  ;
+             0       0  1 0  ;
+            3*(T^2) 2*T 1 0 ];
 mat_spline=inv(mat_spline);
 % Si se multiplica esta matriz por [qi_init qi_fin qdi_init qdi_fin] se
 % obtendran los coeficientes del polinomio cubico de interpolacion
-
 
 poliq1=[];
 poliq2=[];
@@ -123,10 +125,7 @@ for k=1:(length(qd)-1)
     %Articulacion 3
     pol_spline_q3 = mat_spline*[q3(k) q3(k+1) qd(k,3) qd(k+1,3)]';
     % Se define t_int como el tiempo en el que se inicia el subintervalo
-    poliq3=[poliq3;tiempo(k) pol_spline_q3'];
-    
-    % Obtencion de la trayectoria en el tramo
-    
+    poliq3=[poliq3;tiempo(k) pol_spline_q3'];    
 end
 
 
@@ -134,60 +133,40 @@ end
 %Seleccionamos los coeficientes del polinomio dependiento del momento
 %temporal en el que nos enctontremos
 
-figure;
-for t=0:0.01:1.5 % La instruccion 'for' solo es valida para plotear el resultado, se debe eliminar al tener l entrada de reloj
+%figure;
+%for t=0:0.01:1.5 % La instruccion 'for' solo es valida para plotear el resultado, se debe eliminar al tener l entrada de reloj
     
-    if(t>t_init && t<1.5)
-        offset=(floor(t_init/T)-1);
-        selec=(floor(t/T)-offset);
-        
-        Aq1=poliq1(selec,2);
-        Bq1=poliq1(selec,3);
-        Cq1=poliq1(selec,4);
-        Dq1=poliq1(selec,5);
-        Aq2=poliq2(selec,2);
-        Bq2=poliq2(selec,3);
-        Cq2=poliq2(selec,4);
-        Dq2=poliq2(selec,5);
-        Aq3=poliq3(selec,2);
-        Bq3=poliq3(selec,3);
-        Cq3=poliq3(selec,4);
-        Dq3=poliq3(selec,5);
-        t_tramo=poliq2(selec,1);
-    else
-        Aq1=0;
-        Bq1=0;
-        Cq1=0;
-        Dq1=0;
-        Aq2=0;
-        Bq2=0;
-        Cq2=0;
-        Dq2=0;
-        Aq3=0;
-        Bq3=0;
-        Cq3=0;
-        Dq3=0;
-        t_tramo=t; %Esto hará que el polinomio al evaluarlo de 0
-    end
-    
-    % Calculo de Posiciones
-    q1_r = Aq1*( t-t_tramo ).^3 + Bq1*(t-t_tramo).^2 + Cq1*( t-t_tramo) + Dq1;
-    q2_r = Aq2*( t-t_tramo ).^3 + Bq2*(t-t_tramo).^2 + Cq2*( t-t_tramo) + Dq2;
-    q3_r = Aq3*( t-t_tramo ).^3 + Bq3*(t-t_tramo).^2 + Cq3*( t-t_tramo) + Dq3;
-    
-    % Calculo de Velocidades
-    
-    qd1_r = 3*Aq1*( t-t_tramo ).^2 + 2*Bq1*(t-t_tramo) + Cq1;
-    qd2_r = 3*Aq2*( t-t_tramo ).^2 + 2*Bq2*(t-t_tramo) + Cq2;
-    qd3_r = 3*Aq3*( t-t_tramo ).^2 + 2*Bq3*(t-t_tramo) + Cq3;
-    
-    % Calculo de Aceleraciones
-    
-    qdd1_r = 6*Aq1*( t-t_tramo ) + 2*Bq1;
-    qdd2_r = 6*Aq2*( t-t_tramo ) + 2*Bq2;
-    qdd3_r = 6*Aq3*( t-t_tramo ) + 2*Bq3;
-    
-    hold on
+if(t>t_init && t<1.5)
+    offset=(floor(t_init/T)-1);
+    selec=(floor(t/T)-offset);
+
+    Aq1=poliq1(selec,2); Bq1=poliq1(selec,3); Cq1=poliq1(selec,4); Dq1=poliq1(selec,5);
+    Aq2=poliq2(selec,2); Bq2=poliq2(selec,3); Cq2=poliq2(selec,4); Dq2=poliq2(selec,5);
+    Aq3=poliq3(selec,2); Bq3=poliq3(selec,3); Cq3=poliq3(selec,4); Dq3=poliq3(selec,5);
+    t_tramo=poliq2(selec,1);
+else
+    Aq1=0; Bq1=0; Cq1=0; Dq1=0;
+    Aq2=0; Bq2=0; Cq2=0; Dq2=0;
+    Aq3=0; Bq3=0; Cq3=0; Dq3=0;
+    t_tramo=t; %Esto hará que el polinomio al evaluarlo de 0
+end
+
+% Obtencion de los polinomios en cada intervalo de la trayectoria y para
+% todas las variables articulares.
+% Calculo de Posiciones
+q1_r = Aq1*( t-t_tramo ).^3 + Bq1*(t-t_tramo).^2 + Cq1*( t-t_tramo) + Dq1;
+q2_r = Aq2*( t-t_tramo ).^3 + Bq2*(t-t_tramo).^2 + Cq2*( t-t_tramo) + Dq2;
+q3_r = Aq3*( t-t_tramo ).^3 + Bq3*(t-t_tramo).^2 + Cq3*( t-t_tramo) + Dq3;
+
+% Calculo de Velocidades
+qd1_r = 3*Aq1*( t-t_tramo ).^2 + 2*Bq1*(t-t_tramo) + Cq1;
+qd2_r = 3*Aq2*( t-t_tramo ).^2 + 2*Bq2*(t-t_tramo) + Cq2;
+qd3_r = 3*Aq3*( t-t_tramo ).^2 + 2*Bq3*(t-t_tramo) + Cq3;
+
+% Calculo de Aceleraciones
+qdd1_r = 6*Aq1*( t-t_tramo ) + 2*Bq1;
+qdd2_r = 6*Aq2*( t-t_tramo ) + 2*Bq2;
+qdd3_r = 6*Aq3*( t-t_tramo ) + 2*Bq3;
     
 %     %Ploteo Posiciones
 %     plot(t,q1_r,'*');grid
@@ -203,15 +182,10 @@ for t=0:0.01:1.5 % La instruccion 'for' solo es valida para plotear el resultado
 %     plot(t,qdd1_r,'*');grid
 %     plot(t,qdd2_r,'*');grid
 %     plot(t,qdd3_r,'*');grid
-end
-%%
-
-% qd = Jinv_velocidades([q1 q2 q3 vx vy vz]);
-
-% Una vez obtenido esto, se podran aplicar los splines con un bucle for
+%end
 
 % Se devuelve la posicion, velocidad y aceleracion de referencia
-% q_r=[q1_r   q2_r   q3_r];
-% qd_r=[qd1_r  qd2_r  qd3_r];
-% qdd_r=[qdd1_r q2dd_r qdd3_r];
-return
+q_r  =[q1_r   ;q2_r   ;q3_r];
+qd_r =[qd1_r  ;qd2_r  ;qd3_r];
+qdd_r=[qdd1_r ;qdd2_r ;qdd3_r];
+end
