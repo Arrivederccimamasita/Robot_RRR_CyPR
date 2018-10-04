@@ -18,7 +18,7 @@ T=simplify( robot.fkine( [q1 q2 q3] ) )
 % Se pinta el robot para verificar los parámetros obtenidos visualmente
 robot.teach();
 
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Ahora se obtendrán las matrices de manera matematica para comparar la
 % matriz de transformacion directa matematica con la obtenida mediante el
 % toolbox.
@@ -30,9 +30,9 @@ L(3)= Link([  0     0    L3     0   , 0]);
 robot=SerialLink(L);
 
 % Obtencion de la MCD a partir de las matrices de transformacion homogeneas
-A01=fun_MDH( q1 , L0+L1 , 0  , pi1/2 );
-A12=fun_MDH( q2 ,   0   , L2 ,   0   );
-A23=fun_MDH( q3 ,   0   , L3 ,   0   );
+A01=fun_MDH( q1 , L0+L1 , 0  , pi1/2 )
+A12=fun_MDH( q2 ,   0   , L2 ,   0   )
+A23=fun_MDH( q3 ,   0   , L3 ,   0   )
 
 mT=simplify(A01*A12*A23)
 

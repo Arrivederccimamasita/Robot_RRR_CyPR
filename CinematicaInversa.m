@@ -28,7 +28,7 @@ q1=atan2( (y/A) , (x/A) );
 % Por lo tanto, se definirá la variable articular q3 como
 q3=atan2( sqrt( 1-( (C-L2^2-L3^2)/(2*L2*L3) )^2 ) , (C-L2^2-L3^2)/(2*L2*L3) );
 
-rho = sqrt( (L3*cos(q3)+L2)^2 + (L3*sin(q3))^2 );
+rho = sqrt(C);
 alpha=atan2( L3*sin(q3) , L3*cos(q3)+L2 );
 
 % Se define, la variable articular q2 como
