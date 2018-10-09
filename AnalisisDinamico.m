@@ -28,120 +28,24 @@ T3=(L3 + s33x)*(2*L3*qdd2 + 2*L3*qdd3 + 2*qdd2*s33x + 2*qdd3*s33x + 2*g*cos(q2 +
 % Se debera ir derivando respecto diversas variables para ir obteniendo la
 % la ecuacion matricial del robot (lineal con los parametros dinamicos)
 Y=[T1 T2 T3]';  
-thetha=[m1 s11z I11xx I11yy I11zz Jm1 Bm1...
+tetha=[m1 s11z I11xx I11yy I11zz Jm1 Bm1...
     m2 s22x I22xx I22yy I22zz Jm2 Bm2...
     m3 s33x I33xx I33yy I33zz Jm3 Bm3]';    % Vector columna de incognitas 
 % Habra que definir la variable phi, la cual es la ecuacion matricial del
 % robot. Se sabe que tendra una dimension de 3x21.
+phi = sym('phi',[length(Y) length(tetha)]);  % Se crea la matriz simbolica objetivo
 
-% Derivadas respecto las incognitas del primer eslabon
-dT1_m1=diff(T1,m1)
-dT2_m1=diff(T2,m1)
-dT3_m1=diff(T3,m1)
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% OBTENCION DE LA MATRIZ PHI POR BUCLE. VERIFICAR CORRECTO FUNCIONAMIENTO!
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Recorremos la matriz Y
+for j=1:length(Y)
+    % Recorremos la matriz theta
+    for i=1:length(tetha)
+        phi(j,i)=diff(Y(j),tetha(i));
+    end
+end
+phi
 
-dT1_s11z=diff(T1,s11z)
-dT2_s11z=diff(T2,s11z)
-dT3_s11z=diff(T3,s11z)
-
-dT1_I11xx=diff(T1,I11xx)
-dT2_I11xx=diff(T2,I11xx)
-dT3_I11xx=diff(T3,I11xx)
-
-dT1_I11yy=diff(T1,I11yy)
-dT2_I11yy=diff(T2,I11yy)
-dT3_I11yy=diff(T3,I11yy)
-
-dT1_I11zz=diff(T1,I11zz)
-dT2_I11zz=diff(T2,I11zz)
-dT3_I11zz=diff(T3,I11zz)
-
-dT1_Jm1=diff(T1,Jm1)
-dT2_Jm1=diff(T2,Jm1)
-dT3_Jm1=diff(T3,Jm1)
-
-dT1_Bm1=diff(T1,Bm1)
-dT2_Bm1=diff(T2,Bm1)
-dT3_Bm1=diff(T3,Bm1)
-
-% Derivadas respecto las incognitas del segundo eslabon
-dT1_m2=diff(T1,m2)
-dT2_m2=diff(T2,m2)
-dT3_m2=diff(T3,m2)
-
-dT1_s22x=diff(T1,s22x)
-dT2_s22x=diff(T2,s22x)
-dT3_s22x=diff(T3,s22x)
-
-dT1_I22xx=diff(T1,I22xx)
-dT2_I22xx=diff(T2,I22xx)
-dT3_I22xx=diff(T3,I22xx)
-
-dT1_I22yy=diff(T1,I22yy)
-dT2_I22yy=diff(T2,I22yy)
-dT3_I22yy=diff(T3,I22yy)
-
-dT1_I22zz=diff(T1,I22zz)
-dT2_I22zz=diff(T2,I22zz)
-dT3_I22zz=diff(T3,I22zz)
-
-dT1_Jm2=diff(T1,Jm2)
-dT2_Jm2=diff(T2,Jm2)
-dT3_Jm2=diff(T3,Jm2)
-
-dT1_Bm2=diff(T1,Bm2)
-dT2_Bm2=diff(T2,Bm2)
-dT3_Bm2=diff(T3,Bm2)
-
-% Derivadas respecto las incognitas del tercer eslabon
-dT1_m3=diff(T1,m3)
-dT2_m3=diff(T2,m3)
-dT3_m3=diff(T3,m3)
-
-dT1_s33x=diff(T1,s33x)
-dT2_s33x=diff(T2,s33x)
-dT3_s33x=diff(T3,s33x)
-
-dT1_I33xx=diff(T1,I33xx)
-dT2_I33xx=diff(T2,I33xx)
-dT3_I33xx=diff(T3,I33xx)
-
-dT1_I33yy=diff(T1,I33yy)
-dT2_I33yy=diff(T2,I33yy)
-dT3_I33yy=diff(T3,I33yy)
-
-dT1_I33zz=diff(T1,I33zz)
-dT2_I33zz=diff(T2,I33zz)
-dT3_I33zz=diff(T3,I33zz)
-
-dT1_Jm3=diff(T1,Jm3)
-dT2_Jm3=diff(T2,Jm3)
-dT3_Jm3=diff(T3,Jm3)
-
-dT1_Bm3=diff(T1,Bm3)
-dT2_Bm3=diff(T2,Bm3)
-dT3_Bm3=diff(T3,Bm3)
-
-% La ecuacion matricial del robot se definiria como: (Se definira por columnas)
-theta=[dT1_m1 dT2_m1 dT3_m1;...
-    dT1_s11z dT2_s11z dT3_s11z;...
-    dT1_I11xx dT2_I11xx dT3_I11xx;...
-    dT1_I11yy dT2_I11yy dT3_I11yy;...
-    dT1_I11zz dT2_I11zz dT3_I11zz;...
-    dT1_Jm1 dT2_Jm1 dT3_Jm1;...
-    dT1_Bm1 dT2_Bm1 dT3_Bm1;...
-    
-    dT1_m2 dT2_m2 dT3_m2;...
-    dT1_s22x dT2_s22x dT3_s22x;...
-    dT1_I22xx dT2_I22xx dT3_I22xx;...
-    dT1_I22yy dT2_I22yy dT3_I22yy;...
-    dT1_I22zz dT2_I22zz dT3_I22zz;...
-    dT1_Jm2 dT2_Jm2 dT3_Jm2;...
-    dT1_Bm2 dT2_Bm2 dT3_Bm2;...
-    
-    dT1_m3 dT2_m3 dT3_m3;...    
-    dT1_s33x dT2_s33x dT3_s33x;...
-    dT1_I33xx dT2_I33xx dT3_I33xx;...
-    dT1_I33yy dT2_I33yy dT3_I33yy;...
-    dT1_I33zz dT2_I33zz dT3_I33zz;...
-    dT1_Jm3 dT2_Jm3 dT3_Jm3;...
-    dT1_Bm3 dT2_Bm3 dT3_Bm3]';
+% Una vez que se ha obtenido phi, seria necesario trabajarla en una serie
+% de terminos, otros ya estarian definidos.
