@@ -22,7 +22,7 @@ syms Jm1 Jm2 Jm3 Bm1 Bm2 Bm3 R1 R2 R3 real
 
 pi1 = sym('pi');
 
-% DATOS CINEMÃ?TICOS DEL BRAZO DEL ROBOT
+% DATOS CINEMATICOS DEL BRAZO DEL ROBOT
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Dimensiones (m)
 % L0=1; L1=3; L2=1.5; L3=2;
@@ -41,24 +41,24 @@ theta4=0; d4=0; a4=0; alpha4=0;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Eslabones 0 y 1
 m1=m1; % [kg] Esta masa será la suma de m0 y m1
-s11 = [s11x s11y s11z]'; % m
+s11 = [  0      0    -s11z]'; % m
 I11 = [I11xx    0      0   ;...
-    0    I11yy    0   ;...
-    0      0    I11zz]; % kg.m2
+         0    I11yy    0   ;...
+         0      0    I11zz]; % kg.m2
 
 % Eslabon 2
 m2 =m2; % kg
-s22 = [s22x s22y s22z]'; % m
+s22 = [-s22x    0      0]'; % m
 I22 = [I22xx    0      0   ;...
-    0    I22yy    0   ;...
-    0      0    I22zz]; % kg.m2
+         0    I22yy    0   ;...
+         0      0    I22zz]; % kg.m2
 
 % Eslabon 3
-m3 = 2; % kg
-s33 = [s33x s33y s33z]'; % m
+m3 = m3; % kg
+s33 = [-s33x    0      0]'; % m
 I33 = [I33xx    0      0   ;...
-    0    I33yy    0   ;...
-    0      0    I33zz]; % kg.m2
+         0    I33yy    0   ;...
+         0      0    I33zz]; % kg.m2
 
 
 
@@ -331,17 +331,17 @@ Ga=G;
 %La funcion vpa del Symbolics ToolBox evalua las expresiones de Ã±as
 %fracciones de una funcion simbolica, redondeandolas con la precision que
 %podria pasarse como segundo argumento
-Ma=vpa(Ma,5)
-f= arrayfun(@char, Ma, 'uniform', 0)
-xlswrite('MatricesDinamicas.xls',f,1)
+Ma=vpa(Ma,5);
+% f= arrayfun(@char, Ma, 'uniform', 0)
+% xlswrite('MatricesDinamicas.xls',f,1)
 
-Va=vpa(Va,5)
-f= arrayfun(@char, Va, 'uniform', 0)
-xlswrite('MatricesDinamicas.xls',f,2)
+Va=vpa(Va,5);
+% f= arrayfun(@char, Va, 'uniform', 0)
+% xlswrite('MatricesDinamicas.xls',f,2)
 
-Ga=vpa(G,5)
-f= arrayfun(@char, Ga, 'uniform', 0)
-xlswrite('MatricesDinamicas.xls',f,3)
+Ga=vpa(G,5);
+% f= arrayfun(@char, Ga, 'uniform', 0)
+% xlswrite('MatricesDinamicas.xls',f,3)
 
 % Ahora se deben introducir las matrices Ma,Va y Ga en el script
 % "ModeloDinamico_R3GDL.m"
