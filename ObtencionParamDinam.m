@@ -38,10 +38,10 @@ for i=1:length(Y)   % Este bucle recorre las articulaciones
         % Primeros 15 terminos, los cuales seran los "simples" y los
         % momentos inercia de orden 0
         if (j<=15 || j==18 || j==21 || j==24)
-            gamma_sim(i,j)=diff(Y(i),tetha_sim(j))
+            gamma_sim(i,j)=diff(Y(i),tetha_sim(j));
         % Terminos asociados a los momentos de inercia de orden 2
         elseif (j==16 || j==19 || j==22)
-            gamma_sim(i,j)=diff(diff( diff(Y(i),Mi(ind2,2)) ,Mi(ind2,2)) ,Mi(ind2,1))/2
+            gamma_sim(i,j) =diff(diff( diff(Y(i),Mi(ind2,2)) ,Mi(ind2,2)) ,Mi(ind2,1))/2
             ind2=ind2+1;
         % Terminos asociados a los momentos de inercia de orden 1
         elseif (j==17 || j==20 || j==23)
