@@ -10,7 +10,7 @@ T1=simplify(Ma(1,1)*qdd1+Ma(1,2)*qdd2+Ma(1,3)*qdd3+Va(1,1)+Ga(1,1));
 T2=simplify(Ma(2,1)*qdd1+Ma(2,2)*qdd2+Ma(2,3)*qdd3+Va(2,1)+Ga(2,1));
 T3=simplify(Ma(3,1)*qdd1+Ma(3,2)*qdd2+Ma(3,3)*qdd3+Va(3,1)+Ga(3,1));
 % Y=Ma*qdd + Va + Ga;
-Y=[T1 T2 T3]';
+Y=[T1 T2 T3]'
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % tetha_sim sera la matriz de incognitas
@@ -41,11 +41,11 @@ for i=1:length(Y)   % Este bucle recorre las articulaciones
             gamma_sim(i,j)=diff(Y(i),tetha_sim(j));
         % Terminos asociados a los momentos de inercia de orden 2
         elseif (j==16 || j==19 || j==22)
-            gamma_sim(i,j) =diff(diff( diff(Y(i),Mi(ind2,2)) ,Mi(ind2,2)) ,Mi(ind2,1))/2
+            gamma_sim(i,j) =diff(diff( diff(Y(i),Mi(ind2,2)) ,Mi(ind2,2)) ,Mi(ind2,1))/2;
             ind2=ind2+1;
         % Terminos asociados a los momentos de inercia de orden 1
         elseif (j==17 || j==20 || j==23)
-            gamma_sim(i,j)=diff( diff(Y(i),Mi(ind1,2)) ,Mi(ind1,1) )
+            gamma_sim(i,j)=diff( diff(Y(i),Mi(ind1,2)) ,Mi(ind1,1) );
             ind1=ind1+1;
         end
         % Se actualizan los valores de Y
@@ -54,9 +54,9 @@ for i=1:length(Y)   % Este bucle recorre las articulaciones
     ind2=1;ind1=1;  % Se reinicializan los indices
 end
 
-gamma_sim=simplify(gamma_sim)
-Y
+gamma_sim=simplify(gamma_sim);
+Y;
 
 %% COMPROBACION
 Y=[T1 T2 T3]';
-simplify(Y-(gamma_sim*tetha_sim))
+simplify(Y-(gamma_sim*tetha_sim));
