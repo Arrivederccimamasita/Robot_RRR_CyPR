@@ -19,6 +19,11 @@ syms Jm1 Jm2 Jm3 Bm1 Bm2 Bm3 R1 R2 R3 real
 
 pi1 = sym('pi');
 
+q1=rand;qd1=rand;qdd1=rand;
+q2=rand;qd2=rand;qdd2=rand;
+q3=rand;qd3=rand;qdd3=rand;
+R1=rand; R2=rand; R3=rand;
+g=9.8;L0=0.6;L1=0.6;L2=1;L3=0.8;
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % En este script, inicialmente, se simplificara la matriz gamma en base a
 % que, una columna de 0 en la matriz gamma nos indicara que ese parametro
@@ -43,24 +48,25 @@ gamma_sim=[ 0, qdd1, 0, R1^2*qdd1, R1^2*qd1, 0.5*qdd1 - 0.5*qdd1*cos(2.0*q2) + q
  % (terminos asociados a columnas de ceros en gamma)
  [ind_fil ind_col]=size(gamma_sim);
  param_no_ident=sym('param_no_ident',[size(tetha_sim)]);
- 
- gamma=gamma_sim;
- tetha=tetha_sim;
+
+ j=1;
+ k=1;
  %Recorremos las columnas
- for j=1:ind_col
-    if (gamma_sim(1,j) == 0)
-        if (gamma_sim(2,j)==0)
-            if (gamma_sim(3,j)==0)
-                param_no_ident(j)=tetha_sim(j);
-                % Parametro no identificable, se quita de las matrices
-                gamma(:,j)=[];
-                tetha(j)=[];
-            end
-        end
+ for i=1:ind_col
+    if (gamma_sim(1,i) == 0 && gamma_sim(2,i)==0 && gamma_sim(3,i)==0)
+        param_no_ident(j)=tetha_sim(i);    
+        j=j+1;
+    else
+        gamma(:,k)=gamma_sim(:,i);
+        tetha(k)=tetha_sim(i);
+        k=k+1;
     end
  end
  % En estas matrices, se habran quitado las columnas de ceros y los
  % terminos asociados a las mismas.
- gamma
- tetha
+ gamma=eval(gamma)
+ tetha;
+ 
+ [B,RB]=rref(gamma)
+ 
  
