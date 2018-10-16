@@ -37,7 +37,7 @@ gamma_sim=[ 0, qdd1, 0, R1^2*qdd1, R1^2*qd1, 0.5*qdd1 - 0.5*qdd1*cos(2.0*q2) + q
         
 % Tambien se podria obtener corriendo el script ObtencionParamDinam.m
 
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Antes de comenzar a reducir la matriz, sera necesario comprobar que
 % el rango es 11. Para ello, sera necesario obtener gamma como una matriz
 % cuadrada para poderle aplicar el rref(). Se buscara obtener una matriz
@@ -89,8 +89,10 @@ j=1; k=1; % Inicializacion de variables para el bucle
  end
  tetha=tetha';
  
+% COMPROBACION
+vpa((eval(gamma)*tetha)-( eval(gamma_sim)*tetha_sim ),2)
  
-% Se reinicializan las variables creadas anteriormente
+%% Se reinicializan las variables creadas anteriormente
 gamma_square=[]; gamma_aux=[];
 % En estas matrices, se habran quitado las columnas de ceros y los
 % terminos asociados a las mismas.
@@ -113,6 +115,8 @@ end
 
 [R,jB]=rref(gamma_square); length(jB)
 vpa(R*tetha,2)
+% Si se utilizase round para redondear el valor de R se pierde precision y
+% los valores variarian. Por tanto, no se si es muy buena idea
 
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -142,4 +146,8 @@ gamma_li=[gamma(:,1)+gamma(:,5)+gamma(:,10)+gamma(:,14)+gamma(:,15)+gamma(:,18)-
     gamma(:,13)...
     gamma(:,16)-gamma(:,20)-gamma(:,17) ...
     gamma(:,19)-0.8*gamma(:,20)];
-gamma_li=simplify(gamma_li)
+gamma_li=simplify(gamma_li);
+
+% COMPROBACION DE QUE SE HA HECHO BIEN
+vpa( (eval(gamma_li)*tetha_li)-(eval(gamma_sim)*tetha_sim) ,2)
+
