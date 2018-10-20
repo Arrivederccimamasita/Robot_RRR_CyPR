@@ -61,7 +61,7 @@
 
 % Pie de pagina
 %\fancyfoot{} % limpia el pie
-%\fancyfoot[C]{-\thepage-} % número de página centrado
+\fancyfoot[C]{- \thepage -} % número de página centrado
 
 %Nos generará texto para pruebas de maquetado
 \usepackage{lipsum}
@@ -89,5 +89,16 @@
  Mérida Floriano, Javier}
 \end{titlepage}
 \tableofcontents
-% \include{file}
+\newpage
+% %%%%%%%%%%%   INTRODUCCION %%%%%%%%%%%%%%%%%%
+\section{Introduccion al proyecto}
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\include{1AnalisisCinDin}
+\include{2EstimacParam}
+\include{3ControlCinem}
+\include{4ControlDinamic}
+\include{5AnexosConclusiones}
+
 \end{document}
