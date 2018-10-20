@@ -1,7 +1,7 @@
 %% DEFINICION DE VARIABLES DE SIMUACION
 
 %tiempo de muestreo
-Tm=0.01;
+Tm=1;
 
 %Valores de tiemo atenuacion
 tau1=5;
