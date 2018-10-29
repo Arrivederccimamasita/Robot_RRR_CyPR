@@ -189,14 +189,14 @@ else
     G=vpa(G,5);
     
     % Definicion de los terminos necesarios para pasar de pares a intensidades
-    R=[R1; R2; R3];
-    Kt=[Kt1;Kt2;Kt3];
+    R=[R1 0 0;0 R2 0; 0 0 R3];
+    Kt=[Kt1 0 0;0 Kt2 0;0 0 Kt3];
 
     % Definicion de las matrices del modelo. El modelo, por tanto, tendria la
     % forma: Im=Ma*qdd + Va*qd +Ga
-    Ma=((Kt.*R).^(-1)).*M;
-    Va=((Kt.*R).^(-1)).*V;
-    Ga=((Kt.*R).^(-1)).*G;
+    Ma=((Kt*R)^(-1))*M;
+    Va=((Kt*R)^(-1))*V;
+    Ga=((Kt*R)^(-1))*G;
     
     Ma=vpa(Ma,5)
     Va=vpa(Va,5)
