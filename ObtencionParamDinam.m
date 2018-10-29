@@ -4,6 +4,21 @@
 % No se declaran porque, debido a que es necesario correr el bloque de
 % DinamicaNE_RRR.m, ahi ya se han definido las variables simbolicas.
 
+
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ACUERDATE DE QUE ESTO ESTA EN FUNCION DE PARES Y DEBE ESTAR EN FUNCION DE
+% INTENSIDADES LOCOOOOOOO
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+
+
+
 DinamicaNE_RRR
 % Valores de los partes en las articulaciones(Tau=Kt*R*Im)
 T1=simplify(Ma(1,1)*qdd1+Ma(1,2)*qdd2+Ma(1,3)*qdd3+Va(1,1)+Ga(1,1));
@@ -60,3 +75,5 @@ Y;
 %% COMPROBACION
 Y=[T1 T2 T3]';
 simplify(Y-(gamma_sim*tetha_sim));
+
+

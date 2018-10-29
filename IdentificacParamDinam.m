@@ -15,7 +15,7 @@ syms m0 m1 m2 m3 real       % Masas en simbolico
 syms s11x s11y s11z s22x s22y s22z s33x s33y s33z real  % Distancia al cdm
 syms I11xx I11yy I11zz I22xx I22yy I22zz I33xx I33yy I33zz real     % Tensor de inercias
 % Estimacion de los parametros de los motores
-syms Jm1 Jm2 Jm3 Bm1 Bm2 Bm3 R1 R2 R3 real
+syms Jm1 Jm2 Jm3 Bm1 Bm2 Bm3 real
 
 pi1 = sym('pi');
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -43,31 +43,31 @@ gamma_sim=[ 0, qdd1, 0, R1^2*qdd1, R1^2*qd1, 0.5*qdd1 - 0.5*qdd1*cos(2.0*q2) + q
 % cuadrada para poderle aplicar el rref(). Se buscara obtener una matriz
 % de 24x24, por lo tanto, se tendran que concatenar 8 matrices gamma de
 % valores aleatorios diferentes entre si.
-gamma_square=[];   % Se crea la matriz en la que se guardaran los valores aleatorios.
-gamma_aux=[];      % Matriz auxiliar para concatenar
-
-% En este bucle se ira concatenando las diferentes matrices gamma de
-% valores aleatorios diferentes entre si.
-for i=1:1:8
-    % Valores aleatorios
-    q1=rand;qd1=rand;qdd1=rand;
-    q2=rand;qd2=rand;qdd2=rand;
-    q3=rand;qd3=rand;qdd3=rand;
-    % Valores conocidos
-    R1=50; R2=30; R3=15;
-    g=9.8;L0=0.6;L1=0.6;L2=1;L3=0.8;
-    
-    gamma_aux=eval(gamma_sim);
-    gamma_square=vertcat(gamma_square,gamma_aux);
-end
-
-% Ahora se comprueba el rango de la matriz, debe ser 11 elementos los que
-% tenga jB. Si se verifica hasta aqui, solo sera necesario intentar
-% encontrar las columnas li y, con ello, simplificar la matris gamma y
-% tetha.
-[R,jB]=rref(gamma_square); length(jB)
-vpa(R*tetha_sim,2)
-
+% gamma_square=[];   % Se crea la matriz en la que se guardaran los valores aleatorios.
+% gamma_aux=[];      % Matriz auxiliar para concatenar
+% 
+% % En este bucle se ira concatenando las diferentes matrices gamma de
+% % valores aleatorios diferentes entre si.
+% for i=1:1:8
+%     % Valores aleatorios
+%     q1=rand;qd1=rand;qdd1=rand;
+%     q2=rand;qd2=rand;qdd2=rand;
+%     q3=rand;qd3=rand;qdd3=rand;
+%     % Valores conocidos
+%     R1=50; R2=30; R3=15;
+%     g=9.8;L0=0.6;L1=0.6;L2=1;L3=0.8;
+%     
+%     gamma_aux=eval(gamma_sim);
+%     gamma_square=vertcat(gamma_square,gamma_aux);
+% end
+% 
+% % Ahora se comprueba el rango de la matriz, debe ser 11 elementos los que
+% % tenga jB. Si se verifica hasta aqui, solo sera necesario intentar
+% % encontrar las columnas li y, con ello, simplificar la matris gamma y
+% % tetha.
+% [R,jB]=rref(gamma_square); length(jB);
+% vpa(R*tetha_sim,2);
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Ahora nuestro objetivo sera reducir la matriz gamma a 11 columnas. Para
 % ello, en primer lugar, se separan los terminos no identificables.
@@ -90,7 +90,7 @@ end
 tetha=tetha';
 
 % COMPROBACION
-vpa((eval(gamma)*tetha)-( eval(gamma_sim)*tetha_sim ),2)
+vpa((eval(gamma)*tetha)-( eval(gamma_sim)*tetha_sim ),2);
 
 %% Se reinicializan las variables creadas anteriormente
 gamma_square=[]; gamma_aux=[];
@@ -101,21 +101,21 @@ for i=1:1:7
     q1=rand;qd1=rand;qdd1=rand;
     q2=rand;qd2=rand;qdd2=rand;
     q3=rand;qd3=rand;qdd3=rand;
+    
     % Valores conocidos
-    R1=50; R2=30; R3=15;
-    g=9.8;L0=0.6;L1=0.6;L2=1;L3=0.8;
+     g=9.8;L0=0.6;L1=0.6;L2=1;L3=0.8;
     
     gamma_aux=eval(gamma);
     if (i==7)
-        gamma_square=vertcat(gamma_square,gamma_aux(1:2,:))
+        gamma_square=vertcat(gamma_square,gamma_aux(1:2,:));
     else
         gamma_square=vertcat(gamma_square,gamma_aux);
     end
 end
 
-[R,jB]=rref(gamma_square); length(jB)
+[R,jB]=rref(gamma_square); length(jB);
 
-vpa(R*tetha,2)
+vpa(R*tetha,2);
 % Si se utilizase round para redondear el valor de R se pierde precision y
 % los valores variarian. Por tanto, no se si es muy buena idea
 
@@ -154,7 +154,6 @@ gamma_li= simplify(gamma_li);
 %% Test Verificacion de Modelo
 
 % Valores conocidos
-R1=50; R2=30; R3=15;
 g=9.8;L0=0.6;L1=0.6;L2=1;L3=0.8;
  
 %Es necesario la evaluacion de las matrices con los "valores conocidos"
@@ -171,4 +170,4 @@ T_Modelo=simplify(gamma_v*tetha);
 %El resultado no es nulo; pero se pueden considerar nulos al estar
 %multiplicados por valores muy pequeños
 Resultado=T_Modelo-T_Identificado;
-vpa(Resultado,4)
+vpa(Resultado,4);
