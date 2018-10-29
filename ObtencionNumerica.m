@@ -87,7 +87,7 @@ end
 
 %Se comprueva la validez del parametro
 
-tolerancia_tpc=5; %Condicion de verificacion en %
+tolerancia_tpc=10; %Condicion de verificacion en %
 flag=0;     % Flag creado para que si todos los valores sin validos, se obtenga el modelo.
 
 for i=1:length(tetha_expr)
