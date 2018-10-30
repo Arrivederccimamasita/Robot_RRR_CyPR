@@ -29,13 +29,14 @@ V =[-3.4694e-20*qd1*(1.067e17*L2*qd3*sin(q3) - 1.0455e17*qd2*sin(2.0*q2 + 2.0*q3
                                                                                                                                                    0.0024485*qd3 - 0.0086362*qd1^2*sin(2.0*q2 + 2.0*q3) + 0.0088142*L2*qd1^2*sin(q3) + 0.017628*L2*qd2^2*sin(q3) + 0.017628*L3*qd1^2*sin(2.0*q2 + 2.0*q3) + 0.0088142*L2*qd1^2*sin(2.0*q2 + q3)];
  
 % Par gravitatorio
-G =g*[                                          0;
- 0.083333*(0.092549*cos(q2 + q3) + 0.32554*cos(q2));
+G =g*[                                             0;
+  0.083333*(0.092549*cos(q2 + q3) + 0.32554*cos(q2));
                               0.017628*cos(q2 + q3)];
  
+%M=vpa(M,5); V=vpa(V,5); G=vpa(G,5);
 
 % Ecuación del robot
-%    Tau = M*qpp + V + G
+%    Im = M*qpp + V + G
   Im=[Im1;Im2;Im3];
 
 % Por lo que:  

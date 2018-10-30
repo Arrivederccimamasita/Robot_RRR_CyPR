@@ -3,19 +3,7 @@
 % simulacion.
 % IMPORTANTE: Pasarle UNICAMENTE medidas discretas
 
-function graf_error()
-    R1=1; R2=1; R3=1;    % Reductoras
-    DatosSimSenoides;
-    sim('sl_RobotReal_RRR');
-    q_real=qi_D;
-    qd_real=qdi_D;
-    qdd_real=qddi_D;
-    sim('sl_RobotModelo_RRR');
-    q_mod=qi_D_mod;
-    qd_mod=qdi_D_mod;
-    qdd_mod=qddi_D_mod;
-    t=t_D;
-    Im=Im_D;
+function graf_error(t,Im,q_real,qd_real,qdd_real,q_mod,qd_mod,qdd_mod)
     % Graficas de las intensidades
     figure();subplot(3,1,1);plot(t,Im(:,1));title('Intensidades en los motores');xlabel('Tiempo [s]');ylabel('Intesidad [A]');grid;...
         subplot(3,1,2);plot(t,Im(:,2));xlabel('Tiempo [s]');ylabel('Intesidad [A]');grid;...
@@ -34,6 +22,8 @@ function graf_error()
     % Graficas de las aceleraciones
     figure();subplot(3,1,1);plot(t,qdd_real(:,1)-qdd_mod(:,1));title('Aceleraciones de las articulaciones');xlabel('Tiempo [s]');ylabel('qddr-qddmod [rad/s^{2}]');grid;...
         subplot(3,1,2);plot(t,qdd_real(:,2)-qdd_mod(:,2));xlabel('Tiempo [s]');ylabel('qddr-qddmod [rad/s^{2}]');grid;...
-        subplot(3,1,3);plot(t,qdd_real(:,3)-qdd_mod(:,3));xlabel('Tiempo [s]');ylabel('qddr-qddmod [rad/s^{2}]');grid;
+        subplot(3,1,3);plot(t,qdd_real(:,3)-qdd_mod(:,3));xlabel('Tiempo [s]');ylabel('qddr-qddmod  [rad/s^{2}]');grid;
   
 end
+
+
