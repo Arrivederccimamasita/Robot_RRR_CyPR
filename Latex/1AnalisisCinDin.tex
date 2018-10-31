@@ -1,5 +1,89 @@
 \section{Analisis Cinematico del brazo}
 	\subsection{Modelo Cinematico Directo}
+	\subsubsection{Parametros y estudio del MCD según Denavit-Hartemberg}
+	Uno de los modos de estudio del problema cinemático directo de un robot, es el procedimiento de Denavit-Hartemberg, el cual se basa en la realización de cambios de base empleando las matrices de transformación homogéneas. Siguiendo una serie de pasos, se llegará a obtener los siguientes parámetros que definen la cinemática directa del robot.\\
+	%Tabla de Denavit-Hartenberg
+	\begin{center}
+		\begin{tabular}{|c||c|c|c|c|}
+			\hline
+			Articulación & $\theta_{i}$ & $d_{i}$ & $a_{i}$ & $\alpha_{i}$ \\
+			\hline
+			1 & $\theta_{1}$     				 &   L0+L1    &  			0 			 &  $\frac{\pi}{2}$  \\
+			\hline
+			2 & $\theta_{2}$ 				 &    0     &L2 & 0  \\
+			\hline
+			3 & $\theta_{3}$ &    L3    & 			 L2			 &  0\\
+			\hline
+		\end{tabular}
+	\end{center}
+	% %%%%%%%%%%%%%%%%%
+	% anadir foto del analisis del brazo
+	% %%%%%%%%%%%%%%%%%
+	
+	\subsubsection{Matrices de transformación homogéneas del robot}
+	A continuación, se mostrarán las matrices de transformación homogéneas que definen los cambios de base que han hecho posible relacionar el sistema de referencia base con el del efector final. La matriz de transformación homogénea que relaciona un sistema de referencia con el siguiente se define cómo:\\
+	\begin{equation}
+	{^{i-1}}A_{i}=Rotz(\theta_{i})*T(0,0,d_{i})*T(d_{i},0,0)*Rotx(\alpha_{i})=
+	\begin{pmatrix}
+	cos(\theta_{i}) & -sin(\alpha_{i})cos(\theta_{i})	& sin(\alpha_{i})sin(\theta_{i})  & a_{i}cos(\theta_{i})     \\
+	sin(\theta_{i}) &  sin(\alpha_{i})cos(\theta_{i})	& -sin(\alpha_{i})cos(\theta_{i}) & a_{i}sin(\theta_{i})     \\
+	0 		&  			sin(\alpha_{i})   		& 		cos(\alpha_{i})			  & d_{i}\\
+	0 		&					0				&				0  		  		  & 1
+	\end{pmatrix}
+	\end{equation}
+	
+	Ahora que se ha definido la matriz general, se definirán las matrices de transformación homogéneas de cada cambio de base de robot: \\
+	
+	\[ {^0}A_{1} =
+	\left( \begin{array}{cccc}
+	cos(\theta_{1}) &  0 &  sin(\theta_{1}) & 0  \\ 
+	sin(\theta_{1}) &  0 & -cos(\theta_{1}) & 0  \\
+	0		&  1 &		 0 			& L0+L1 \\
+	0		&  0 & 		 0			& 1
+	\end{array} \right) \]
+	
+	\[ {^1}A_{2} =
+	\left( \begin{array}{cccc}
+	cos(\theta_{2}) & -sin(\theta_{2}) & 0 & L2cos(\theta_{2}) \\ 
+	sin(\theta_{2}) & cos(\theta_{2})  & 0 & L2sin(\theta_{2})  \\
+	0 		 	   & 			0 			& 1	& 		0 			 \\
+	0		 	   &			 0			& 0	& 		1
+	\end{array} \right) \]
+	
+	\[ {^2}A_{3} =
+	\left( \begin{array}{cccc}
+	cos(\theta_{3}) &  -sin(\theta_{3}) &  0 & L3cos(\theta_{3})   \\ 
+	sin(\theta_{3}) &  cos(\theta_{3}) &  0 & L3sin(\theta_{3})   \\
+	0 					 &  0 &  				1 					  & 0 \\
+	0 					 &  0 & 				 0					  & 1
+	\end{array} \right) \]
+	
+	\subsubsection{Ecuaciones simbólicas del MCD}
+	A partir de éstos parámetros será posible obtener las matrices de transformación homogéneas asociada a cada traslación y giro de sistema de referencia. Si pre-multiplicamos las matrices desde la base hasta el punto final del brazo, efector final, la matriz de transformación obtenida será:
+	\begin{equation}
+	{^3}T_{0} = 
+	\left( \begin{array}{cccc}
+	cos(\theta_{2}+\theta_{3})cos(\theta_{1})  & -sin(\theta_{2}+\theta_{3})cos(\theta_{1}) &  sin(\theta_{1})  & cos(\theta_{1})[L3cos(\theta_{2}+\theta_{3}) + L2cos(\theta_{2})] \\ 
+	cos(\theta_{2}+\theta_{3})sin(\theta_{1})  & -sin(\theta_{2}+\theta_{3})sin(\theta_{1}) & -cos(\theta_{1})  & sin(\theta_{1})[L3cos(\theta_{2}+\theta_{3}) + L2cos(\theta_{2})] \\
+	sin(\theta_{2}+\theta_{3})		 		  &		 cos(\theta_{2}+\theta_{3})		        & 		0 			& L0 + L1 + L3sin(\theta_{2}+\theta_{3}) + L2sin(\theta_{2})	 \\
+	0						  &		 	0  									&       0		    &   1
+	\end{array} \right)
+	\end{equation}
+	Dónde se puede extraer que la matriz de orientación del efector final y la posición del mismo respecto al sistema de referencia de la base son:
+	\[ noa =
+	\left( \begin{array}{ccc}
+cos(\theta_{2}+\theta_{3})cos(\theta_{1})  & -sin(\theta_{2}+\theta_{3})cos(\theta_{1}) &  sin(\theta_{1})  \\ 
+cos(\theta_{2}+\theta_{3})sin(\theta_{1})  & -sin(\theta_{2}+\theta_{3})sin(\theta_{1}) & -cos(\theta_{1})  \\
+sin(\theta_{2}+\theta_{3})		 		  &		 cos(\theta_{2}+\theta_{3})		        & 		0 						 			 
+	\end{array} \right) \]
+	
+	\[ p =
+	\left( \begin{array}{c}
+	cos(\theta_{1})[L3cos(\theta_{2}+\theta_{3}) + L2cos(\theta_{2})] \\ 
+	sin(\theta_{1})[L3cos(\theta_{2}+\theta_{3}) + L2cos(\theta_{2})] \\ 
+	L0 + L1 + L3sin(\theta_{2}+\theta_{3}) + L2sin(\theta_{2})			 
+	\end{array} \right) \]
+	
 	\subsection{Modelo Cinematico Inverso}
 	\subsection{Jacobiano del robot y analisis de puntos singulares}
 	
