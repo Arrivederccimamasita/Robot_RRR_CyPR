@@ -28,9 +28,10 @@ switch selec
     % %%%%%%%% Robot ideal con reductoras %%%%%%%%%%%%%%%%%%
     case 1
         R1=50; R2=30; R3=15;    % Reductoras
-        DatosSimSenoides;
+        DatosSimSenoides_Exp;
         sim('sl_RobotReal_RRR');
-        graficas(t_D,Im_D,qi_D,qdi_D,qddi_D);
+        
+%         graficas(t_D,Im_D,qi_D,qdi_D,qddi_D);
         ObtencionNumerica(t_D,Im_D,qi_D,qdi_D,qddi_D,R1,R2,R3);   % FALTA POR DEFINIR QUE LE PASAMOS EN CADA CASO    
         % Si las cosas han ido bien, apareceran por terminal las variables
         % Ma,Va y Ga. Si es asi, ahora se deberan modificar las matrices
