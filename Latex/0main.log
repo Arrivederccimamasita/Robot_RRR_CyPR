@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6840 64-bit) (preloaded format=pdflatex 2018.10.19)  1 NOV 2018 10:03
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6840 64-bit) (preloaded format=pdflatex 2018.10.19)  1 NOV 2018 21:06
 entering extended mode
 **./0main.tex
 (0main.tex
@@ -1150,7 +1150,7 @@ Package caption Info: float package is loaded.
 Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
 \c@lstlisting=\count172
-<brazo_portada.jpg, id=114, 408.02437pt x 243.15843pt>
+<brazo_portada.jpg, id=106, 408.02437pt x 243.15843pt>
 File: brazo_portada.jpg Graphic file (type jpg)
 <use brazo_portada.jpg>
 Package pdftex.def Info: brazo_portada.jpg  used on input line 81.
@@ -1305,14 +1305,14 @@ LaTeX Info: Redefining \% on input line 24.
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 129.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 129.
 Package rerunfilecheck Info: File `0main.out' has not changed.
-(rerunfilecheck)             Checksum: C778A968F8574A4EA02AFC3EC9066D46;2195.
+(rerunfilecheck)             Checksum: 33C64283E4D8202D971269F151638226;2033.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 129.
  ) 
 Here is how much of TeX's memory you used:
- 22640 strings out of 492970
- 410712 string characters out of 3127037
- 598419 words of memory out of 3000000
- 26029 multiletter control sequences out of 15000+200000
+ 22636 strings out of 492970
+ 410662 string characters out of 3127037
+ 598418 words of memory out of 3000000
+ 26027 multiletter control sequences out of 15000+200000
  12403 words of font info for 27 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  62i,12n,118p,514b,468s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1336,9 +1336,9 @@ ata/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users
 /MAMG/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.p
 fb><C:/Users/MAMG/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts
 /cm/cmsy7.pfb>
-Output written on 0main.pdf (10 pages, 251639 bytes).
+Output written on 0main.pdf (10 pages, 253443 bytes).
 PDF statistics:
- 564 PDF objects out of 1000 (max. 8388607)
- 45 named destinations out of 1000 (max. 500000)
- 234 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 555 PDF objects out of 1000 (max. 8388607)
+ 43 named destinations out of 1000 (max. 500000)
+ 218 words of extra memory for PDF output out of 10000 (max. 10000000)
 
