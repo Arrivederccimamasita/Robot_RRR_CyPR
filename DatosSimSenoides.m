@@ -1,13 +1,13 @@
 %% DEFINICION DE VARIABLES DE SIMUACION
 
 % %Valores de tiempo atenuacion
-% tau1=1; tau2=5; tau3=7;
+% tau1=1; tau2=5; tau3=5;
 % 
 % %%Parametros senoides
 % %Senoide I1
 % Aa_1=2; Ab_1=3;
 % wa_1=10; wb_1=3;
-% Im_cc1=3;
+% Im_cc1=0;
 % 
 % %Senoide I2
 % Aa_2=0.5; Ab_2=2;
@@ -17,7 +17,7 @@
 % %Senoide I3
 % Aa_3=0.5; Ab_3=2;
 % wa_3=8; wb_3=3;
-% Im_cc3=0;
+% Im_cc3=1;
 % %%%%%%%%%%%%%%%% RESULTADOS CON EL ROBOT 1 %%%%%%%%%%%%%%%%%%%%%%%%%%
 % tetha_li(1)= 5.177741e-01 Valido con varianza 3.050563e-01 
 % tetha_li(2)= 4.766703e-05 Valido con varianza 1.274585e-01 
@@ -34,23 +34,23 @@
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Valores de tiempo atenuacion
-tau1=1; tau2=3; tau3=7;
+tau1=2; tau2=5; tau3=3;
 
 %%Parametros senoides
 %Senoide I1
 Aa_1=2; Ab_1=3;
-wa_1=10; wb_1=3;
-Im_cc1=3;
+wa_1=2; wb_1=18;
+Im_cc1=0;
 
 %Senoide I2
-Aa_2=0.5; Ab_2=2;
-wa_2=15; wb_2=3;
-Im_cc2=1;
+Aa_2=1.5; Ab_2=3.5;
+wa_2=5; wb_2=23;
+Im_cc2=2;
 
 %Senoide I3
-Aa_3=0.5; Ab_3=2;
-wa_3=8; wb_3=3;
-Im_cc3=0;
+Aa_3=3.5; Ab_3=2;
+wa_3=5; wb_3=28;
+Im_cc3=1;
 % %%%%%%%%%%%%%%%% RESULTADOS CON EL ROBOT 1 %%%%%%%%%%%%%%%%%%%%%%%%%%
 % tetha_li(1)= 5.165736e-01 Valido con varianza 2.853988e-01 
 % tetha_li(2)= 4.772908e-05 Valido con varianza 1.192384e-01 

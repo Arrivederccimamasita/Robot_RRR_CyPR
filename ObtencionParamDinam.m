@@ -74,6 +74,6 @@ Y;
 
 %% COMPROBACION
 Y=[T1 T2 T3]';
-simplify(Y-(gamma_sim*tetha_sim));
+simplify(Y-(gamma_sim*tetha_sim))
 
 

@@ -32,8 +32,8 @@ tetha_sim=[I11xx I11yy I11zz Jm1 Bm1 ...
     m1*(s11z^2) m1*s11z m1 m2*(s22x^2) m2*s22x m2 m3*(s33x^2) m3*s33x m3]';
 % Se define gamma sin simplificar nada como
 gamma_sim=[ 0, qdd1, 0, R1^2*qdd1, R1^2*qd1, 0.5*qdd1 - 0.5*qdd1*cos(2.0*q2) + qd1*qd2*sin(2.0*q2), 0.5*qdd1 + 0.5*qdd1*cos(2.0*q2) - 1.0*qd1*qd2*sin(2.0*q2),    0,         0,        0, 0.5*qdd1 - 0.5*qdd1*cos(2*q2 + 2*q3) + qd1*qd2*sin(2*q2 + 2*q3) + qd1*qd3*sin(2*q2 + 2*q3), 0.5*qdd1 + 0.5*qdd1*cos(2*q2 + 2*q3) - 1.0*qd1*qd2*sin(2*q2 + 2*q3) - 1.0*qd1*qd3*sin(2*q2 + 2*q3),           0,         0,        0, qdd1, 0, 0, 0.5*qdd1 + 0.5*qdd1*cos(2.0*q2) - 1.0*qd1*qd2*sin(2.0*q2), -1.0*L2*(qdd1 + qdd1*cos(2.0*q2) - 2.0*qd1*qd2*sin(2.0*q2)), (L2^2*(qdd1 + qdd1*cos(2.0*q2) - 2.0*qd1*qd2*sin(2.0*q2)))/2, 0.5*qdd1 + 0.5*qdd1*cos(2*q2 + 2*q3) - 1.0*qd1*qd2*sin(2*q2 + 2*q3) - 1.0*qd1*qd3*sin(2*q2 + 2*q3), 2.0*L3*qd1*qd2*sin(2*q2 + 2*q3) - 1.0*L2*qdd1*cos(2.0*q2 + q3) - 1.0*L3*qdd1*cos(2*q2 + 2*q3) - 1.0*L2*qdd1*cos(q3) - 1.0*L3*qdd1 + 2.0*L3*qd1*qd3*sin(2*q2 + 2*q3) + L2*qd1*qd3*sin(q3) + 2.0*L2*qd1*qd2*sin(2.0*q2 + q3) + L2*qd1*qd3*sin(2.0*q2 + q3), 0.5*L2^2*qdd1 + 0.5*L3^2*qdd1 + 0.5*L3^2*qdd1*cos(2*q2 + 2*q3) + 0.5*L2^2*qdd1*cos(2.0*q2) + L2*L3*qdd1*cos(q3) - 1.0*L3^2*qd1*qd2*sin(2*q2 + 2*q3) - 1.0*L3^2*qd1*qd3*sin(2*q2 + 2*q3) - 1.0*L2^2*qd1*qd2*sin(2.0*q2) + L2*L3*qdd1*cos(2.0*q2 + q3) - 2.0*L2*L3*qd1*qd2*sin(2.0*q2 + q3) - 1.0*L2*L3*qd1*qd3*sin(2.0*q2 + q3) - 1.0*L2*L3*qd1*qd3*sin(q3);
-    0,    0, 0,         0,        0,                                -0.5*qd1^2*sin(2.0*q2),                                     0.5*qd1^2*sin(2.0*q2), qdd2, R2^2*qdd2, R2^2*qd2,                                                                -0.5*qd1^2*sin(2*q2 + 2*q3),                                                                         0.5*qd1^2*sin(2*q2 + 2*q3), qdd2 + qdd3,         0,        0,    0, 0, 0,                              0.5*sin(2.0*q2)*qd1^2 + qdd2,        - 1.0*L2*sin(2.0*q2)*qd1^2 - 2.0*L2*qdd2 - g*cos(q2),        0.5*sin(2.0*q2)*L2^2*qd1^2 + qdd2*L2^2 + g*cos(q2)*L2,                                                           0.5*sin(2*q2 + 2*q3)*qd1^2 + qdd2 + qdd3,                                                           L2*qd3^2*sin(q3) - 2.0*L3*qdd3 - g*cos(q2 + q3) - 2.0*L3*qdd2 - 1.0*L2*qd1^2*sin(2.0*q2 + q3) - 1.0*L3*qd1^2*sin(2*q2 + 2*q3) - 2.0*L2*qdd2*cos(q3) - L2*qdd3*cos(q3) + 2.0*L2*qd2*qd3*sin(q3),                                                                                     L2^2*qdd2 + L3^2*qdd2 + L3^2*qdd3 + 0.5*L3^2*qd1^2*sin(2*q2 + 2*q3) + 0.5*L2^2*qd1^2*sin(2.0*q2) + L3*g*cos(q2 + q3) + L2*g*cos(q2) + L2*L3*qd1^2*sin(2.0*q2 + q3) + 2.0*L2*L3*qdd2*cos(q3) + L2*L3*qdd3*cos(q3) - 1.0*L2*L3*qd3^2*sin(q3) - 2.0*L2*L3*qd2*qd3*sin(q3);
-    0,    0, 0,         0,        0,                                                     0,                                                         0,    0,         0,        0,                                                                -0.5*qd1^2*sin(2*q2 + 2*q3),                                                                         0.5*qd1^2*sin(2*q2 + 2*q3), qdd2 + qdd3, R3^2*qdd3, R3^2*qd3,    0, 0, 0,                                                         0,                                                           0,                                                            0,                                                           0.5*sin(2*q2 + 2*q3)*qd1^2 + qdd2 + qdd3,                                                                     - 2.0*L3*qdd2 - 2.0*L3*qdd3 - 1.0*g*cos(q2 + q3) - 0.5*L2*qd1^2*sin(q3) - 1.0*L2*qd2^2*sin(q3) - 0.5*L2*qd1^2*sin(2.0*q2 + q3) - 1.0*L3*qd1^2*sin(2*q2 + 2*q3) - 1.0*L2*qdd2*cos(q3),                                                                                                                                                                            (L3*(2.0*L3*qdd2 + 2.0*L3*qdd3 + 2.0*g*cos(q2 + q3) + L2*qd1^2*sin(q3) + 2.0*L2*qd2^2*sin(q3) + L2*qd1^2*sin(2.0*q2 + q3) + L3*qd1^2*sin(2*q2 + 2*q3) + 2.0*L2*qdd2*cos(q3)))/2];
+            0,    0, 0,         0,        0,                                -0.5*qd1^2*sin(2.0*q2),                                     0.5*qd1^2*sin(2.0*q2), qdd2, R2^2*qdd2, R2^2*qd2,                                                                -0.5*qd1^2*sin(2*q2 + 2*q3),                                                                         0.5*qd1^2*sin(2*q2 + 2*q3), qdd2 + qdd3,         0,        0,    0, 0, 0,                              0.5*sin(2.0*q2)*qd1^2 + qdd2,        - 1.0*L2*sin(2.0*q2)*qd1^2 - 2.0*L2*qdd2 - g*cos(q2),        0.5*sin(2.0*q2)*L2^2*qd1^2 + qdd2*L2^2 + g*cos(q2)*L2,                                                           0.5*sin(2*q2 + 2*q3)*qd1^2 + qdd2 + qdd3,                                                           L2*qd3^2*sin(q3) - 2.0*L3*qdd3 - g*cos(q2 + q3) - 2.0*L3*qdd2 - 1.0*L2*qd1^2*sin(2.0*q2 + q3) - 1.0*L3*qd1^2*sin(2*q2 + 2*q3) - 2.0*L2*qdd2*cos(q3) - L2*qdd3*cos(q3) + 2.0*L2*qd2*qd3*sin(q3),                                                                                     L2^2*qdd2 + L3^2*qdd2 + L3^2*qdd3 + 0.5*L3^2*qd1^2*sin(2*q2 + 2*q3) + 0.5*L2^2*qd1^2*sin(2.0*q2) + L3*g*cos(q2 + q3) + L2*g*cos(q2) + L2*L3*qd1^2*sin(2.0*q2 + q3) + 2.0*L2*L3*qdd2*cos(q3) + L2*L3*qdd3*cos(q3) - 1.0*L2*L3*qd3^2*sin(q3) - 2.0*L2*L3*qd2*qd3*sin(q3);
+            0,    0, 0,         0,        0,                                                     0,                                                         0,    0,         0,        0,                                                                -0.5*qd1^2*sin(2*q2 + 2*q3),                                                                         0.5*qd1^2*sin(2*q2 + 2*q3), qdd2 + qdd3, R3^2*qdd3, R3^2*qd3,    0, 0, 0,                                                         0,                                                           0,                                                            0,                                                           0.5*sin(2*q2 + 2*q3)*qd1^2 + qdd2 + qdd3,                                                                     - 2.0*L3*qdd2 - 2.0*L3*qdd3 - 1.0*g*cos(q2 + q3) - 0.5*L2*qd1^2*sin(q3) - 1.0*L2*qd2^2*sin(q3) - 0.5*L2*qd1^2*sin(2.0*q2 + q3) - 1.0*L3*qd1^2*sin(2*q2 + 2*q3) - 1.0*L2*qdd2*cos(q3),                                                                                                                                                                            (L3*(2.0*L3*qdd2 + 2.0*L3*qdd3 + 2.0*g*cos(q2 + q3) + L2*qd1^2*sin(q3) + 2.0*L2*qd2^2*sin(q3) + L2*qd1^2*sin(2.0*q2 + q3) + L3*qd1^2*sin(2*q2 + 2*q3) + 2.0*L2*qdd2*cos(q3)))/2];
 
 % Tambien se podria obtener corriendo el script ObtencionParamDinam.m
 
@@ -103,8 +103,9 @@ for i=1:1:7
     q3=rand;qd3=rand;qdd3=rand;
     
     % Valores conocidos
-     g=9.8;L0=0.6;L1=0.6;L2=1;L3=0.8;
-    
+    g=9.8;L0=0.6;L1=0.6;L2=1;L3=0.8;
+     
+     
     gamma_aux=eval(gamma);
     if (i==7)
         gamma_square=vertcat(gamma_square,gamma_aux(1:2,:));
@@ -115,9 +116,10 @@ end
 
 [R,jB]=rref(gamma_square); length(jB);
 
-vpa(R*tetha,2);
+vpa(R*tetha,2)
 % Si se utilizase round para redondear el valor de R se pierde precision y
 % los valores variarian. Por tanto, no se si es muy buena idea
+
 
 
 %% Reagrupando los terminos dinamicos
@@ -125,12 +127,12 @@ vpa(R*tetha,2);
 % Una vez se conocen las relaciones lineales, seria conveniente redefinir
 % las ecuaciones gamma y tetha como la combinacion lineal de los parametros
 
-%Obtenemos los parametros agrupados
+% Obtenemos los parametros agrupados
 tetha_li_Zeros=vpa(R*tetha,2);
 
-%Eliminamos los parametros igual a ceros obteniendo nuestro vector de
-%parametros agrupados
-tetha_li=simplify( tetha_li_Zeros(1:length(jB)));
+% Eliminamos los parametros igual a ceros obteniendo nuestro vector de
+% parametros agrupados
+tetha_li=vpa( simplify( tetha_li_Zeros(1:length(jB))) ,5);
 
 
 %Eliminamos las columnas linealmente dependientes de la matriz gamma
@@ -149,7 +151,7 @@ for i=1:ind_col
         
     end
 end
-gamma_li= simplify(gamma_li);
+gamma_li= simplify(gamma_li)
 
 %% Test Verificacion de Modelo
 
@@ -170,4 +172,4 @@ T_Modelo=simplify(gamma_v*tetha);
 %El resultado no es nulo; pero se pueden considerar nulos al estar
 %multiplicados por valores muy pequeños
 Resultado=T_Modelo-T_Identificado;
-vpa(Resultado,4);
+vpa(Resultado,4)

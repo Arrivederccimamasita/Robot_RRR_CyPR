@@ -28,18 +28,19 @@ switch selec
     % %%%%%%%% Robot ideal con reductoras %%%%%%%%%%%%%%%%%%
     case 1
         R1=50; R2=30; R3=15;    % Reductoras
-        DatosSimSenoides_Exp;
+        DatosSimSenoides;
         sim('sl_RobotReal_RRR');
         
-%         graficas(t_D,Im_D,qi_D,qdi_D,qddi_D);
+        %graficas(t_D,Im_D,qi_D,qdi_D,qddi_D);
         ObtencionNumerica(t_D,Im_D,qi_D,qdi_D,qddi_D,R1,R2,R3);   % FALTA POR DEFINIR QUE LE PASAMOS EN CADA CASO    
         % Si las cosas han ido bien, apareceran por terminal las variables
         % Ma,Va y Ga. Si es asi, ahora se deberan modificar las matrices
         % del script "ModeloDinamico_RRR_sl.m". Tras ello, se debera hacer
         % lo siguiente:
-        % sim('sl_RobotReal_RRR');
+        % sim('sl_RobotModelo_RRR');
         % graficas(t_D,Im_D,qi_D_mod,qdi_D_mod,qddi_D_mod);
         % graf_error(t_D,Im_D,qi_D,qdi_D,qddi_D,qi_D_mod,qdi_D_mod,qddi_D_mod);
+        % graf_sismod(t_D,qi_D,qdi_D,qddi_D,qi_D_mod,qdi_D_mod,qddi_D_mod,1);
         % Y ANALIZAR LOS RESULTADOS.
         
     % %%%%%%%% Robot ideal sin reductoras %%%%%%%%%%%%%%%%%%
@@ -54,7 +55,7 @@ switch selec
         % Ma,Va y Ga. Si es asi, ahora se deberan modificar las matrices
         % del script "ModeloDinamico_RRR_sl.m". Tras ello, se debera hacer
         % lo siguiente:
-        % sim('sl_RobotReal_RRR');
+        % sim('sl_RobotModelo_RRR');
         % graficas(t_D,Im_D,qi_D_mod,qdi_D_mod,qddi_D_mod);
         % graf_error(t_D,Im_D,qi_D,qdi_D,qddi_D,qi_D_mod,qdi_D_mod,qddi_D_mod);
         % Y ANALIZAR LOS RESULTADOS.

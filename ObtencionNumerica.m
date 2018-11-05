@@ -44,7 +44,8 @@ Y_expr=[];     %Vector agrupado de valores de intensidad
 
 
 %Obtencion del banco de pruebas y aproximacion de los parametos dinamicos
-for i=1:M
+
+for i=2000:M    % Se toma a partir del segundo 2
     % Valores articulares tomados
     q1=q(n*i,1); qd1=qd(n*i,1); qdd1=qdd(n*i,1);
     q2=q(n*i,2); qd2=qd(n*i,2); qdd2=qdd(n*i,2);
@@ -87,7 +88,7 @@ end
 
 %Se comprueva la validez del parametro
 
-tolerancia_tpc=10; %Condicion de verificacion en %
+tolerancia_tpc=7; %Condicion de verificacion en %
 flag=0;     % Flag creado para que si todos los valores sin validos, se obtenga el modelo.
 
 for i=1:length(tetha_expr)
@@ -118,7 +119,7 @@ else
 
     syms q1 q2 q3 qd1 qd2 qd3 qdd1 qdd2 qdd3  g real
     L0=0.6; L1=0.6; L2=1; L3=0.8;
-    Kt1=0.5; Kt2=0.4; Kt3 =0.35;
+%   Kt1=0.5; Kt2=0.4; Kt3 =0.35;
 
     % Tau=Kt*R*Im= M(q)qdd+V(q,qd)+G(q)=M(q)qdd+VG(q,qd) ->
     % Im=
@@ -127,49 +128,49 @@ else
     %-------------------------------
     %Calculo de los terminos de la matriz de inercia (afines a qdd)
     M11=diff(Im_est1,qdd1);
-    Taux=simplify(Im_est1-M11*qdd1);
-    M12=diff(Taux,qdd2);
-    Taux=simplify(Taux-M12*qdd2);
-    M13=diff(Taux,qdd3);
-    Taux=simplify(Taux-M13*qdd3);
-    %Taux restante contiene terminos Centripetos/Coriolis y Gravitatorios
+    Iaux=simplify(Im_est1-M11*qdd1);
+    M12=diff(Iaux,qdd2);
+    Iaux=simplify(Iaux-M12*qdd2);
+    M13=diff(Iaux,qdd3);
+    Iaux=simplify(Iaux-M13*qdd3);
+    %Iaux restante contiene terminos Centripetos/Coriolis y Gravitatorios
     %Terminos gravitatorios: dependen linealmente de "g"
-    G1=diff(Taux,g)*g;
-    Taux=simplify(Taux-G1);
-    %Taux restante contiene terminos Centripetos/Coriolis
-    V1=Taux;
+    G1=diff(Iaux,g)*g;
+    Iaux=simplify(Iaux-G1);
+    %Iaux restante contiene terminos Centripetos/Coriolis
+    V1=Iaux;
 
     %Segunda ecuacion
     %-------------------------------
     %Calculo de los terminos de la matriz de inercia (afines a qdd)
     M21=diff(Im_est2,qdd1);
-    Taux=simplify(Im_est2-M21*qdd1);
-    M22=diff(Taux,qdd2);
-    Taux=simplify(Taux-M22*qdd2);
-    M23=diff(Taux,qdd3);
-    Taux=simplify(Taux-M23*qdd3);
-    %Taux restante contiene terminos Centripetos/Coriolis y Gravitatorios
+    Iaux=simplify(Im_est2-M21*qdd1);
+    M22=diff(Iaux,qdd2);
+    Iaux=simplify(Iaux-M22*qdd2);
+    M23=diff(Iaux,qdd3);
+    Iaux=simplify(Iaux-M23*qdd3);
+    %Iaux restante contiene terminos Centripetos/Coriolis y Gravitatorios
     %Terminos gravitatorios: dependen linealmente de "g"
-    G2=diff(Taux,g)*g;
-    Taux=simplify(Taux-G2);
-    %Taux restante contiene terminos Centripetos/Coriolis
-    V2=Taux;
+    G2=diff(Iaux,g)*g;
+    Iaux=simplify(Iaux-G2);
+    %Iaux restante contiene terminos Centripetos/Coriolis
+    V2=Iaux;
 
     %Tercera ecuacion
     %-------------------------------
     %Calculo de los terminos de la matriz de inercia (afines a qdd)
     M31=diff(Im_est3,qdd1);
-    Taux=simplify(Im_est3-M31*qdd1);
-    M32=diff(Taux,qdd2);
-    Taux=simplify(Taux-M32*qdd2);
-    M33=diff(Taux,qdd3);
-    Taux=simplify(Taux-M33*qdd3);
-    %Taux restante contiene terminos Centripetos/Coriolis y Gravitatorios
+    Iaux=simplify(Im_est3-M31*qdd1);
+    M32=diff(Iaux,qdd2);
+    Iaux=simplify(Iaux-M32*qdd2);
+    M33=diff(Iaux,qdd3);
+    Iaux=simplify(Iaux-M33*qdd3);
+    %Iaux restante contiene terminos Centripetos/Coriolis y Gravitatorios
     %Terminos gravitatorios: dependen linealmente de "g"
-    G3=diff(Taux,g)*g;
-    Taux=simplify(Taux-G3);
-    %Taux restante contiene terminos Centripetos/Coriolis
-    V3=Taux;
+    G3=diff(Iaux,g)*g;
+    Iaux=simplify(Iaux-G3);
+    %Iaux restante contiene terminos Centripetos/Coriolis
+    V3=Iaux;
         
     M11=simplify(M11); M21=simplify(M21); M31=simplify(M31);
     M12=simplify(M12); M22=simplify(M22); M32=simplify(M32);
@@ -184,20 +185,17 @@ else
     V=[V1; V2; V3];
     G=[G1; G2; G3];
     
-    M=vpa(M,5);
-    V=vpa(V,5);
-    G=vpa(G,5);
+    Ma=vpa(M,5);
+    Va=vpa(V,5);
+    Ga=vpa(G,5);
     
-    % Definicion de los terminos necesarios para pasar de pares a intensidades
-    R=[R1 0 0;0 R2 0; 0 0 R3];
-    Kt=[Kt1 0 0;0 Kt2 0;0 0 Kt3];
-
     % Definicion de las matrices del modelo. El modelo, por tanto, tendria la
     % forma: Im=Ma*qdd + Va*qd +Ga
-    Ma=((Kt*R)^(-1))*M;
-    Va=((Kt*R)^(-1))*V;
-    Ga=((Kt*R)^(-1))*G;
+   % Ma=((Kt*R)^(-1))*M;
+   % Va=((Kt*R)^(-1))*V;
+   % Ga=((Kt*R)^(-1))*G;
     
+   % Valores en funcion de los pares.
     Ma=vpa(Ma,5)
     Va=vpa(Va,5)
     Ga=vpa(Ga,5)

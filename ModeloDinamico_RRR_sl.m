@@ -17,30 +17,35 @@ Im2      = in(8);
 Im3      = in(9);
 
 g=9.8;L0=0.6;L1=0.6;L2=1;L3=0.8;
+Kt1=0.5; Kt2=0.4; Kt3 =0.35; Kt=[Kt1; Kt2; Kt3];
+R1=50; R2=30; R3=15; R=[R1 ;R2 ;R3];   % Reductoras
 
-% Matriz de Inercias(Copiada y pegada de lo obtenido de "NE_R3GDL.m")
-M=[0.003702*L3 - 0.0082026*cos(2.0*q2) - 0.0018136*cos(2.0*q2 + 2.0*q3) + 0.003702*L2*cos(q3) + 0.003702*L3*cos(2.0*q2 + 2.0*q3) + 0.013021*L2*(cos(2.0*q2) + 1.0) + 0.003702*L2*cos(2.0*q2 + q3) + 0.030679,                                                         0,                                              0;
-                                                                                                                                                                                                      0, 0.054256*L2 + 0.015425*L3 + 0.015425*L2*cos(q3) + 0.17118, 0.015425*L3 + 0.0077124*L2*cos(q3) - 0.0075172;
-                                                                                                                                                                                                         0,              0.035257*L3 + 0.017628*L2*cos(q3) - 0.017182,                         0.035257*L3 + 0.071995];
+% Matriz de Inercias
+M=[ 0.088811*cos(2.0*q2 + q3) + 0.11889*cos(2.0*q2) + 0.088811*cos(q3) + 0.02941*cos(2.0*q2 + 2.0*q3) + 1.1527,                           0,                       0;
+                                                                                                          0,     0.17762*cos(q3) + 2.799, 0.088811*cos(q3) + 0.060613;
+                                                                                                          0, 0.088811*cos(q3) + 0.060613,                     0.51732];
+% Matriz de aceleraciones centrípetas y de Coriolis
  
- % Matriz de aceleraciones centrípetas y de Coriolis
-V =[-3.4694e-20*qd1*(1.067e17*L2*qd3*sin(q3) - 1.0455e17*qd2*sin(2.0*q2 + 2.0*q3) - 1.0455e17*qd3*sin(2.0*q2 + 2.0*q3) - 4.7285e17*qd2*sin(2.0*q2) + 2.134e17*L3*qd2*sin(2.0*q2 + 2.0*q3) + 2.134e17*L3*qd3*sin(2.0*q2 + 2.0*q3) + 2.134e17*L2*qd2*sin(2.0*q2 + q3) + 1.067e17*L2*qd3*sin(2.0*q2 + q3) + 7.5064e17*L2*qd2*sin(2.0*q2) - 1.3757e17);
-                                                                                   0.0023768*qd2 - 0.0037783*qd1^2*sin(2.0*q2 + 2.0*q3) - 0.017089*qd1^2*sin(2.0*q2) + 0.027128*L2*qd1^2*sin(2.0*q2) - 0.0077124*L2*qd3^2*sin(q3) + 0.0077124*L3*qd1^2*sin(2.0*q2 + 2.0*q3) + 0.0077124*L2*qd1^2*sin(2.0*q2 + q3) - 0.015425*L2*qd2*qd3*sin(q3);
-                                                                                                                                                   0.0024485*qd3 - 0.0086362*qd1^2*sin(2.0*q2 + 2.0*q3) + 0.0088142*L2*qd1^2*sin(q3) + 0.017628*L2*qd2^2*sin(q3) + 0.017628*L3*qd1^2*sin(2.0*q2 + 2.0*q3) + 0.0088142*L2*qd1^2*sin(2.0*q2 + q3)];
+ V=[-6.7763e-21*qd1*(2.6212e19*qd2*sin(2.0*q2 + q3) + 1.3106e19*qd3*sin(2.0*q2 + q3) + 3.5091e19*qd2*sin(2.0*q2) + 1.3106e19*qd3*sin(q3) + 8.6796e18*qd2*sin(2.0*q2 + 2.0*q3) + 8.6796e18*qd3*sin(2.0*q2 + 2.0*q3) - 1.7708e19);
+                                                          0.030675*qd2 - 0.088811*qd3^2*sin(q3) + 0.02941*qd1^2*sin(2.0*q2 + 2.0*q3) + 0.088811*qd1^2*sin(2.0*q2 + q3) + 0.11889*qd1^2*sin(2.0*q2) - 0.17762*qd2*qd3*sin(q3);
+                                                                                       0.013503*qd3 + 0.044406*qd1^2*sin(q3) + 0.088811*qd2^2*sin(q3) + 0.02941*qd1^2*sin(2.0*q2 + 2.0*q3) + 0.044406*qd1^2*sin(2.0*q2 + q3)];
  
+
+
 % Par gravitatorio
-G =g*[                                             0;
-  0.083333*(0.092549*cos(q2 + q3) + 0.32554*cos(q2));
-                              0.017628*cos(q2 + q3)];
- 
+G=[                                          0;
+ (0.08879*cos(q2 + q3) + 0.26665*cos(q2));
+                     0.08879*cos(q2 + q3)];
 %M=vpa(M,5); V=vpa(V,5); G=vpa(G,5);
 
 % Ecuación del robot
 %    Im = M*qpp + V + G
   Im=[Im1;Im2;Im3];
 
+  Im_aux=Im.*(Kt.*R);
 % Por lo que:  
 % Aceleraciones
 %La inversa de M siempore existe porque es simetrica y definida positiva
-  qdd = inv(M)*(Im-V-G);
+ % qdd = inv(M)*((Im.*(Kt.*R))-V-G);
+ qdd=inv(M)*(Im_aux-V-G);
   

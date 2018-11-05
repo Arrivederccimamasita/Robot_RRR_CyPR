@@ -343,6 +343,10 @@ Ga=vpa(G,5);
 % f= arrayfun(@char, Ga, 'uniform', 0)
 % xlswrite('MatricesDinamicas.xls',f,3)
 
+T1=simplify(Ma(1,1)*qdd1+Ma(1,2)*qdd2+Ma(1,3)*qdd3+Va(1,1)+Ga(1,1));
+T2=simplify(Ma(2,1)*qdd1+Ma(2,2)*qdd2+Ma(2,3)*qdd3+Va(2,1)+Ga(2,1));
+T3=simplify(Ma(3,1)*qdd1+Ma(3,2)*qdd2+Ma(3,3)*qdd3+Va(3,1)+Ga(3,1));
+
 % Ahora se deben introducir las matrices Ma,Va y Ga en el script
 % "ModeloDinamico_R3GDL.m"
 % La salida sera qdd, es decir, aceleracion ya que de ese modo se podra
