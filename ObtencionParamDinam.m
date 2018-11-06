@@ -1,25 +1,11 @@
-% En primer lugar se debe correr y configurar el script DinamicaNE.m para
-% obtener los valores de T1,T2 y T3 en simbolico.
-%% DECLARACION DE VARIABLES SIMBOLICAS
-% No se declaran porque, debido a que es necesario correr el bloque de
-% DinamicaNE_RRR.m, ahi ya se han definido las variables simbolicas.
+%% DEFINICION DE LOS PARES EN FUNCION DE LOS PARAMETROS DINAMICOS
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% En este script, a partir del resultado de Newton-Euler, se dividirá en
+% una matriz tetha, la cual contiene los parametros a estimar, y una matriz
+% gamma.
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
-
-
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% ACUERDATE DE QUE ESTO ESTA EN FUNCION DE PARES Y DEBE ESTAR EN FUNCION DE
-% INTENSIDADES LOCOOOOOOO
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
-
-
-
-
-
-DinamicaNE_RRR
+DinamicaNE_RRR  % No se declararán las variables simbolicas debido a que ya se hizo aqui
 % Valores de los partes en las articulaciones(Tau=Kt*R*Im)
 T1=simplify(Ma(1,1)*qdd1+Ma(1,2)*qdd2+Ma(1,3)*qdd3+Va(1,1)+Ga(1,1));
 T2=simplify(Ma(2,1)*qdd1+Ma(2,2)*qdd2+Ma(2,3)*qdd3+Va(2,1)+Ga(2,1));

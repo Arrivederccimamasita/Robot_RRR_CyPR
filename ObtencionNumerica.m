@@ -19,22 +19,25 @@
 % %%%%%% SIEMPRE HAY QUE PASARLE VALORES DISCRETOS %%%%%%%
 function ObtencionNumerica(t,Im,q,qd,qdd,R1,R2,R3)
 
-
 % Seria conveniente optimizar el codigo para no tener que correr siempre
 % este script al inicio de esta ejecucion.
-IdentificacParamDinam   % Se corre este script para obtener tetha_li y gamma_li
+[gamma_li,tetha_li]=Identificacion_ParamLI(R1,R2,R3)   % Se corre este script para obtener tetha_li y gamma_li
 
 
-
-%%Valores de simulacion
+% %% ESTIMACION DE LOS PARAMETROS DINAMICOS %%%%%% 
+% Valores de simulacion
 n=10; %Cada cuantas muestras tomamos los datos
 M=floor(length(t)/n); %Numero de datos totales
 
-%%Valores conocidos
+% Valores conocidos
 g=9.8;L0=0.6;L1=0.6;L2=1;L3=0.8;
+Kt1=0.5; Kt2=0.4; Kt3 =0.35; Kt=diag([Kt1; Kt2; Kt3]);
+% R1=50; R2=30; R3=15; 
+R=diag([R1 ;R2 ;R3]);   % Reductoras
+KtR=Kt*R;
 
-%DeclaracionVariables
 
+%Declaracion de variables necesarias
 tetha_expr=[]; %Valores hallados de los Parametros dinamicos
 tetha_tpc=[];  %Tantos por cientos de la desviacion del parámetro
 
@@ -42,24 +45,24 @@ gamma_expr=[]; %Matriz Gamma concatenada
 gamma_aux=[];  %Vble Auxiliar para procedimiento
 Y_expr=[];     %Vector agrupado de valores de intensidad
 
-
 %Obtencion del banco de pruebas y aproximacion de los parametos dinamicos
-
-for i=2000:M    % Se toma a partir del segundo 2
+Y_expr=[];
+for i=2000:n:length(t)  % Se toma a partir del segundo 2
     % Valores articulares tomados
-    q1=q(n*i,1); qd1=qd(n*i,1); qdd1=qdd(n*i,1);
-    q2=q(n*i,2); qd2=qd(n*i,2); qdd2=qdd(n*i,2);
-    q3=q(n*i,3); qd3=qd(n*i,3); qdd3=qdd(n*i,3);
+    q1=q(i,1); qd1=qd(i,1); qdd1=qdd(i,1);
+    q2=q(i,2); qd2=qd(i,2); qdd2=qdd(i,2);
+    q3=q(i,3); qd3=qd(i,3); qdd3=qdd(i,3);
     
-    %Sustituimos los valores experimentales en nuestro modelo del robot
+    % Sustituimos los valores experimentales en nuestro modelo del robot
     gamma_aux=eval(gamma_li);
    
-    %Se forma el banco de pruebas agrupando Verticalmente 
+    % Se forma el banco de pruebas agrupando Verticalmente 
     gamma_expr=vertcat(gamma_expr,gamma_aux);
     
-    %Reagrupamos los valores de intensidad para cuadrar el formato de
-    %calculo
-    Y_expr=vertcat(Y_expr,Im(n*i,:)');
+    % Reagrupamos los valores de intensidad para cuadrar el formato de
+    % calculo
+    %     Y_expr=vertcat(Y_expr,(Im_D(i,:)*Kt*R));
+    Y_expr=[Y_expr;Im(i,1)*KtR(1,1);Im(i,2)*KtR(2,2);Im(i,3)*KtR(3,3)];
     
 end
 %Obtencion de los parametros dinamicos por minimos cuadrados
@@ -88,7 +91,7 @@ end
 
 %Se comprueva la validez del parametro
 
-tolerancia_tpc=7; %Condicion de verificacion en %
+tolerancia_tpc=6; %Condicion de verificacion en %
 flag=0;     % Flag creado para que si todos los valores sin validos, se obtenga el modelo.
 
 for i=1:length(tetha_expr)
@@ -105,10 +108,15 @@ for i=1:length(tetha_expr)
     end
 end 
 
-%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% %% OBTENCION DEL MODELO DINAMICO A PARTIR DE LOS PARAMETROS OBTENIDOS %%%
-% Se debera reconstruir el modelo a partir de los valores numericos
-% estimados
+%% OBTENCIÓN DEL MODELO DINAMICO
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Se obtendrá, a continuación, el modelo dinamico del robot obtenido para
+% los parametros estimados anteriormente. La salida de correr esta parte
+% del codigo serán 3 matrices, Ma, Va y Ga. Esas matrices ya estarán en
+% funcion de las intensidades y, por tanto, basta con copiarlas tal cual al
+% script que se correrá en el montaje de Simulink de nuestro robot, en
+% concreto, "ModeloDinamico_RRR_sl.m".
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 if (flag==1)
     fprintf('Algun parametro estimado no es valido.\n');
 else    
@@ -119,10 +127,10 @@ else
 
     syms q1 q2 q3 qd1 qd2 qd3 qdd1 qdd2 qdd3  g real
     L0=0.6; L1=0.6; L2=1; L3=0.8;
-%   Kt1=0.5; Kt2=0.4; Kt3 =0.35;
 
-    % Tau=Kt*R*Im= M(q)qdd+V(q,qd)+G(q)=M(q)qdd+VG(q,qd) ->
-    % Im=
+    % Se aplicará un proceso de derivadas iterativas que nos ayudarán a
+    % dejar el modelo en funcion de aceleraciones, velocidades y posiciones
+    % del robot.
 
     %Primera ecuacion
     %-------------------------------
@@ -184,18 +192,15 @@ else
     M=[M11 M12 M13; M21 M22 M23; M31 M32 M33];
     V=[V1; V2; V3];
     G=[G1; G2; G3];
-    
-    Ma=vpa(M,5);
-    Va=vpa(V,5);
-    Ga=vpa(G,5);
-    
-    % Definicion de las matrices del modelo. El modelo, por tanto, tendria la
-    % forma: Im=Ma*qdd + Va*qd +Ga
-   % Ma=((Kt*R)^(-1))*M;
-   % Va=((Kt*R)^(-1))*V;
-   % Ga=((Kt*R)^(-1))*G;
-    
-   % Valores en funcion de los pares.
+   
+    % Una vez obtenida M, V y G, se deben multiplicar por (KtR^)-1, ya que
+    % el modelo nos dará pares, sin embargo, los motores se deben controlar
+    % en intensidad, por tanto: tau=Kt*R*Im -> Im=inv(KtR)*tau.
+    Ma=vpa(M,5); Ma=inv(KtR)*Ma;
+    Va=vpa(V,5); Va=inv(KtR)*Va;
+    Ga=vpa(G,5); Ga=inv(KtR)*Ga;
+ 
+   % Valores en funcion de las intensidades.
     Ma=vpa(Ma,5)
     Va=vpa(Va,5)
     Ga=vpa(Ga,5)
