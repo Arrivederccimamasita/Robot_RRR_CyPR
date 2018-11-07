@@ -18,9 +18,9 @@ t_init   = in(8);
 t_tray   = in(9);
 t    = in(10);
 %% Inicializacion de variables para testear la funcion
-% x_init=3.5; y_init=0; z_init=4;
-% x_fin =2.5; y_fin=0 ; z_fin=5;
-% n_ptos=5; t_init=0.5; t_tray=1;
+x_init=3.5; y_init=0; z_init=4;
+x_fin =2.5; y_fin=0 ; z_fin=5;
+n_ptos=5; t_init=0.5; t_tray=8;
 
 %% Obtencion de la trayectoria en el espacio cartesiano
 pos_init=[x_init y_init z_init];
@@ -71,7 +71,7 @@ for k=1:3
             var_pos(i)=qaux(i+1)-qaux(i);
         elseif(i==length(qaux))
             var_ant(i)=qaux(i)-qaux(i-1);
-            var_pos(i)=0;
+            var_pos(i)=var_ant(i);
         else
             var_ant(i)=qaux(i)-qaux(i-1);
             var_pos(i)=qaux(i+1)-qaux(i);
@@ -133,10 +133,10 @@ end
 %Seleccionamos los coeficientes del polinomio dependiento del momento
 %temporal en el que nos enctontremos
 
-%figure;
-%for t=0:0.01:1.5 % La instruccion 'for' solo es valida para plotear el resultado, se debe eliminar al tener l entrada de reloj
+figure;
+for t=0:0.01:1.5 % La instruccion 'for' solo es valida para plotear el resultado, se debe eliminar al tener l entrada de reloj
     
-if(t>t_init && t<1.5)
+if(t>t_init && t<(t_init+t_tray))
     offset=(floor(t_init/T)-1);
     selec=(floor(t/T)-offset);
 
@@ -167,22 +167,23 @@ qd3_r = 3*Aq3*( t-t_tramo ).^2 + 2*Bq3*(t-t_tramo) + Cq3;
 qdd1_r = 6*Aq1*( t-t_tramo ) + 2*Bq1;
 qdd2_r = 6*Aq2*( t-t_tramo ) + 2*Bq2;
 qdd3_r = 6*Aq3*( t-t_tramo ) + 2*Bq3;
-    
+  hold on; 
 %     %Ploteo Posiciones
 %     plot(t,q1_r,'*');grid
 %     plot(t,q2_r,'*');grid
 %     plot(t,q3_r,'*');grid
     
-%      %Ploteo Velocidades
-%     plot(t,qd1_r,'*');grid
-%     plot(t,qd2_r,'*');grid
-%     plot(t,qd3_r,'*');grid
+     %Ploteo Velocidades
+    plot(t,qd1_r,'*');grid
+    plot(t,qd2_r,'*');grid
+    plot(t,qd3_r,'*');grid
 %     
 %      %Ploteo Aceleraciones
 %     plot(t,qdd1_r,'*');grid
 %     plot(t,qdd2_r,'*');grid
 %     plot(t,qdd3_r,'*');grid
-%end
+    
+end
 
 % Se devuelve la posicion, velocidad y aceleracion de referencia
 q_r  =[q1_r   ;q2_r   ;q3_r];
