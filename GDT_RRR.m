@@ -133,8 +133,8 @@ end
 %Seleccionamos los coeficientes del polinomio dependiento del momento
 %temporal en el que nos enctontremos
 
-% figure;
-% for t=0:0.01:1.5 % La instruccion 'for' solo es valida para plotear el resultado, se debe eliminar al tener l entrada de reloj
+%  figure;
+%  for t=0:0.01:1.5 % La instruccion 'for' solo es valida para plotear el resultado, se debe eliminar al tener l entrada de reloj
     
 if(t>t_init && t<(t_init+t_tray))
     offset=(floor(t_init/T)-1);
@@ -167,23 +167,26 @@ qd3_r = 3*Aq3*( t-t_tramo ).^2 + 2*Bq3*(t-t_tramo) + Cq3;
 qdd1_r = 6*Aq1*( t-t_tramo ) + 2*Bq1;
 qdd2_r = 6*Aq2*( t-t_tramo ) + 2*Bq2;
 qdd3_r = 6*Aq3*( t-t_tramo ) + 2*Bq3;
-%   hold on; 
-%     %Ploteo Posiciones
+
+% %//Testeo//%
+%    hold on; 
+
+%     %Ploteo Posiciones 
 %     plot(t,q1_r,'*');grid
 %     plot(t,q2_r,'*');grid
 %     plot(t,q3_r,'*');grid
-%     
+     
 %      %Ploteo Velocidades
 %     plot(t,qd1_r,'*');grid
 %     plot(t,qd2_r,'*');grid
 %     plot(t,qd3_r,'*');grid
-%     
+    
 %      %Ploteo Aceleraciones
 %     plot(t,qdd1_r,'*');grid
 %     plot(t,qdd2_r,'*');grid
 %     plot(t,qdd3_r,'*');grid
 %     
-% end
+%  end [Fin bucle para Testeo]
 
 % Se devuelve la posicion, velocidad y aceleracion de referencia
 q_r  =[q1_r   ;q2_r   ;q3_r];
