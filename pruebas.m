@@ -30,6 +30,7 @@ switch selec
         R1=50; R2=30; R3=15;    % Reductoras
         DatosSimSenoides;
         sim('sl_RobotReal_RRR');
+        sl_RobotReal_RRR.slx = Simulink.exportToVersion(bdroot,'sl_RobotReal_RRR.slx','R2016b','BreakUserLinks',true);
         
         %graficas(t_D,Im_D,qi_D,qdi_D,qddi_D);
         ObtencionNumerica(t_D,Im_D,qi_D,qdi_D,qddi_D,R1,R2,R3);   % FALTA POR DEFINIR QUE LE PASAMOS EN CADA CASO    
@@ -64,7 +65,7 @@ switch selec
     case 3
         R1=50; R2=30; R3=15;    % Reductoras
         
-        ord_fil1=4;          % Orden del filtro Butterworth
+        ord_fil1=2;          % Orden del filtro Butterworth
         wc1=5/(1/Tm)+0.1;    % Frecuencia de corte del Butterworth. Se haya 
                             % como la frecuencia de corte deseada, 5Hz,
                             % entre la frecuencia de muestreo
@@ -98,7 +99,7 @@ switch selec
          figure();subplot(311);plot(t_D,qddi_D(:,1)-qdd_est(:,1)); title('Error Aceleracion');grid; subplot(312);plot(t_D,qddi_D(:,2)-qdd_est(:,2));grid;subplot(313);plot(t_D,qddi_D(:,3)-qdd_est(:,3));grid;
 
                
-         ObtencionNumerica(t_D,Im_D,qr_D,qd_est,qdd_est,R1,R2,R3);
+    %     ObtencionNumerica(t_D,Im_D,qr_D,qd_est,qdd_est,R1,R2,R3);
         % Si las cosas han ido bien, apareceran por terminal las variables
         % Ma,Va y Ga. Si es asi, ahora se deberan modificar las matrices
         % del script "ModeloDinamico_RRR_sl.m". Tras ello, se debera hacer
