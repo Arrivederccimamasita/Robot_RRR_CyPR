@@ -1,7 +1,7 @@
-\section{Analisis Cinematico del brazo}
-	\subsection{Modelo Cinematico Directo}
-	\subsubsection{Parametros y estudio del MCD según Denavit-Hartemberg}
-	Uno de los modos de estudio del problema cinemático directo de un robot, es el procedimiento de Denavit-Hartemberg, el cual se basa en la realización de cambios de base empleando las matrices de transformación homogéneas. Siguiendo una serie de pasos, se llegará a obtener los siguientes parámetros que definen la cinemática directa del robot.\\
+\section{Análisis Cinemático del brazo}
+	\subsection{Modelo Cinemático Directo}
+	\subsubsection{Parámetros y estudio del MCD según Denavit-Hartemberg}
+	Uno de los modos de estudio del problema cinemático directo de un robot es el procedimiento de Denavit-Hartemberg, el cual se basa en la realización de cambios de sistema de referencia empleando las matrices de transformación homogéneas. Siguiendo una serie de pasos, se llegará a obtener los siguientes parámetros que definen la cinemática directa del robot.\\
 	%Tabla de Denavit-Hartenberg
 	\begin{center}
 		\begin{tabular}{|c||c|c|c|c|}
@@ -21,7 +21,7 @@
 	% %%%%%%%%%%%%%%%%%
 	
 	\subsubsection{Matrices de transformación homogéneas del robot}
-	A continuación, se mostrarán las matrices de transformación homogéneas que definen los cambios de base que han hecho posible relacionar el sistema de referencia base con el del efector final. La matriz de transformación homogénea que relaciona un sistema de referencia con el siguiente se define cómo:\\
+	A continuación, se mostrarán las matrices de transformación homogéneas que definen los cambios de sistema de referencia que han hecho posible relacionar el sistema de referencia base con el del efector final. La matriz de transformación homogénea que relaciona un sistema de referencia con el siguiente se define como:\\
 	\begin{equation}
 	{^{i-1}}A_{i}=Rotz(\theta_{i})*T(0,0,d_{i})*T(d_{i},0,0)*Rotx(\alpha_{i})=
 	\begin{pmatrix}
@@ -32,7 +32,7 @@
 	\end{pmatrix}
 	\end{equation}
 	
-	Ahora que se ha definido la matriz general, se definirán las matrices de transformación homogéneas de cada cambio de base de robot: \\
+	Ahora que se ha definido la matriz general, se definirán las matrices de transformación homogéneas de cada cambio de sistema de referencia del robot: \\
 	
 	\[ {^0}A_{1} =
 	\left( \begin{array}{cccc}
@@ -59,7 +59,7 @@
 	\end{array} \right) \]
 	
 	\subsubsection{Ecuaciones simbólicas del MCD}
-	A partir de éstos parámetros será posible obtener las matrices de transformación homogéneas asociada a cada traslación y giro de sistema de referencia. Si pre-multiplicamos las matrices desde la base hasta el punto final del brazo, efector final, la matriz de transformación obtenida será:
+	A partir de estos parámetros será posible obtener las matrices de transformación homogéneas asociadas a cada traslación y giro de sistema de referencia. Si se premultiplican las matrices desde la base hasta el punto final del brazo (efector final), la matriz de transformación obtenida será:
 	\begin{equation}
 	{^3}T_{0} = 
 	\left( \begin{array}{cccc}
@@ -69,7 +69,7 @@
 	0						  &		 	0  									&       0		    &   1
 	\end{array} \right)
 	\end{equation}
-	Dónde se puede extraer que la matriz de orientación del efector final y la posición del mismo respecto al sistema de referencia de la base son:
+	Donde se puede extraer que la matriz de orientación del efector final y la posición del mismo respecto al sistema de referencia de la base son:
 	\[ noa =
 	\left( \begin{array}{ccc}
 cos(\theta_{2}+\theta_{3})cos(\theta_{1})  & -sin(\theta_{2}+\theta_{3})cos(\theta_{1}) & -sin(\theta_{1})  \\ 
@@ -84,9 +84,9 @@ sin(\theta_{2}+\theta_{3})		 		  &		 cos(\theta_{2}+\theta_{3})		        & 		0
 	L0 + L1 + L3sin(\theta_{2}+\theta_{3}) + L2sin(\theta_{2})			 
 	\end{array} \right) \]
 	
-	\subsection{Modelo Cinematico Inverso}
+	\subsection{Modelo Cinemático Inverso}
 	
-	En lo que a la resolución del modelo cinemático inverso del robot respecta, se basará en obtener los valores de las variables articulares a partir de la posición del efector final. Por tanto partiremos de las ecuaciones del vector p:
+	En lo que a la resolución del modelo cinemático inverso del robot respecta, se basará en obtener los valores de las variables articulares a partir de la posición del efector final. Por tanto, se partirá de las ecuaciones del vector $p$:
 	
 	\begin{center}
 		$px=cos(\theta_{1})[L3cos(\theta_{2}+\theta_{3}) + L2cos(\theta_{2})]$ \\ 
@@ -94,14 +94,14 @@ sin(\theta_{2}+\theta_{3})		 		  &		 cos(\theta_{2}+\theta_{3})		        & 		0
 		$pz=L0 + L1 + L3sin(\theta_{2}+\theta_{3}) + L2sin(\theta_{2})$			
 	\end{center}
 	
-	Para obtener las ecuaciones que definen el valor de $\theta_{1}$,$\theta_{2}$ y $\theta_{3}$, se trabajará con las funciones que definen px,py y pz. Los ángulos será necesario definirlos empleando la función atan2 de \textit{Matlab}, ya que de ese modo se distinguirá en qué cuadrante se encuentra la tangente.\\
+	Para obtener las ecuaciones que definen el valor de $\theta_{1}$,$\theta_{2}$ y $\theta_{3}$, se trabajará con las funciones que definen px,py y pz. Será necesario definir los ángulos empleando la función atan2 de \textit{Matlab}, ya que de ese modo se distinguirá en qué cuadrante se encuentra la tangente.\\
 	Por tanto el objetivo es obtener el valor del seno y el coseno de cada ángulo.\\
 	
-	Se comenzará obteniendo el valor de $\theta_{1}$, para ello se define:\\
+	Se comenzará obteniendo el valor de $\theta_{1}$. Para ello se define:\\
 	\begin{center}
 		$ A = \sqrt{px^{2}+py^{2}} = L3cos(\theta_{2}+\theta_{3}) + L2cos(\theta_{2})$
 	\end{center}
-	de ese modo, se obtiene $\theta_{1}$ cómo:\\
+	de ese modo, se obtiene $\theta_{1}$ como:\\
 	\begin{equation}
 	\theta_{1}=atan2(sin(\theta_{1}),cos(\theta_{1}))=atan2(\frac{py}{A},\frac{px}{A})
 	\end{equation}
@@ -109,12 +109,12 @@ sin(\theta_{2}+\theta_{3})		 		  &		 cos(\theta_{2}+\theta_{3})		        & 		0
 	\begin{center}
 		$ B=pz-L1-L0=L3sin(\theta_{2}+\theta_{3}) + L2sin(\theta_{2})$
 	\end{center}
-	Si trabajamos con las dos variables auxiliares creadas, A y B, y se crea la nueva variable C, se conseguirá obtener el valor del angulo deseado:\\
+	Si se trabaja con las dos variables auxiliares creadas, A y B, y se crea la nueva variable C, se conseguirá obtener el valor del ángulo deseado:\\
 	\begin{center}
 		$C= A^{2} + B^{2} = L2^{2}+ 2L2L3cos(\theta_{3}) + L3^{2} $
 	\end{center}
 	
-	Cómo último paso para obtener el valor de $\theta_{3}$, se despejara el valor del coseno del mismo:\\
+	Cómo último paso para obtener el valor de $\theta_{3}$, se despejará el valor del coseno del mismo:\\
 	\begin{center}
 		$ (cos(\theta_{3})) = \frac{C-L2^{2}-L3^{2}}{2L2L3} $
 	\end{center}
@@ -124,11 +124,11 @@ sin(\theta_{2}+\theta_{3})		 		  &		 cos(\theta_{2}+\theta_{3})		        & 		0
 	\end{equation}
 	
 	\newpage
-	Por último, se hayará el valor de la variable articular $\theta_{2}$, para ello, partiremos de la ecuación A y se desarrollará empleando la ecuación del coseno del ángulo doble. La ecuación quedará de la forma: \\
+	Por último, se hallará el valor de la variable articular $\theta_{2}$. Para ello, se partirá de la ecuación A y se desarrollará empleando la fórmula del coseno del ángulo doble. La ecuación quedará de la forma: \\
 	\begin{center}
 		$A=L3cos(\theta_{2}+\theta_{3})+L2cos(\theta_{2})=L3[cos(\theta_{2})cos(\theta_{3})-sin(\theta_{2})sin(\theta_{3})]+L2cos(\theta_{2})=$\\ \vspace{0.3cm} $L3cos(\theta_{2})cos(\theta_{3})-L3sin(\theta_{2})sin(\theta_{3})+L2cos(\theta_{2})$
 	\end{center}
-Donde, sera de ayuda despejar la función A en una suma de un termino por el seno de $ \theta_{2}$ y otro termino por el coseno del mismo angulo, de ese modo sera posible intentar obtener dicho angulo empleando un cambio a coordenadas polares:
+donde será de ayuda despejar la función A en una suma de un término por el seno de $ \theta_{2}$ y otro término por el coseno del mismo ángulo. De ese modo será posible intentar obtener dicho ángulo empleando un cambio a coordenadas polares:
 	\begin{center}
 		$A=cos(\theta_{2})[L3cos(\theta_{3})+L2]-sin(\theta_{2})[L3sin(\theta_{3})]$\\
 		\vspace{0.3cm}
@@ -139,12 +139,12 @@ Donde, sera de ayuda despejar la función A en una suma de un termino por el sen
 			\end{minipage}
 		}\hfill
 	\end{center}
-	Sustituyendo en la ecuacion A  y empleando la formula del coseno del angulo suma, se podría definir:\\
+	Sustituyendo en la ecuación A y empleando la fórmula del coseno del ángulo suma, se podría definir:\\
 	\begin{center}
 	$A=\rho cos(\theta_{2})cos(\alpha)-\rho sin(\theta_{2})sin(\alpha)$ $\rightarrow$ $A=\rho cos(\theta_{2}+\alpha)$
 	\end{center}
 	
-	Despejando el valor del coseno $\theta_{3}$ se obtendra:
+	Despejando el valor del coseno $\theta_{3}$ se obtendrá:
 	\begin{equation}
 	\theta_{2}=atan2(\pm \sqrt{1-(\frac{A}{\rho})^{2}},\frac{A}{\rho})-\alpha
 	\end{equation}
@@ -154,4 +154,40 @@ Donde, sera de ayuda despejar la función A en una suma de un termino por el sen
 		$\theta_{2}=atan2(\pm \sqrt{1-(\frac{A}{\rho})^{2}},\frac{A}{\rho})-\alpha$ \\
 		$\theta_{3}=\beta -atan2(sin(\theta_{3}),cos(\theta_{3}))=\beta-atan2(\pm \sqrt{1-(\frac{C-L2^{2}-L3^{2}}{2L2L3})^{2}},\frac{C-L2^{2}-L3^{2}}{2L2L3} )$
 	\end{center}
-	\subsection{Jacobiano del robot y analisis de puntos singulares}
+	\subsection{Jacobiano del robot y análisis de puntos singulares}
+	
+\section{Análisis Dinámico del brazo}
+Una vez analizada la cinemática del brazo, se debe pasar a realizar un análisis dinámico del mismo. Este análisis nos muestra la relación que existe entre las intensidades aplicadas a los motores delas articulaciones del robot y las posiciones, velocidades y aceleraciones de dichas articulaciones.\\
+
+La ecuación que permite obtener dicha relación es la siguiente:\\
+
+	\begin{equation}
+	K_tRI_m=(M(q)+J_mR^2)qdd+(C(q,qd)+B_mR^2)qd+G(q)+F(qd)
+	\end{equation}\\
+	
+En la ecuación anterior, se tiene, en el término de la izquierda, las matrices de constantes de par de cada motor ($K_t$) y de reductoras ($R$) e intensidades ($I_m$) aplicadas a cada motor.\\
+
+Por otro lado, en el término de la derecha encontramos las matrices de inercia de los eslabones ($M(q)$) y de los motores ($J_m$), la matriz de términos de Coriolis ($C(q,qd)$) y la de términos viscosos de los motores ($B_m$), y las matrices de términos gravitatorios ($G(q)$) y de fricciones ($F(qd)$), donde esta última no se tendrá en cuenta para la estimación del modelo.\\
+
+Aparecen también los vectores columna $q$, $qd$ y $qdd$ que corresponden, respectivamente, a los valores de posición, velocidad y aceleración de las articulaciones.\\
+
+Para tratar de hallar la ecuación anterior, se va a realizar un método recursivo que se basa en la segunda ley de Newton denominado algoritmo de Newton-Euler, el cual obtiene los esfuerzos/pares aplicados en cada articulación. Dicho algoritmo ha sido proporcionado en clase por lo que no se explicará aquí. Sí decir que como del robot sólo se conocen las longitudes de los eslabones y algunos parámetros dinámicos (reductoras y constantes de par) se realizará el cálculo con variables simbólicas que serán estimadas y sustituidas más adelante.\\
+
+El resultado que se desea obtener con dicho algoritmo es el siguiente:\\
+\begin{equation}
+T=M(q)qdd+V(q,qd)+G(q),
+\end{equation}
+donde el término $V(q,qd)$ hace referencia al conjunto $C(q,qd)qd$.\\
+
+Como el algoritmo anterior obtiene el resultado total, se debe derivar el mismo para poder hallar las matrices aisladas. Por ello, el resultado $T$ se deriva respecto a $qdd$ para obtener la matriz $M(q)$. Acto seguido restar la matriz obtenida multiplicada por $qdd$ al valor de $T$ para eliminarlo y obtener las otras dos matrices.\\
+
+El siguiente paso consiste en derivar la nueva $T$ respecto a la constante de gravedad $g$, puesto que aparece únicamente en los términos gravitatorios. Así, y multiplicando por $g$ a posteriori, se obtiene la matriz $G(q)$. Para hallar la matriz $V(q,qd)$ basta con restar a la $T$ resultante de extraer la matriz de inercia la $G(q)$ anterior.\\
+
+Una de las características que hay que tener en cuenta del algoritmo de Newton-Euler es que no tiene en cuenta las viscosidades e inercias de los motores, por lo que hay que añadirlas a posteriori obteniendo las matrices $Ma(q)=M(q)+J_mR^2$ y $Va(q,qd)=V(q,qd)+B_mR^2qd$.\\
+
+Una vez realizado todo esto se ha obtenido el modelo dinámico simbólico del robot, que se va a suponer correcto pues únicamente consiste en seguir unos pasos descritos en clase, pero que, si se desease, se podría comparar con un robot diseñado en Robotics Toolbox de Matlab asignando valores a los parámetros y realizando un mismo experimento para ambos modelos, tomando como referencia correcta el último de ellos.\\
+
+
+
+
+	

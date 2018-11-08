@@ -92,8 +92,8 @@
 \newpage
 % %%%%%%%%%%%   INTRODUCCION %%%%%%%%%%%%%%%%%%
 \section{Introducción al proyecto}
-	Como objetivo de este trabajo se encuentra el análisis cinemático y dinámico, así como la estimación de ciertos parámetros dinámicos del robot, como pueden ser inercias o fricciones viscosas. Ademas de ello, se disenara un control cinematico y dinamico del brazo robotico.\\
-	El brazo de analisis sera del tipo RRR, es decir, las tres articulaciones rotacionales.
+	Como objetivo de este trabajo se encuentra el análisis cinemático y dinámico, así como la estimación de ciertos parámetros dinámicos del robot, como pueden ser inercias o fricciones viscosas. Además de ello, se diseñará un control cinemático y dinámico del brazo robático.\\
+	El brazo sujeto a análisis será del tipo RRR, es decir, de tres articulaciones rotacionales.
 	
 	El robot que se va a estudiar, representado por la estructura de la portada de este trabajo, posee los siguientes parámetros estructurales:
 	\begin{center}
@@ -106,19 +106,19 @@
 		$K_{t1} = 0.5 \frac{Nm}{A}; K_{t2} = 0.4 \frac{Nm}{A}; K_{t3} = 0.35 \frac{Nm}{A}$
 	\end{center}
 
-En primer lugar, se desarrollara un análisis cinemático del brazo robotico, tanto directo como inverso, es decir, se hayara la posición cartesiana del efector final en función de las variables articulares del brazo y viceversa.\\
-Tras ello, sera necesario estimar los parámetros dinámicos del brazo, ya que unicamente se conocen las longitudes del mismo. Se obtendrán diferentes parámetros en función de las condiciones supuestas para el brazo, principalmente las condiciones que se emplearan serán:
+En primer lugar, se desarrollará un análisis cinemático del brazo robótico, tanto directo como inverso, es decir, se hallará la posición cartesiana del efector final en función de las variables articulares del brazo y viceversa.\\
+Tras ello, será necesario estimar los parámetros dinámicos del brazo, ya que únicamente se conocen las longitudes del mismo. Se obtendrán diferentes parámetros en función de las condiciones supuestas para el brazo, principalmente las condiciones que se emplearan serán:
 \begin{itemize}
 	\item Robot con medidas ideales con reductoras.
 	\item Robot con medidas ideales de accionamiento directo.
 	\item Robot con medidas reales con reductoras.
 	\item Robot con medidas reales de accionamiento directo.
 \end{itemize}
-Para el robot con medidas reales, se evaluara qu condición es mas favorable. Por ejemplo, si se obtiene un mejor modelo matemático del robot empleando unicamente encoders que conozcan las posiciones de las variables articulares y derivando numéricamente para conocer las velocidades y las aceleraciones de las mismas, o el caso en el que se empleen encoders que conozcan la posición y tacometros que conozcan las velocidades pero derivando numéricamente para obtener las aceleraciones.\\
+Para el robot con medidas reales, se evaluará qué condición es mas favorable. Por ejemplo, si se obtiene un mejor modelo matemático del robot empleando únicamente encoders que conozcan las posiciones de las variables articulares y derivando numéricamente para conocer las velocidades y las aceleraciones de las mismas, o el caso en el que se empleen encoders que conozcan la posición y tacómetros que conozcan las velocidades pero derivando numéricamente para obtener las aceleraciones.\\
 
-Una vez se hayan obtenido los modelos matemáticos de las articulaciones de los robots, se diseñara un control cinemático del mismo. El cual sera un generador de trayectorias que, a partir de una posición inicial, una posición real, un numero de puntos y un el tiempo en que se desea que vaya de un punto a otro, generara una trayectoria de las variables articulares del robot.\\
+Una vez se hayan obtenido los modelos matemáticos de las articulaciones de los robots, se diseñará un control cinemático del mismo, el cual será un generador de trayectorias que, a partir de una posición inicial, una posición real, un número de puntos y el tiempo en que se desea que vaya de un punto a otro, generará una trayectoria de las variables articulares del robot.\\
 
-Por ultimo, se diseñaran una serie de controladores dinámicos del robot, en los cuales se observe la mejoria o peora de los mismos en función del robot empleando frente a otros.
+Por último, se diseñarán una serie de controladores dinámicos para el robot, en los cuales se observe la mejoría o empeoramiento de los mismos en función del tipo de robot empleado frente a otros.
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \include{1AnalisisCinDin}
 \include{2EstimacParam}
