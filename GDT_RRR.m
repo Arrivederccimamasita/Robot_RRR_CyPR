@@ -5,7 +5,7 @@
 % LA VELOCIDAD Y LA ACELERACION. SIN EMBARGO, DA PROBLEMAS CON EL TEMA DE
 % LAS ENTRADAS Y SALIDAS DE LOS BLOQUES.
 
-function [q_r] = GDT_RRR(in)
+function [ref] = GDT_RRR(in)
 % Variables de entrada en la funcion
 x_init   = in(1);
 y_init   = in(2);
@@ -17,14 +17,15 @@ n_ptos   = in(7);
 t_init   = in(8);
 t_tray   = in(9);
 t    = in(10);
-%% Inicializacion de variables para testear la funcion
-x_init=3.5; y_init=0; z_init=4;
-x_fin =1; y_fin=0 ; z_fin=5;
-n_ptos=5; t_init=0.5; t_tray=8;
+
+% %% Inicializacion de variables para testear la funcion
+% x_init=3.5; y_init=0; z_init=4;
+% x_fin =1; y_fin=0 ; z_fin=5;
+% n_ptos=15; t_init=1; t_tray=4;
 
 %% Obtencion de la trayectoria en el espacio cartesiano
 pos_init=[x_init y_init z_init];
-pos_fin=[x_fin y_fin z_fin];
+pos_fin=[x_fin y_fin z_fin];    
 
 x_tray=linspace(x_init,x_fin,n_ptos+2)  % El +2 es para no tener en cuenta en la interpolacion el pto inicial y final
 y_tray=linspace(y_init,y_fin,n_ptos+2)
@@ -63,15 +64,16 @@ for k=1:3
     qdaux=zeros(size(qaux));
     var_ant=zeros(size(qaux));
     var_pos=zeros(size(qaux));
+    
+    %Calculo de las variaciones del signo a lo largo del movimiento
     for i=1:size(qaux)
         
-        %Calculo de las variaciones del signo a lo largo del movimiento
         if (i==1)
             var_ant(i)=0;
             var_pos(i)=qaux(i+1)-qaux(i);
         elseif(i==length(qaux))
             var_ant(i)=qaux(i)-qaux(i-1);
-            var_pos(i)=var_ant(i);
+            var_pos(i)=0;
         else
             var_ant(i)=qaux(i)-qaux(i-1);
             var_pos(i)=qaux(i+1)-qaux(i);
@@ -79,8 +81,8 @@ for k=1:3
         
     end
     
-    %Calculo de velocidades intermedias
-    
+    %Asignacion de velocidades intermedias en funcion del signo de la
+    %variacion
     for i=1:size(qaux)
         sig_ant=sign(var_ant(i));
         sig_pos=sign(var_pos(i));
@@ -134,9 +136,9 @@ end
 %temporal en el que nos enctontremos
 
 %  figure;
-%  for t=0:0.01:1.5 % La instruccion 'for' solo es valida para plotear el resultado, se debe eliminar al tener l entrada de reloj
+%  for t=0:0.01:(t_init+t_tray) % La instruccion 'for' solo es valida para plotear el resultado, se debe eliminar al tener l entrada de reloj
     
-if(t>t_init && t<(t_init+t_tray))
+if(t>t_init && t<=(t_init+t_tray))
     offset=(floor(t_init/T)-1);
     selec=(floor(t/T)-offset);
 
@@ -169,14 +171,14 @@ qdd2_r = 6*Aq2*( t-t_tramo ) + 2*Bq2;
 qdd3_r = 6*Aq3*( t-t_tramo ) + 2*Bq3;
 
 % %//Testeo//%
-%    hold on; 
+%     hold on; 
 
 %     %Ploteo Posiciones 
 %     plot(t,q1_r,'*');grid
 %     plot(t,q2_r,'*');grid
 %     plot(t,q3_r,'*');grid
-     
-%      %Ploteo Velocidades
+%     
+% %      Ploteo Velocidades
 %     plot(t,qd1_r,'*');grid
 %     plot(t,qd2_r,'*');grid
 %     plot(t,qd3_r,'*');grid
@@ -186,10 +188,11 @@ qdd3_r = 6*Aq3*( t-t_tramo ) + 2*Bq3;
 %     plot(t,qdd2_r,'*');grid
 %     plot(t,qdd3_r,'*');grid
 %     
-%  end [Fin bucle para Testeo]
+%  end % [Fin bucle para Testeo]
 
 % Se devuelve la posicion, velocidad y aceleracion de referencia
 q_r  =[q1_r   ;q2_r   ;q3_r];
 qd_r =[qd1_r  ;qd2_r  ;qd3_r];
 qdd_r=[qdd1_r ;qdd2_r ;qdd3_r];
-end
+
+ref=[q_r; qd_r; qdd_r];
