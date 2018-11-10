@@ -13,7 +13,7 @@ clear all;
 % Tiempo de muestreo
 Tm=0.001;
 
-selection='Seleccione el robot que busca modelar:\n 1.Robot ideal con reductoras.\n 2.Robot ideal sin reductoras.\n 3.Robot real solo encoder con Reductoras.\n 4.Robot real solo encoder sin Reductoras.\n 5.Robot real encoder y tacometro con Reductoras.\n 6.Robot real encoder y tacometro sin Reductoras.\n'; 
+selection='Seleccione el robot que busca modelar:\n 1.Robot ideal con reductoras.\n 2.Robot ideal sin reductoras.\n 3.Robot real solo encoder con Reductoras.\n 4.Robot real solo encoder sin Reductoras.\n 5.Robot real encoder y tacometro con Reductoras.\n 6.Robot real encoder y tacometro sin Reductoras.\n';
 selec=input(selection);
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -33,19 +33,19 @@ switch selec
         sl_RobotReal_RRR.slx = Simulink.exportToVersion(bdroot,'sl_RobotReal_RRR.slx','R2016b','BreakUserLinks',true);
         
         %graficas(t_D,Im_D,qi_D,qdi_D,qddi_D);
-        ObtencionNumerica(t_D,Im_D,qi_D,qdi_D,qddi_D,R1,R2,R3);   % FALTA POR DEFINIR QUE LE PASAMOS EN CADA CASO    
+        ObtencionNumerica(t_D,Im_D,qi_D,qdi_D,qddi_D,R1,R2,R3);   % FALTA POR DEFINIR QUE LE PASAMOS EN CADA CASO
         % Si las cosas han ido bien, apareceran por terminal las variables
         % Ma,Va y Ga. Si es asi, ahora se deberan modificar las matrices
         % del script "ModeloDinamico_RRR_sl.m". Tras ello, se debera hacer
         % lo siguiente:
-         sim('sl_RobotModelo_RRR');
+        sim('sl_RobotModelo_RRR');
         % graficas(t_D,Im_D,qi_D_mod,qdi_D_mod,qddi_D_mod);
-         graf_error(t_D,Im_D,qi_D,qdi_D,qddi_D,qi_D_mod,qdi_D_mod,qddi_D_mod);
-         graf_sismod(t_D,qi_D,qdi_D,qddi_D,qi_D_mod,qdi_D_mod,qddi_D_mod,1);
+        graf_error(t_D,Im_D,qi_D,qdi_D,qddi_D,qi_D_mod,qdi_D_mod,qddi_D_mod);
+        graf_sismod(t_D,qi_D,qdi_D,qddi_D,qi_D_mod,qdi_D_mod,qddi_D_mod,1);
         % Y ANALIZAR LOS RESULTADOS.
         
-    % %%%%%%%% Robot ideal sin reductoras %%%%%%%%%%%%%%%%%%
-    % (RECORDAR ACTIVAR EL ACCIONAMIENTO DIRECTO)
+        % %%%%%%%% Robot ideal sin reductoras %%%%%%%%%%%%%%%%%%
+        % (RECORDAR ACTIVAR EL ACCIONAMIENTO DIRECTO)
     case 2
         R1=1; R2=1; R3=1;    % Reductoras
         DatosSimSenoides;
@@ -60,46 +60,84 @@ switch selec
         % graficas(t_D,Im_D,qi_D_mod,qdi_D_mod,qddi_D_mod);
         % graf_error(t_D,Im_D,qi_D,qdi_D,qddi_D,qi_D_mod,qdi_D_mod,qddi_D_mod);
         % Y ANALIZAR LOS RESULTADOS.
-    
-    %  %%%%%%%% Robot real solo encoder con Reductoras %%%%%%%%
+        
+        %  %%%%%%%% Robot real solo encoder con Reductoras %%%%%%%%
     case 3
         R1=50; R2=30; R3=15;    % Reductoras
-        
-        ord_fil1=2;          % Orden del filtro Butterworth
-        wc1=5/(1/Tm)+0.1;    % Frecuencia de corte del Butterworth. Se haya 
-                            % como la frecuencia de corte deseada, 5Hz,
-                            % entre la frecuencia de muestreo
-        DatosSimSenoides;
+          %%%%%%ELIMINALBLE INIT%%%%%%%%%
+        %         ord_fil1=2;          % Orden del filtro Butterworth
+        %         wc1=5/(1/Tm)+0.1;    % Frecuencia de corte del Butterworth. Se haya
+        % como la frecuencia de corte deseada, 5Hz,
+        % entre la frecuencia de muestreo
+         %%%%%%%ELIMINALBLE FIN%%%%%%%%%
+        DatosSimSenoides_Exp;
         sim('sl_RobotReal_RRR');
-        % Aplicacion del filtro de Butterworth a las medidas reales
-        [b1,a1]=butter(ord_fil1,wc1);
-        qr_filt=filter(b1,a1,qr_D);
         
-        % Aplicacion del filtro no causal para obtener la velocidad
+        % Aplicacion del FILTRO de Butterworth --> Medidas reales de
+        % Posicion
+        S_Filtr=[];
+        %Asignacion de vbls de diseño
+        Wp=0.00018; %Frecuencia de paso
+        Rp=3; %Rizado caracteristico en zona de paso
+        Ws=0.00026; %Frecuencia de Corte
+        Rs=8; %Rizado permitido en el corte   
+        
+         %Aplicacion Filtro
+        for i=1:3
+            X=qr_D(:,i); %Señal a filtrar
+            Y  = FiltradoButter( X,Wp,Rp,Ws,Rs );
+            S_Filtr(:,i)=Y; %Señal Filtrada
+        end
+        qr_filt=S_Filtr; %Posiciones Filtradas
+        
+                
+        % Aplicacion del filtro no causal para obtener la Velocidad
         % estimada
         qd_est=filtroNoCausal_derivada(t_D,qr_filt,Tm);   % Obtencion de la derivada
+                
+        %Representacion compartiva entre el Estimado y el Ideal [Velocidad]
+        figure();subplot(311);plot(t_D,qdi_D(:,1));title('Velocidad ideal'); grid; subplot(312);plot(t_D,qdi_D(:,2));grid;subplot(313);plot(t_D,qdi_D(:,3));grid;
+        figure();subplot(311);plot(t_D,qd_est(:,1));title('Velocidad estimada'); grid; subplot(312);plot(t_D,qd_est(:,2));grid;subplot(313);plot(t_D,qd_est(:,3));grid;
+        figure();subplot(311);plot(t_D,qdi_D(:,1)-qd_est(:,1)); title('Error Velocidad');grid; subplot(312);plot(t_D,qdi_D(:,2)-qd_est(:,2));grid;subplot(313);plot(t_D,qdi_D(:,3)-qd_est(:,3));grid;
         
-         figure();subplot(311);plot(t_D,qdi_D(:,1));title('Velocidad ideal'); grid; subplot(312);plot(t_D,qdi_D(:,2));grid;subplot(313);plot(t_D,qdi_D(:,3));grid;
-         figure();subplot(311);plot(t_D,qd_est(:,1));title('Velocidad estimada'); grid; subplot(312);plot(t_D,qd_est(:,2));grid;subplot(313);plot(t_D,qd_est(:,3));grid;
-         figure();subplot(311);plot(t_D,qdi_D(:,1)-qd_est(:,1)); title('Error Velocidad');grid; subplot(312);plot(t_D,qdi_D(:,2)-qd_est(:,2));grid;subplot(313);plot(t_D,qdi_D(:,3)-qd_est(:,3));grid;
-       
-        ord_fil2=4;          % Orden del filtro Butterworth
-        wc2=5/(1/Tm)+0.1;    % Frecuencia de corte del Butterworth. 
-        % Aplicacion del filtro de Butterworth a la medida estimada de
-        % velocidad para estimar la aceleracion
-        [b2,a2]=butter(ord_fil2,wc2);
-        qd_est_filt=filter(b2,a2,qd_est);
+        % Aplicacion del FILTRO de Butterworth --> Medidas estimadas de
+        % Velocidad
+        S_Filtr=[];
+        %Asignacion de vbls de diseño
+        Wp=0.0009; %Frecuencia de paso
+        Rp=3; %Rizado caracteristico en zona de paso
+        Ws=0.0012; %Frecuencia de Corte
+        Rs=8; %Rizado permitido en el corte
         
-        % Aplicacion del filtro no causal para obtener la velocidad
+        %Aplicacion Filtro
+        for i=1:3
+            X=qd_est(:,i); %Señal a filtrar
+            Y  = FiltradoButter( X,Wp,Rp,Ws,Rs );
+            S_Filtr(:,i)=Y; %Señal Filtrada
+        end
+        qd_est_filt=S_Filtr;%Velocidades Filtradas
+        
+        %%%%%%ELIMINALBLE INIT%%%%%%%%%
+%         ord_fil2=4;          % Orden del filtro Butterworth
+%         wc2=5/(1/Tm)+0.1;    % Frecuencia de corte del Butterworth.
+%         % Aplicacion del filtro de Butterworth a la medida estimada de
+%         % velocidad para estimar la aceleracion
+%         [b2,a2]=butter(ord_fil2,wc2);
+%         qd_est_filt=filter(b2,a2,qd_est);
+        %%%%%%%ELIMINALBLE FIN%%%%%%%%%
+         
+         
+        % Aplicacion del filtro no causal para obtener la Aceleracion
         % estimada
         qdd_est=filtroNoCausal_derivada(t_D,qd_est_filt,Tm);   % Obtencion de la derivada
-
-         figure();subplot(311);plot(t_D,qddi_D(:,1));title('Aceleracion ideal'); grid; subplot(312);plot(t_D,qddi_D(:,2));grid;subplot(313);plot(t_D,qddi_D(:,3));grid;
-         figure();subplot(311);plot(t_D,qdd_est(:,1));title('Aceleracion estimada'); grid; subplot(312);plot(t_D,qdd_est(:,2));grid;subplot(313);plot(t_D,qdd_est(:,3));grid;
-         figure();subplot(311);plot(t_D,qddi_D(:,1)-qdd_est(:,1)); title('Error Aceleracion');grid; subplot(312);plot(t_D,qddi_D(:,2)-qdd_est(:,2));grid;subplot(313);plot(t_D,qddi_D(:,3)-qdd_est(:,3));grid;
-
-               
-    %     ObtencionNumerica(t_D,Im_D,qr_D,qd_est,qdd_est,R1,R2,R3);
+        
+        %Representacion compartiva entre el Estimado y el Ideal [Aceleracion]
+        figure();subplot(311);plot(t_D,qddi_D(:,1));title('Aceleracion ideal'); grid; subplot(312);plot(t_D,qddi_D(:,2));grid;subplot(313);plot(t_D,qddi_D(:,3));grid;
+        figure();subplot(311);plot(t_D,qdd_est(:,1));title('Aceleracion estimada'); grid; subplot(312);plot(t_D,qdd_est(:,2));grid;subplot(313);plot(t_D,qdd_est(:,3));grid;
+        figure();subplot(311);plot(t_D,qddi_D(:,1)-qdd_est(:,1)); title('Error Aceleracion');grid; subplot(312);plot(t_D,qddi_D(:,2)-qdd_est(:,2));grid;subplot(313);plot(t_D,qddi_D(:,3)-qdd_est(:,3));grid;
+        
+        
+        % ObtencionNumerica(t_D,Im_D,qr_D,qd_est,qdd_est,R1,R2,R3);
         % Si las cosas han ido bien, apareceran por terminal las variables
         % Ma,Va y Ga. Si es asi, ahora se deberan modificar las matrices
         % del script "ModeloDinamico_RRR_sl.m". Tras ello, se debera hacer
@@ -109,9 +147,14 @@ switch selec
         % graf_error(t_D,Im_D,qi_D,qdi_D,qddi_D,qi_D_mod,qdi_D_mod,qddi_D_mod);
         % Y ANALIZAR LOS RESULTADOS.
         
+        %Debido a la fresencia de los filtros se prudoce una atenuacion en
+        %aquellos experimentos que tengan asociados aceleraciones fuertes;
+        %debido a esto los terminos de theta_li asociados a estos estaran
+        %peor identificados
         
-    % %%%%%%%% Robot real solo encoder sin Reductoras %%%%%%%% 
-    % (RECORDAR ACTIVAR EL ACCIONAMIENTO DIRECTO)
+        
+        % %%%%%%%% Robot real solo encoder sin Reductoras %%%%%%%%
+        % (RECORDAR ACTIVAR EL ACCIONAMIENTO DIRECTO)
     case 4
         R1=1; R2=1; R3=1;    % Reductoras
         DatosSimSenoides;
@@ -127,14 +170,14 @@ switch selec
         % graf_error(t_D,Im_D,qi_D,qdi_D,qddi_D,qi_D_mod,qdi_D_mod,qddi_D_mod);
         % Y ANALIZAR LOS RESULTADOS.
         
-    %  %%%%%%%% Robot real encoder y tacometro con Reductoras %%%%%%%%   
+        %  %%%%%%%% Robot real encoder y tacometro con Reductoras %%%%%%%%
     case 5
         R1=50   ; R2=30; R3=15;    % Reductoras
         DatosSimSenoides;
         sim('sl_RobotReal_RRR');
         
         ord_fil=4;          % Orden del filtro Butterworth
-        wc=5/(1/Tm);    % Frecuencia de corte del Butterworth. 
+        wc=5/(1/Tm);    % Frecuencia de corte del Butterworth.
         % Aplicacion del filtro de Butterworth a la medida estimada de
         % velocidad para estimar la aceleracion
         [b,a]=butter(ord_fil,wc);
@@ -144,10 +187,10 @@ switch selec
         % estimada
         qdd_est=filtroNoCausal_derivada(t_D,qdr_filt,Tm);   % Obtencion de la derivada
         
-         figure();subplot(311);plot(t_D,qddi_D(:,1));title('Aceleracion ideal'); grid; subplot(312);plot(t_D,qddi_D(:,2));grid;subplot(313);plot(t_D,qddi_D(:,3));grid;
-         figure();subplot(311);plot(t_D,qdd_est(:,1));title('Aceleracion estimada'); grid; subplot(312);plot(t_D,qdd_est(:,2));grid;subplot(313);plot(t_D,qdd_est(:,3));grid;
-         figure();subplot(311);plot(t_D,qddi_D(:,1)-qdd_est(:,1)); title('Error Aceleracion');grid; subplot(312);plot(t_D,qddi_D(:,2)-qdd_est(:,2));grid;subplot(313);plot(t_D,qddi_D(:,3)-qdd_est(:,3));grid;
-
+        figure();subplot(311);plot(t_D,qddi_D(:,1));title('Aceleracion ideal'); grid; subplot(312);plot(t_D,qddi_D(:,2));grid;subplot(313);plot(t_D,qddi_D(:,3));grid;
+        figure();subplot(311);plot(t_D,qdd_est(:,1));title('Aceleracion estimada'); grid; subplot(312);plot(t_D,qdd_est(:,2));grid;subplot(313);plot(t_D,qdd_est(:,3));grid;
+        figure();subplot(311);plot(t_D,qddi_D(:,1)-qdd_est(:,1)); title('Error Aceleracion');grid; subplot(312);plot(t_D,qddi_D(:,2)-qdd_est(:,2));grid;subplot(313);plot(t_D,qddi_D(:,3)-qdd_est(:,3));grid;
+        
         
         % graficas(t_D,Im_D,qr_D,qdr_D,qdd_ftaco_D);
         % ObtencionNumerica(t_D,Im_D,qr_D,qdr_D,qdd_ftaco_D,R1,R2,R3);
@@ -159,9 +202,9 @@ switch selec
         % graficas(t_D,Im_D,qi_D_mod,qdi_D_mod,qddi_D_mod);
         % graf_error(t_D,Im_D,qi_D,qdi_D,qddi_D,qi_D_mod,qdi_D_mod,qddi_D_mod);
         % Y ANALIZAR LOS RESULTADOS.
-    
-    % %%%%%%%% Robot real encoder y tacometro sin Reductoras %%%%%%%%
-    % (RECORDAR ACTIVAR EL ACCIONAMIENTO DIRECTO)
+        
+        % %%%%%%%% Robot real encoder y tacometro sin Reductoras %%%%%%%%
+        % (RECORDAR ACTIVAR EL ACCIONAMIENTO DIRECTO)
     case 6
         R1=1; R2=1; R3=1;    % Reductoras
         DatosSimSenoides;

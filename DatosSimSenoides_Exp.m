@@ -9,23 +9,23 @@
 % Los valores de continua son un poco indiferentes en estos casos
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Valores de tiempo atenuacion
-tau1=50; tau2=50; tau3=25;
-
-%%Parametros senoides
-%Senoide I1
-Aa_1=30; Ab_1=-15;
-wa_1=50; wb_1=25;
-Im_cc1=0;
-
-%Senoide I2
-Aa_2=500; Ab_2=3000;
-wa_2=1000; wb_2=500;
-Im_cc2=4;
-
-%Senoide I3
-Aa_3=500; Ab_3=-200;
-wa_3=250; wb_3=180;
-Im_cc3=0;
+% tau1=50; tau2=50; tau3=50;
+% 
+% %%Parametros senoides
+% %Senoide I1
+% Aa_1=30; Ab_1=-15;
+% wa_1=50; wb_1=25;
+% Im_cc1=0;
+% 
+% %Senoide I2
+% Aa_2=500; Ab_2=3000;
+% wa_2=1000; wb_2=500;
+% Im_cc2=4;
+% 
+% %Senoide I3
+% Aa_3=500; Ab_3=-200;
+% wa_3=2500; wb_3=180;
+% Im_cc3=0;
 % %%%%%%%%%%%%%%%% RESULTADOS CON EL ROBOT 1 %%%%%%%%%%%%%%%%%%%%%%%%%%
 % tetha_li(1)= 5.177741e-01 Valido con varianza 3.050563e-01 
 
@@ -43,10 +43,10 @@ Im_cc3=0;
 % Velocidades constantes en las articulaciones pertinentes
 % 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%Valores de tiempo atenuacion-->tetha_li(2)
+% %Valores de tiempo atenuacion-->tetha_li(2)
 % tau1=1; tau2=1; tau3=1;
-
-% %%Parametros senoides
+% 
+% %Parametros senoides
 % %Senoide I1
 % Aa_1=2; Ab_1=3;
 % wa_1=10; wb_1=3;
@@ -63,7 +63,7 @@ Im_cc3=0;
 % Im_cc3=0;
 % 
 % %Valores de tiempo atenuacion -->tetha_li(5)
-% tau1=0.0001; tau2=1; tau3=1;
+% tau1=0.0001; tau2=1; tau3=0.0001;
 % 
 % %%Parametros senoides
 % %Senoide I1
@@ -81,24 +81,24 @@ Im_cc3=0;
 % wa_3=8; wb_3=3;
 % Im_cc3=3;
 
-%Valores de tiempo atenuacion -->tetha_li(9)
-% tau1=0.0001; tau2=1; tau3=1;
-% 
-% %%Parametros senoides
-% %Senoide I1
-% Aa_1=2; Ab_1=3;
-% wa_1=10; wb_1=3;
-% Im_cc1=0;
-% 
-% %Senoide I2
-% Aa_2=0.5; Ab_2=2;
-% wa_2=15; wb_2=3;
-% Im_cc2=2;
-% 
-% %Senoide I3
-% Aa_3=0.5; Ab_3=2;
-% wa_3=8; wb_3=3;
-% Im_cc3=20;
+% Valores de tiempo atenuacion -->tetha_li(9)
+tau1=0.0001; tau2=1; tau3=1;
+
+%%Parametros senoides
+%Senoide I1
+Aa_1=2; Ab_1=3;
+wa_1=10; wb_1=3;
+Im_cc1=0;
+
+%Senoide I2
+Aa_2=0.5; Ab_2=2;
+wa_2=15; wb_2=3;
+Im_cc2=2;
+
+%Senoide I3
+Aa_3=0.5; Ab_3=2;
+wa_3=8; wb_3=3;
+Im_cc3=20;
 
 % %%%%%%%%%%%%%%%% RESULTADOS CON EL ROBOT 1 %%%%%%%%%%%%%%%%%%%%%%%%%%
 % tetha_li(2)= 4.772908e-05 Valido con varianza 1.192384e-01 
@@ -114,8 +114,8 @@ Im_cc3=0;
    %    Intensidades constantes y bajas(Poco movimiento)
    
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% %Valores de tiempo atenuacion
-% tau1=0.00001; tau2=3; tau3=1;
+%Valores de tiempo atenuacion
+% tau1=0.00001; tau2=3; tau3=0.03;
 % 
 % %%Parametros senoides
 % %Senoide I1
@@ -124,14 +124,14 @@ Im_cc3=0;
 % Im_cc1=0;
 % 
 % %Senoide I2
-% Aa_2=0.5; Ab_2=2;
+% Aa_2=1; Ab_2=3;
 % wa_2=15; wb_2=3;
-% Im_cc2=3;
+% Im_cc2=6.5;
 % 
 % %Senoide I3
 % Aa_3=0.5; Ab_3=2;
-% wa_3=8; wb_3=3;
-% Im_cc3=2;
+% wa_3=15; wb_3=3;
+% Im_cc3=3.5;
 
 % %%%%%%%%%%%%%%%% RESULTADOS CON EL ROBOT 1 %%%%%%%%%%%%%%%%%%%%%%%%%%
 % tetha_li(10)= -3.255365e-01 Valido con varianza 1.490022e-01 
