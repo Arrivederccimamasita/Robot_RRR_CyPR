@@ -1,0 +1,26 @@
+\BOOKMARK [1][-]{section.1}{Introducci\363n al proyecto}{}% 1
+\BOOKMARK [1][-]{section.2}{An\341lisis Cinem\341tico del brazo}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Modelo Cinem\341tico Directo}{section.2}% 3
+\BOOKMARK [3][-]{subsubsection.2.1.1}{Par\341metros y estudio del MCD seg\372n Denavit-Hartemberg}{subsection.2.1}% 4
+\BOOKMARK [3][-]{subsubsection.2.1.2}{Matrices de transformaci\363n homog\351neas del robot}{subsection.2.1}% 5
+\BOOKMARK [3][-]{subsubsection.2.1.3}{Ecuaciones simb\363licas del MCD}{subsection.2.1}% 6
+\BOOKMARK [2][-]{subsection.2.2}{Modelo Cinem\341tico Inverso}{section.2}% 7
+\BOOKMARK [2][-]{subsection.2.3}{Jacobiano del robot y an\341lisis de puntos singulares}{section.2}% 8
+\BOOKMARK [1][-]{section.3}{An\341lisis Din\341mico del brazo}{}% 9
+\BOOKMARK [1][-]{section.4}{Obtencion de los parametros dinamicos del robot}{}% 10
+\BOOKMARK [2][-]{subsection.4.1}{Obtencion del modelo para estimar los parametros}{section.4}% 11
+\BOOKMARK [2][-]{subsection.4.2}{Estimacion de parametros dinamicos}{section.4}% 12
+\BOOKMARK [2][-]{subsection.4.3}{Calculos estadisticos}{section.4}% 13
+\BOOKMARK [2][-]{subsection.4.4}{Analisis de resultados}{section.4}% 14
+\BOOKMARK [1][-]{section.5}{Control Cinematico del robot}{}% 15
+\BOOKMARK [2][-]{subsection.5.1}{Generador de trayectorias punto a punto}{section.5}% 16
+\BOOKMARK [2][-]{subsection.5.2}{Generador de trayectorias lineal}{section.5}% 17
+\BOOKMARK [2][-]{subsection.5.3}{Pruebas y conclusiones}{section.5}% 18
+\BOOKMARK [1][-]{section.6}{Control Din\341mico del brazo}{}% 19
+\BOOKMARK [2][-]{subsection.6.1}{Obtencion del modelo lineal de las articulaciones del brazo}{section.6}% 20
+\BOOKMARK [2][-]{subsection.6.2}{Dise\361o de controladores}{section.6}% 21
+\BOOKMARK [2][-]{subsection.6.3}{FANTASIA VARIADA DE GIL}{section.6}% 22
+\BOOKMARK [1][-]{section.7}{Anexos}{}% 23
+\BOOKMARK [2][-]{subsection.7.1}{Conclusiones \(A LO MEJON SI A LO MEJON NO\)}{section.7}% 24
+\BOOKMARK [2][-]{subsection.7.2}{Codigos de programacion}{section.7}% 25
+\BOOKMARK [2][-]{subsection.7.3}{Montajes en Simulink}{section.7}% 26

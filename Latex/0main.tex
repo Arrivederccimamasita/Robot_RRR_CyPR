@@ -1,0 +1,129 @@
+\documentclass[a4paper,twoside]{article}
+
+%% Language and font encodings
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+%% Sets page size and margins
+\usepackage[a4paper,top=3cm,bottom=2cm,left=2.5cm,right=2.5cm,marginparwidth=0.5cm]{geometry}
+
+\usepackage{amsmath}			%Paquete matemático
+\usepackage{graphicx}
+\usepackage[colorinlistoftodos]{todonotes}
+
+\usepackage{hyperref}		%Paquete empleado para colocar hipervinculos
+\hypersetup{
+	colorlinks = true,
+	linkcolor = black,
+}
+
+\usepackage{eurosym}
+\usepackage{pdfpages}			%Sirve para incluir PDF en el documento
+\usepackage{anysize}			%Podremos colocar imagenes de cualquier tamaño
+\usepackage{subfig}				%Nos permitira colocar varias imagenes en una figura
+\usepackage{float}				%Podremos crear y colocar boxes donee queramos
+\usepackage[export]{adjustbox}
+
+%Colocamos cabeceras y pies de pagina 
+%(CONSULTA: http://edicionesoniricas.com/maquetar-latex-encabezados-pies-pagina/)
+%(CONSULTA2: https://es.sharelatex.com/learn/Headers_and_footers)
+%\bfseries es análogo a \textbf{}
+% \leftmark-> Adds name and number of the current top-level structure (section for article) in uppercase letters.
+%\rightmark-> Adds name and number of the current next to top-level structure (subsection for article) in uppercase letters.
+\usepackage{fancyhdr}		%Paquetes necesarios
+\pagestyle{fancy}			%Borra los parametros por defecto
+\fancyhf{}
+\fancyhead[RO,LE]{\bfseries\thepage}	
+\fancyhead[LO,RE]{\bfseries\rightmark}
+%Nos aseguramos de que en las paginas plain, no haya ni cabeceras ni lineas
+\fancypagestyle{plain}
+{
+	\fancyhead{} % elimina cabeceras en paginas "plain"
+	\renewcommand{\headrulewidth}{0pt} % así como la raya
+}
+
+%Definimos las lineas divisoras de las cabeceras y pie de pagina
+\renewcommand{\headrulewidth}{1pt}	%Define el grosor de la línea de head
+\renewcommand{\footrulewidth}{0pt}		%Define el grosor de la linea foot (Si no queremos linea, 0pt)
+\addtolength{\headheight}{0.5pt} % espacio para la raya
+
+%Librerias para introducir código de Matlab
+%\usepackage{bigfoot} % to allow verbatim in footnote
+\usepackage[numbered,framed]{matlab-prettifier}
+
+\lstset{
+	style              = Matlab-editor,
+	basicstyle         = \mlttfamily,
+	escapechar         = ",
+	mlshowsectionrules = true,
+}
+
+% Pie de pagina
+%\fancyfoot{} % limpia el pie
+\fancyfoot[C]{- \thepage -} % número de página centrado
+
+%Nos generará texto para pruebas de maquetado
+\usepackage{lipsum}
+%---------------------------------------------------------------------------------------------------------------------------------- 
+\begin{document}
+\begin{titlepage}
+	\centering
+\Huge{\textbf{CONTROL Y PROGRAMACIÓN DE ROBOTS}} \\
+\Huge{\textit{Proyecto de robots manipuladores}}\\
+
+\vspace{1cm}
+\LARGE{Grado en Ingeniería Electrónica, Mecatrónica y Robótica}\\
+\rule{\textwidth}{0.1mm}
+%  %%%%% Este trozo de codigo es para insertar imagenes %%%%%%%
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=1\textwidth]{brazo_portada}
+	%\caption{textodelaleyenda}
+\end{figure}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\vspace{3cm}
+\rule{\textwidth}{0.1mm}
+\Large{\textbf{Autores:} Montes Grova, Marco Antonio\\
+ Lozano Romero, Daniel\\
+ Mérida Floriano, Javier}
+\end{titlepage}
+\tableofcontents
+\newpage
+% %%%%%%%%%%%   INTRODUCCION %%%%%%%%%%%%%%%%%%
+\section{Introducción al proyecto}
+	Como objetivo de este trabajo se encuentra el análisis cinemático y dinámico, así como la estimación de ciertos parámetros dinámicos del robot, como pueden ser inercias o fricciones viscosas. Además de ello, se diseñará un control cinemático y dinámico del brazo robático.\\
+	El brazo sujeto a análisis será del tipo RRR, es decir, de tres articulaciones rotacionales.
+	
+	El robot que se va a estudiar, representado por la estructura de la portada de este trabajo, posee los siguientes parámetros estructurales:
+	\begin{center}
+		$L_0 = 0.60 m$ \hspace{0.5 cm} $L_1 = 0.60 m$ \hspace{0.5 cm}  $L_2 = 1.00 m$\hspace{0.5 cm}  $L_3 = 0.80 m$
+	\end{center}
+	
+	Además, también vienen dados los valores de factores de reducción de velocidad y constantes de par de los motores:
+	\begin{center}
+		$R_1 = 50; R_2 = 30; R_3 = 15$\\ \vspace{0.2 cm}
+		$K_{t1} = 0.5 \frac{Nm}{A}; K_{t2} = 0.4 \frac{Nm}{A}; K_{t3} = 0.35 \frac{Nm}{A}$
+	\end{center}
+
+En primer lugar, se desarrollará un análisis cinemático del brazo robótico, tanto directo como inverso, es decir, se hallará la posición cartesiana del efector final en función de las variables articulares del brazo y viceversa.\\
+Tras ello, será necesario estimar los parámetros dinámicos del brazo, ya que únicamente se conocen las longitudes del mismo. Se obtendrán diferentes parámetros en función de las condiciones supuestas para el brazo, principalmente las condiciones que se emplearan serán:
+\begin{itemize}
+	\item Robot con medidas ideales con reductoras.
+	\item Robot con medidas ideales de accionamiento directo.
+	\item Robot con medidas reales con reductoras.
+	\item Robot con medidas reales de accionamiento directo.
+\end{itemize}
+Para el robot con medidas reales, se evaluará qué condición es mas favorable. Por ejemplo, si se obtiene un mejor modelo matemático del robot empleando únicamente encoders que conozcan las posiciones de las variables articulares y derivando numéricamente para conocer las velocidades y las aceleraciones de las mismas, o el caso en el que se empleen encoders que conozcan la posición y tacómetros que conozcan las velocidades pero derivando numéricamente para obtener las aceleraciones.\\
+
+Una vez se hayan obtenido los modelos matemáticos de las articulaciones de los robots, se diseñará un control cinemático del mismo, el cual será un generador de trayectorias que, a partir de una posición inicial, una posición real, un número de puntos y el tiempo en que se desea que vaya de un punto a otro, generará una trayectoria de las variables articulares del robot.\\
+
+Por último, se diseñarán una serie de controladores dinámicos para el robot, en los cuales se observe la mejoría o empeoramiento de los mismos en función del tipo de robot empleado frente a otros.
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\include{1AnalisisCinDin}
+\include{2EstimacParam}
+\include{3ControlCinem}
+\include{4ControlDinamic}
+\include{5AnexosConclusiones}
+
+\end{document}

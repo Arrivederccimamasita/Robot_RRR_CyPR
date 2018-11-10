@@ -1,0 +1,155 @@
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/802/matlab/robot/trunk/@SerialLink
+END
+rne.m
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/792/matlab/robot/trunk/@SerialLink/rne.m
+END
+jacob_dot.m
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/793/matlab/robot/trunk/@SerialLink/jacob_dot.m
+END
+teach.m
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/841/matlab/robot/trunk/@SerialLink/teach.m
+END
+itorque.m
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/802/matlab/robot/trunk/@SerialLink/itorque.m
+END
+inertia.m
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/802/matlab/robot/trunk/@SerialLink/inertia.m
+END
+fkine.m
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/802/matlab/robot/trunk/@SerialLink/fkine.m
+END
+jacobn.m
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/802/matlab/robot/trunk/@SerialLink/jacobn.m
+END
+SerialLink.m
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/794/matlab/robot/trunk/@SerialLink/SerialLink.m
+END
+maniplty.m
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/795/matlab/robot/trunk/@SerialLink/maniplty.m
+END
+jacob0.m
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/802/matlab/robot/trunk/@SerialLink/jacob0.m
+END
+cinertia.m
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/802/matlab/robot/trunk/@SerialLink/cinertia.m
+END
+rne_dh.m
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/802/matlab/robot/trunk/@SerialLink/rne_dh.m
+END
+gravload.m
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/722/matlab/robot/trunk/@SerialLink/gravload.m
+END
+ikine.m
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/851/matlab/robot/trunk/@SerialLink/ikine.m
+END
+fdyn.m
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/802/matlab/robot/trunk/@SerialLink/fdyn.m
+END
+accel.m
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/840/matlab/robot/trunk/@SerialLink/accel.m
+END
+ikine6s.m
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/832/matlab/robot/trunk/@SerialLink/ikine6s.m
+END
+nofriction.m
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/802/matlab/robot/trunk/@SerialLink/nofriction.m
+END
+rne_mdh.m
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/826/matlab/robot/trunk/@SerialLink/rne_mdh.m
+END
+friction.m
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/802/matlab/robot/trunk/@SerialLink/friction.m
+END
+plot.m
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/855/matlab/robot/trunk/@SerialLink/plot.m
+END
+animate.m
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/824/matlab/robot/trunk/@SerialLink/animate.m
+END
+ikine3.m
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/802/matlab/robot/trunk/@SerialLink/ikine3.m
+END
+coriolis.m
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/798/matlab/robot/trunk/@SerialLink/coriolis.m
+END
+perturb.m
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/802/matlab/robot/trunk/@SerialLink/perturb.m
+END

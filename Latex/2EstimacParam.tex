@@ -1,0 +1,33 @@
+\section{Obtencion de los parametros dinamicos del robot}
+Debido a que no se conocen los parametros dinamicos del robot, sera posible estimarlos mediante una serie de experimentos y aproximaciones. Se ha optado por aplicar el algoritmo de Newton-Euler, el cual es un procedimiento recursivo que se basa en la segunda ley de Newton. Este algoritmo nos dara los esfuerzos en las articulaciones.\\
+Por tanto, trabajando con Matlab, si se definen todas esas variables del robot de manera simbolica y se corre el algoritmo, se obtendran los pares que sufren las articulaciones.\\
+Las variables que se busca estimar del robot seran las siguientes:
+\begin{center}
+		$ I_{11} =
+	\begin{bmatrix}
+	I_{11xx} & I_{11xy} & I_{11xz}\\ 
+	I_{11yx} & I_{11yy} & I_{11zz}\\ 
+	I_{11zx} & I_{11zy} & I_{11zz}
+	\end{bmatrix}$
+
+	$ I_{22} =
+	\begin{bmatrix}
+	I_{22xx} & I_{22xy} & I_{22xz}\\ 
+	I_{22yx} & I_{22yy} & I_{22zz}\\ 
+	I_{22zx} & I_{22zy} & I_{22zz}
+	\end{bmatrix}$
+TERMINAR DE METER MATRICES LOCO
+\end{center}
+\begin{itemize}
+	\item HABLAR UN POCO DE LA NECESIDAD DE ESTIMAR LOS PARAMETROS DE NEWTON EULER
+	\item HABLAR DE COMO SE OBTUVO GAMMA SIM Y TETHA SIM
+	\item HABLAR DE LA SIMPLIFICACION A PARAMETROS LI
+	\item HABLAR DE LOS EXPERIMENTOS DE LOS SENOS
+	\item HABLAR DE LA OPTIMIZACION Y ESTIMACION DE LOS PARAMETROS
+	\item CONTRUCCION DEL MODELO A PARTIR DE LOS PARAMETROS
+	\item COMPARATIVA ROBOT REAL Y MODELOS. CONCLUSIONES
+\end{itemize}
+	\subsection{Obtencion del modelo para estimar los parametros}
+	\subsection{Estimacion de parametros dinamicos}
+	\subsection{Calculos estadisticos}
+	\subsection{Analisis de resultados}

@@ -1,0 +1,8 @@
+No se ha modificado el nombre de los scripts para evitar problemas de compatibilidad
+
+1. AnalisisCinematico
+2. Dinamica_NE_RRR
+3. ObtencionParamDinamic
+4. IdentificacParamDinamic
+5. pruebas
+6. ObtencionNumerica
