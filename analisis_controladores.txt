@@ -1,0 +1,38 @@
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%% CONTROLADORES A DISEÑAR %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+A continuación, se hará un pequeño analisis de los controladores que se deberan implementar. Una lista de ellos sería:
+	- Controlador PD/PID con y sin cancelacion de dinamica ()
+	- Controlador PD/PID con compensacion de gravedad
+	- Controlador PD/PID con compensacion de gravedad por referencia
+	- Controlador PD/PID con compensacion de gravedad
+	- Controlador PD/PID con precompensacion de dinamica (FeedForward)
+	- Controlador PD/PID con precompensacion de dinamica por referencia(FeedForward)
+	- Control por par calculado
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ANALISIS DE CONTROLADORES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+A modo de analisis de resultados y diseño de experimentos, se deben tener en cuenta las siguientes afirmaciones:
+ * El PID mejorará el PD debido al efecto integral del error que posee.
+ * El compensador de gravedad mejorará el PD sin cancelación, ya que eliminará el error mantenido de la perturbacion que es la gravedad
+ * Si se implementase el compensador de gravedad por referencia, mejoraria el robot real, ya que no se tienen medidas ruidosas, sino que las de referencia.
+ * Al implementar el control FeedForward (precompensacion de dinamica), se buscará compensar los efector de Coirolis del robot. Habría que rediseñar el modelo para meterle un nuevo termino diferente. [VER DIAPOSITIVAS/APUNTES]
+ * Emplear el FeedForward por referencia mejoraría el robot real debido a que las medidas de la velocidad reales tendrán ruido o un cierto desfase.
+ * Una vez compensado la gravedad y los terminos de Coirolis, se buscará compensar la inercia del robot. Será mas significativo en el robot con accionamiento directo. [VER DIAPOSITIVAS/APUNTES]
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %%%%%%%%%%%%%%%%%%%%%%%%%% TECNICAS DE DISEÑO DE CONTROLADORES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Para diseñar estos controladores se deberan emplear diferentes tecnicas:
+ - El controlador inicial (PD/PID) se diseñarán empleando la metodologia del lugar de las raices. Si se diseña un controlador cancelando la dinamica se obtendrá el PD y si se hace sin cancelar se obtendrá un PID. Se podra usar el PD si las perturbaciones son pequeñas.(Tambien se podria hacer matematicamente a mano)
+ - Para implementar el compensador de gravedad habria que sumarle al controlador un bloque de SL que contenga la matriz de terminos gravitatorios del modelo del robot. Se realimentará con la salida del robot real.
+ - La unica diferencia con el anterior es que, al implementar el compensador por referencia, se alimentarán los terminos gravitatorios con la referencia propiamente dicha y no con la salida del robot real.
+ - Para el FeedForward habría que rediseñar el modelo. Lo mismo pasará con el par calculado. (NO TENGO MUY CLARO COMO SERÍA)
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %%%%%%%% POSIBLES EXPERIMENTOS PARA HACER NOTORIOS LOS EFECTOS DE LOS CONTROLADORES %%%%%%%%%%%%%%%%%%%%%%
+
+- Para hacer notar la mejora con el compensador de gravedad, hacer movimientos donde se noten los terminos gravitatorios, es decir, movimientos lentos y largos, creo.
+- Para hacer notar el compensador de gravedad por referencia respecto al anterior, sería conveniente mostrar cómo mejora en el robot real el no usar medidas reales. (Evitamos los ruidos)
+- Si se quisiera hacer notar la mejora del empleo del FeedForward, sería conveniente hacer movimientos a velocidades altas y distancias cortas, ya que ahi se notarán los terminos de Coirolis.
+- Para hacer notorio el empleo del Feedforward por referencia, seria igualmente conveniente compararlo con el robot real, para hacer notar que mejora el problema de que las medidas sean reales, es decir, ruidosas y quizá algo desfasadas.
+- Por ultimo, para hacer notorio el par calculado, sería conveniente buscar generar trayectorias que haga que el robot tenga aceleraciones elevadas. Además de ello, será mas llamativo cuando se emplee el robot de accionamiento directo.
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
