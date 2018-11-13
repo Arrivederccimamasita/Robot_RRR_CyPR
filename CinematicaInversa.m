@@ -16,7 +16,7 @@ y       = in(2);           %
 z       = in(3);           % 
 
 % Variables necesarias
-L0=1; L1=3; L2=1.5; L3=2;
+L0=0.6;L1=0.6;L2=1;L3=0.8;
 
 A=sqrt(x^2+y^2);
 B=z-L0-L1;
