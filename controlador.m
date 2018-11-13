@@ -37,14 +37,30 @@ function [I_control]=controlador(in)
 
   % Definicion del tiempo de subida en bucle cerrado
   ts_bc=1e-3;
+  
+  %Definicion de constantes viscosas
+  Va1=[3.00016000000000];
+  Va2=[0.765382140000000];
+  Va3=[0.337277250000000];
+  
+  Ma1=[23.9668000000000];
+  Ma2=[30.0770000000000];
+  Ma3=[4.46980000000000];
+  
+  Im1_eq=0;
+  Im2_eq=0;
+  Im3_eq=0;
+  
+  Tm=0.001;
+  
   % Inicializacion de variables
   if (t<1e-8) e1_k1=0; e2_k1=0; e3_k1=0; end
 
   % Calculo de los errores -> No se hasta que punto es mejor hayarlo aqui o
   % que sea la entrada del controlador
-  e1k= q1ref_k - q1_k;
-  e2k= q2ref_k - q2_k;
-  e3k= q3ref_k - q3_k;
+  e1_k= q1ref_k - q1_k;
+  e2_k= q2ref_k - q2_k;
+  e3_k= q3ref_k - q3_k;
   
   % Definicion de parametros del controlador PD
   Kc=3/ts_bc;
