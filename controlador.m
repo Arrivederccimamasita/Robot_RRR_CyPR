@@ -36,7 +36,7 @@ function [I_control]=controlador(in)
   persistent e1_k1 e2_k1 e3_k1;            % Se definen los errores anteriores
 
   % Definicion del tiempo de subida en bucle cerrado
-  ts_bc=1e-3;
+  ts_bc=50e-3;
   
   %Definicion de constantes viscosas
   Va1=[3.00016000000000];
@@ -54,7 +54,7 @@ function [I_control]=controlador(in)
   Tm=0.001;
   
   % Inicializacion de variables
-  if (t<1e-8) e1_k1=0; e2_k1=0; e3_k1=0; end
+ if (t<1e-8) e1_k1=0; e2_k1=0; e3_k1=0; end
 
   % Calculo de los errores -> No se hasta que punto es mejor hayarlo aqui o
   % que sea la entrada del controlador
