@@ -23,16 +23,15 @@ B=z-L0-L1;
 C=A^2+B^2;
 
 % Se podrá definir la primera variable articular, q1, como
-q1=atan2( (y/A) , (x/A) );
+q1=atan2(y,x);
 
 % Por lo tanto, se definirá la variable articular q3 como
-q3=atan2( sqrt( 1-( (C-L2^2-L3^2)/(2*L2*L3) )^2 ) , (C-L2^2-L3^2)/(2*L2*L3) );
+q3=atan2( sqrt( 1-( (C-L2^2-L3^2)/(2/L2*L3) )^2 ) , (C-L2^2-L3^2)/(2/L2*L3) );
 
-rho = sqrt(C);
 alpha=atan2( L3*sin(q3) , L3*cos(q3)+L2 );
 
 % Se define, la variable articular q2 como
-q2=atan2( sqrt(1-(A/rho)^2) , A/rho ) - alpha;
+q2=atan2(B,A) - alpha;
 
 q=[q1;q2;q3];
 
