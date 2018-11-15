@@ -8,7 +8,7 @@
 % favorecer un cambio brusco en las posiciones
 % Los valores de continua son un poco indiferentes en estos casos
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% %Valores de tiempo atenuacion
+%Valores de tiempo atenuacion
 % tau1=50; tau2=50; tau3=50;
 % 
 % %%Parametros senoides
@@ -44,13 +44,13 @@
 % 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % %Valores de tiempo atenuacion-->tetha_li(2)
-% tau1=1; tau2=1; tau3=1;
+% tau1=5; tau2=1; tau3=1;
 % 
 % %Parametros senoides
 % %Senoide I1
-% Aa_1=2; Ab_1=3;
-% wa_1=10; wb_1=3;
-% Im_cc1=5;
+% Aa_1=2; Ab_1=5;
+% wa_1=5; wb_1=2;
+% Im_cc1=2;
 % 
 % %Senoide I2
 % Aa_2=0.5; Ab_2=2;
@@ -61,9 +61,9 @@
 % Aa_3=0.5; Ab_3=2;
 % wa_3=8; wb_3=3;
 % Im_cc3=0;
-% 
+
 %Valores de tiempo atenuacion -->tetha_li(5)
-tau1=0.01; tau2=1; tau3=0.01;
+tau1=0.00001; tau2=0.5; tau3=0.01;
 
 %%Parametros senoides
 %Senoide I1
@@ -72,17 +72,17 @@ wa_1=10; wb_1=3;
 Im_cc1=0;
 
 %Senoide I2
-Aa_2=0.5; Ab_2=2;
+Aa_2=2; Ab_2=5;
 wa_2=15; wb_2=3;
-Im_cc2=14;
+Im_cc2=7;
 
 %Senoide I3
 Aa_3=0.5; Ab_3=2;
 wa_3=8; wb_3=3;
-Im_cc3=3;
+Im_cc3=2;
 
 % % Valores de tiempo atenuacion -->tetha_li(9)
-% tau1=0.0001; tau2=1; tau3=1;
+% tau1=0.0001; tau2=0.0001; tau3=1;
 % 
 % %%Parametros senoides
 % %Senoide I1
@@ -98,7 +98,7 @@ Im_cc3=3;
 % %Senoide I3
 % Aa_3=0.5; Ab_3=2;
 % wa_3=8; wb_3=3;
-% Im_cc3=20;
+% Im_cc3=4;
 
 % %%%%%%%%%%%%%%%% RESULTADOS CON EL ROBOT 1 %%%%%%%%%%%%%%%%%%%%%%%%%%
 % tetha_li(2)= 4.772908e-05 Valido con varianza 1.192384e-01 
