@@ -47,7 +47,7 @@ Y_expr=[];     %Vector agrupado de valores de intensidad
 
 %Obtencion del banco de pruebas y aproximacion de los parametos dinamicos
 Y_expr=[];
-for i=2000:n:length(t)  % Se toma a partir del segundo 2
+for i=1:n:length(t)  % Se toma a partir del segundo 2
     % Valores articulares tomados
     q1=q(i,1); qd1=qd(i,1); qdd1=qdd(i,1);
     q2=q(i,2); qd2=qd(i,2); qdd2=qdd(i,2);
@@ -62,6 +62,7 @@ for i=2000:n:length(t)  % Se toma a partir del segundo 2
     % Reagrupamos los valores de intensidad para cuadrar el formato de
     % calculo
     %     Y_expr=vertcat(Y_expr,(Im_D(i,:)*Kt*R));
+    format long;
     Y_expr=[Y_expr;Im(i,1)*KtR(1,1);Im(i,2)*KtR(2,2);Im(i,3)*KtR(3,3)];
     
 end

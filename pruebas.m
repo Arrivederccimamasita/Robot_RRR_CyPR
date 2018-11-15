@@ -73,7 +73,7 @@ switch selec
         %Asignacion de vbls de diseño
         Wp=0.0005; %Frecuencia de paso
         Rp=3; %Rizado caracteristico en zona de paso
-        Ws=0.0020; %Frecuencia de Corte
+        Ws=0.00150; %Frecuencia de Corte
         Rs=6; %Rizado permitido en el corte   
         
          %Aplicacion Filtro
@@ -101,17 +101,17 @@ switch selec
         qd_est=filtroNoCausal_derivada(t_D,qr_filt,Tm);   % Obtencion de la derivada
         
 %         %Representacion compartiva entre el Estimado y el Ideal [Velocidad]
-%         figure();subplot(311);plot(t_D,qdi_D(:,1));title('Velocidad ideal'); grid; subplot(312);plot(t_D,qdi_D(:,2));grid;subplot(313);plot(t_D,qdi_D(:,3));grid;
-%         figure();subplot(311);plot(t_D,qd_est(:,1));title('Velocidad estimada'); grid; subplot(312);plot(t_D,qd_est(:,2));grid;subplot(313);plot(t_D,qd_est(:,3));grid;
-%         figure();subplot(311);plot(t_D,qdi_D(:,1)-qd_est(:,1)); title('Error Velocidad');grid; subplot(312);plot(t_D,qdi_D(:,2)-qd_est(:,2));grid;subplot(313);plot(t_D,qdi_D(:,3)-qd_est(:,3));grid;
+        figure();subplot(311);plot(t_D,qdi_D(:,1));title('Velocidad ideal'); grid; subplot(312);plot(t_D,qdi_D(:,2));grid;subplot(313);plot(t_D,qdi_D(:,3));grid;
+        figure();subplot(311);plot(t_D,qd_est(:,1));title('Velocidad estimada'); grid; subplot(312);plot(t_D,qd_est(:,2));grid;subplot(313);plot(t_D,qd_est(:,3));grid;
+        figure();subplot(311);plot(t_D,qdi_D(:,1)-qd_est(:,1)); title('Error Velocidad');grid; subplot(312);plot(t_D,qdi_D(:,2)-qd_est(:,2));grid;subplot(313);plot(t_D,qdi_D(:,3)-qd_est(:,3));grid;
         
         % Aplicacion del FILTRO de Butterworth --> Medidas estimadas de
         % Velocidad
         S_Filtr=[];
         %Asignacion de vbls de diseño
-        Wp=0.00010; %Frecuencia de paso
+        Wp=0.0010; %Frecuencia de paso
         Rp=3; %Rizado caracteristico en zona de paso
-        Ws=0.0012; %Frecuencia de Corte
+        Ws=0.0020; %Frecuencia de Corte
         Rs=8; %Rizado permitido en el corte
         
         %Aplicacion Filtro
@@ -122,25 +122,24 @@ switch selec
         end
         qd_est_filt=S_Filtr;%Velocidades Filtradas
         
-        
+%         
 %         %Representacion compartiva entre el filtrado y el original [Velocidad]
 %         figure();subplot(311);plot(t_D,qd_est(:,1));title('Velocidad Estimada'); grid; subplot(312);plot(t_D,qd_est(:,2));grid;subplot(313);plot(t_D,qd_est(:,3));grid;
 %         figure();subplot(311);plot(t_D,qd_est_filt(:,1));title('Velocidad Filtrada'); grid; subplot(312);plot(t_D,qd_est_filt(:,2));grid;subplot(313);plot(t_D,qd_est_filt(:,3));grid;
 %         figure();subplot(311);plot(t_D,qd_est(:,1)-qd_est_filt(:,1)); title('Error Tras Filtrado');grid; subplot(312);plot(t_D,qd_est(:,2)-qd_est_filt(:,2));grid;subplot(313);plot(t_D,qd_est(:,3)-qd_est_filt(:,3));grid;
 %         
-        
            
         % Aplicacion del filtro no causal para obtener la Aceleracion
         % estimada
         qdd_est=filtroNoCausal_derivada(t_D,qd_est_filt,Tm);   % Obtencion de la derivada
+         
+%         %Representacion compartiva entre el Estimado y el Ideal [Aceleracion]
+%         figure();subplot(311);plot(t_D,qddi_D(:,1));title('Aceleracion ideal'); grid; subplot(312);plot(t_D,qddi_D(:,2));grid;subplot(313);plot(t_D,qddi_D(:,3));grid;
+%         figure();subplot(311);plot(t_D,qdd_est(:,1));title('Aceleracion estimada'); grid; subplot(312);plot(t_D,qdd_est(:,2));grid;subplot(313);plot(t_D,qdd_est(:,3));grid;
+%         figure();subplot(311);plot(t_D,qddi_D(:,1)-qdd_est(:,1)); title('Error Aceleracion');grid; subplot(312);plot(t_D,qddi_D(:,2)-qdd_est(:,2));grid;subplot(313);plot(t_D,qddi_D(:,3)-qdd_est(:,3));grid;
 %         
-        %Representacion compartiva entre el Estimado y el Ideal [Aceleracion]
-        figure();subplot(311);plot(t_D,qddi_D(:,1));title('Aceleracion ideal'); grid; subplot(312);plot(t_D,qddi_D(:,2));grid;subplot(313);plot(t_D,qddi_D(:,3));grid;
-        figure();subplot(311);plot(t_D,qdd_est(:,1));title('Aceleracion estimada'); grid; subplot(312);plot(t_D,qdd_est(:,2));grid;subplot(313);plot(t_D,qdd_est(:,3));grid;
-        figure();subplot(311);plot(t_D,qddi_D(:,1)-qdd_est(:,1)); title('Error Aceleracion');grid; subplot(312);plot(t_D,qddi_D(:,2)-qdd_est(:,2));grid;subplot(313);plot(t_D,qddi_D(:,3)-qdd_est(:,3));grid;
-        
-%         
-%         ObtencionNumerica(t_D,Im_D,qr_D,qd_est,qdd_est,R1,R2,R3);
+%          
+        ObtencionNumerica(t_D,Im_D,qr_D,qd_est,qdd_est,R1,R2,R3);
         % Si las cosas han ido bien, apareceran por terminal las variables
         % Ma,Va y Ga. Si es asi, ahora se deberan modificar las matrices
         % del script "ModeloDinamico_RRR_sl.m". Tras ello, se debera hacer
