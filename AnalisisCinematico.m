@@ -7,7 +7,7 @@ syms L0 L1 L2 L3 q1 q2 q3 real
 pi1=sym('pi');
 
 % Matriz DH para Robotics Toolbox
-L(1)= Link([  0   L0+L1   0   pi1/2 , 0]);  
+L(1)= Link([  0   L0+L1   0   pi/2 , 0]);  
 L(2)= Link([  0     0    L2    0   , 0]);
 L(3)= Link([  0     0    L3    0   , 0]);
 
