@@ -100,10 +100,10 @@ switch selec
         
         qd_est=filtroNoCausal_derivada(t_D,qr_filt,Tm);   % Obtencion de la derivada
         
-%         %Representacion compartiva entre el Estimado y el Ideal [Velocidad]
-        figure();subplot(311);plot(t_D,qdi_D(:,1));title('Velocidad ideal'); grid; subplot(312);plot(t_D,qdi_D(:,2));grid;subplot(313);plot(t_D,qdi_D(:,3));grid;
-        figure();subplot(311);plot(t_D,qd_est(:,1));title('Velocidad estimada'); grid; subplot(312);plot(t_D,qd_est(:,2));grid;subplot(313);plot(t_D,qd_est(:,3));grid;
-        figure();subplot(311);plot(t_D,qdi_D(:,1)-qd_est(:,1)); title('Error Velocidad');grid; subplot(312);plot(t_D,qdi_D(:,2)-qd_est(:,2));grid;subplot(313);plot(t_D,qdi_D(:,3)-qd_est(:,3));grid;
+% %         %Representacion compartiva entre el Estimado y el Ideal [Velocidad]
+%         figure();subplot(311);plot(t_D,qdi_D(:,1));title('Velocidad ideal'); grid; subplot(312);plot(t_D,qdi_D(:,2));grid;subplot(313);plot(t_D,qdi_D(:,3));grid;
+%         figure();subplot(311);plot(t_D,qd_est(:,1));title('Velocidad estimada'); grid; subplot(312);plot(t_D,qd_est(:,2));grid;subplot(313);plot(t_D,qd_est(:,3));grid;
+%         figure();subplot(311);plot(t_D,qdi_D(:,1)-qd_est(:,1)); title('Error Velocidad');grid; subplot(312);plot(t_D,qdi_D(:,2)-qd_est(:,2));grid;subplot(313);plot(t_D,qdi_D(:,3)-qd_est(:,3));grid;
         
         % Aplicacion del FILTRO de Butterworth --> Medidas estimadas de
         % Velocidad
@@ -139,7 +139,7 @@ switch selec
 %         figure();subplot(311);plot(t_D,qddi_D(:,1)-qdd_est(:,1)); title('Error Aceleracion');grid; subplot(312);plot(t_D,qddi_D(:,2)-qdd_est(:,2));grid;subplot(313);plot(t_D,qddi_D(:,3)-qdd_est(:,3));grid;
 %         
 %          
-        ObtencionNumerica(t_D,Im_D,qr_D,qd_est,qdd_est,R1,R2,R3);
+%         ObtencionNumerica(t_D,Im_D,qr_D,qd_est,qdd_est,R1,R2,R3);
         % Si las cosas han ido bien, apareceran por terminal las variables
         % Ma,Va y Ga. Si es asi, ahora se deberan modificar las matrices
         % del script "ModeloDinamico_RRR_sl.m". Tras ello, se debera hacer
@@ -153,8 +153,11 @@ switch selec
         %aquellos experimentos que tengan asociados aceleraciones fuertes;
         %debido a esto los terminos de theta_li asociados a estos estaran
         %peor identificados
-        
-        
+        figure(); %Representacion de las variables para la estimacion de parametros [Posicion/velocidad/aceleracion]
+        subplot(331);plot(t_D,qr_D(:,1));title('Posicion real'); grid; subplot(332);plot(t_D,qr_D(:,2));grid;subplot(333);plot(t_D,qr_D(:,3));grid;
+        subplot(334);plot(t_D,qd_est(:,1));title('Velocidad Estimada'); grid; subplot(335);plot(t_D,qd_est(:,2));grid;subplot(336);plot(t_D,qd_est(:,3));grid;
+        subplot(337);plot(t_D,qdd_est(:,1));title('Aceleracion estimada'); grid; subplot(338);plot(t_D,qdd_est(:,2));grid;subplot(339);plot(t_D,qdd_est(:,3));grid;
+       
         % %%%%%%%% Robot real solo encoder sin Reductoras %%%%%%%%
         % (RECORDAR ACTIVAR EL ACCIONAMIENTO DIRECTO)
     case 4
