@@ -153,7 +153,8 @@ switch selec
         %aquellos experimentos que tengan asociados aceleraciones fuertes;
         %debido a esto los terminos de theta_li asociados a estos estaran
         %peor identificados
-        figure(); %Representacion de las variables para la estimacion de parametros [Posicion/velocidad/aceleracion]
+         whitebg('k')
+        figure(1); %Representacion de las variables para la estimacion de parametros [Posicion/velocidad/aceleracion]
         subplot(331);plot(t_D,qr_D(:,1));title('Posicion real'); grid; subplot(332);plot(t_D,qr_D(:,2));grid;subplot(333);plot(t_D,qr_D(:,3));grid;
         subplot(334);plot(t_D,qd_est(:,1));title('Velocidad Estimada'); grid; subplot(335);plot(t_D,qd_est(:,2));grid;subplot(336);plot(t_D,qd_est(:,3));grid;
         subplot(337);plot(t_D,qdd_est(:,1));title('Aceleracion estimada'); grid; subplot(338);plot(t_D,qdd_est(:,2));grid;subplot(339);plot(t_D,qdd_est(:,3));grid;

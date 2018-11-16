@@ -18,10 +18,10 @@ t_init   = in(8);
 t_tray   = in(9);
 t    = in(10);
 
-%  %% Inicializacion de variables para testear la funcion
-% x_init=3.5; y_init=0; z_init=4;
-% x_fin =2.5; y_fin=0 ; z_fin=5;
-% n_ptos=5; t_init=0.5; t_tray=1;
+ %% Inicializacion de variables para testear la funcion
+% x_init=1.8000; y_init=0; z_init=1.2000;
+% x_fin =1.566; y_fin=0 ; z_fin=0.634;
+% n_ptos=5; t_init=2; t_tray=2;
 
 %% Obtencion de la trayectoria en el espacio cartesiano
 pos_init=[x_init y_init z_init];
@@ -136,7 +136,7 @@ end
 
 %  figure;
 %   Tm=0.001;
-%   for t=0:Tm:(t_init+t_tray)+1 % La instruccion 'for' solo es valida para plotear el resultado, se debe eliminar al tener l entrada de reloj
+%   for t=0:Tm:(t_init+t_tray)+5 % La instruccion 'for' solo es valida para plotear el resultado, se debe eliminar al tener l entrada de reloj
 
 if(t>=t_init && t<(t_init+t_tray))
     offset=(floor(t_init/T)-1);
@@ -181,7 +181,7 @@ qdd3_r = 6*Aq3*( t-t_tramo ) + 2*Bq3;
 % %//Testeo//%
 %     hold on; 
 
-% %     %Ploteo Posiciones 
+% %     Ploteo Posiciones 
 %     plot(t,q1_r,'*');grid
 %     plot(t,q2_r,'*');grid
 %     plot(t,q3_r,'*');grid
