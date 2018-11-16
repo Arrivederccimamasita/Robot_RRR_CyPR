@@ -69,11 +69,15 @@ function [I_control]=controlador(in)
   
   % Definicion de parametros del controlador PD
   Kc=3/ts_bc;
-  
-  Kp1=(Va1/(Kt1*R1))*Kc; Td1=Ma1/Va1;
-  Kp2=(Va2/(Kt2*R2))*Kc; Td2=Ma2/Va2;
-  Kp3=(Va3/(Kt3*R3))*Kc; Td3=Ma3/Va3;
-  
+%   
+%   Kp1=(Va1/(Kt1*R1))*Kc; Td1=Ma1/Va1;
+%   Kp2=(Va2/(Kt2*R2))*Kc; Td2=Ma2/Va2;
+%   Kp3=(Va3/(Kt3*R3))*Kc; Td3=Ma3/Va3;
+
+  Kp1=24.911; Td1=0.097;
+  Kp2=157.48; Td2=0.11;
+  Kp3=187.4; Td3=0.1;
+
   % Componentes del controlador discreto empleando la aproximacion de 
   % Euler II
   % %%%%%%%%%%%%%%%%%%%%%%%%%%
