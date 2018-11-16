@@ -1,4 +1,4 @@
-x%% CONTROLADOR IMPLEMENTADO EN DISCRETO
+%% CONTROLADOR IMPLEMENTADO EN DISCRETO
 % IMPLEMENTACION DE UN CONTROLADOR PD EN DISCRETO
 
 function [I_control]=controlador(in)
@@ -38,19 +38,24 @@ function [I_control]=controlador(in)
   % Definicion del tiempo de subida en bucle cerrado
   ts_bc=50e-3;
   
-  %Definicion de constantes viscosas
-  Va1=[3.00016000000000];
-  Va2=[0.765382140000000];
-  Va3=[0.337277250000000];
+  % Definicion de las constantes del controlador
+  Ma1=1.4785;
+  Ma2=6.2002;
+  Ma3=2.4628;
+
   
-  Ma1=[23.9668000000000];
-  Ma2=[30.0770000000000];
-  Ma3=[4.46980000000000];
+  Va1=0.1200;     % Bm*(R^2)
+  Va2=0.063796;
+  Va3=0.064287;
   
+  R1=50; R2=30; R3=15;
+  Kt1=0.5; Kt2=0.4; Kt3 =0.35;
+  % Definicion de las intensidades de equilibrio
   Im1_eq=0;
   Im2_eq=0;
   Im3_eq=0;
   
+  % Tiempo de muestro
   Tm=0.001;
   
   % Inicializacion de variables
@@ -65,9 +70,9 @@ function [I_control]=controlador(in)
   % Definicion de parametros del controlador PD
   Kc=3/ts_bc;
   
-  Kp1=Kc/Va1; Td1=Ma1/Va1;
-  Kp2=Kc/Va2; Td2=Ma2/Va2;
-  Kp3=Kc/Va3; Td3=Ma3/Va3;
+  Kp1=(Va1/(Kt1*R1))*Kc; Td1=Ma1/Va1;
+  Kp2=(Va2/(Kt2*R2))*Kc; Td2=Ma2/Va2;
+  Kp3=(Va3/(Kt3*R3))*Kc; Td3=Ma3/Va3;
   
   % Componentes del controlador discreto empleando la aproximacion de 
   % Euler II
