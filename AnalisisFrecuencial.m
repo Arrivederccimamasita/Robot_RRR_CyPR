@@ -4,7 +4,7 @@
 clear all
 Tm=0.001; %Tiempo de muestreo
 R1=50; R2=30; R3=15;    % Reductoras
-DatosSimSenoides;
+DatosSimSenoides_Exp;
 sim('sl_RobotReal_RRR');
 
 
@@ -91,10 +91,10 @@ ylabel('Radianes');
 S=qr_D; %Representacion de Posiciones Encoders
 S_Filtr=[];
 %Asignacion de vbls de diseño
-Wp=0.00018; %Frecuencia de paso
+Wp=0.0005; %Frecuencia de paso
 Rp=3; %Rizado caracteristico en zona de paso
-Ws=0.00026; %Frecuencia de Corte
-Rs=8; %Rizado permitido en el corte
+Ws=0.00150; %Frecuencia de Corte
+Rs=6; %Rizado permitido en el corte
 
 %Aplicacion Filtro
 for i=1:3
@@ -110,14 +110,12 @@ qr_filt=S_Filtr; %Posiciones Filtradas
 qd_est=filtroNoCausal_derivada(t_D,qr_filt,Tm);   % Obtencion de la derivada
 
 S=qd_est; %Representacion de Velocidades Estimadas
-
 S_Filtr=[];
 %Asignacion de vbls de diseño
-Wp=0.0003; %Frecuencia de paso
+Wp=0.0010; %Frecuencia de paso
 Rp=3; %Rizado caracteristico en zona de paso
-Ws=0.00040; %Frecuencia de Corte
+Ws=0.0020; %Frecuencia de Corte
 Rs=8; %Rizado permitido en el corte
-
 %Aplicacion Filtro
 for i=1:3
     X=qd_est(:,i); %Señal a filtrar
