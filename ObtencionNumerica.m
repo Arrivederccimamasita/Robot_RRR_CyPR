@@ -26,7 +26,7 @@ function ObtencionNumerica(t,Im,q,qd,qdd,R1,R2,R3)
 
 % %% ESTIMACION DE LOS PARAMETROS DINAMICOS %%%%%% 
 % Valores de simulacion
-n=10; %Cada cuantas muestras tomamos los datos
+n=20; %Cada cuantas muestras tomamos los datos
 M=floor(length(t)/n); %Numero de datos totales
 
 % Valores conocidos
@@ -92,7 +92,7 @@ end
 
 %Se comprueva la validez del parametro
 
-tolerancia_tpc=6; %Condicion de verificacion en %
+tolerancia_tpc=5; %Condicion de verificacion en %
 flag=0;     % Flag creado para que si todos los valores sin validos, se obtenga el modelo.
 
 for i=1:length(tetha_expr)
