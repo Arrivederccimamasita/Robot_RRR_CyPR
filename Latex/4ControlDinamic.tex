@@ -3,41 +3,96 @@ En esta última parte del proyecto, una vez se conoce el modelo del robot en las
 Una vez se tenga un modelo lineal de cada articulación del robot, junto con el generador de trayectorias creado anteriormente, se buscará que el robot siga una trayectoria predefinida.\\
 
 	\subsection{Obtención del modelo lineal de las articulaciones del brazo}
-Para obtener la función de transferencia de cada articulación del robot, se linealizará la ecuación dinamica que define cada motor en un punto de equilibrio en torno a velocidades nulas. Por lo tanto, las consideraciones que se tendrán en cuenta para linealizar la ecuación dinamica que define el comportamiento de cada articulacion del robot son:\\
+Para obtener la función de transferencia de cada articulación del robot, se linealizará la ecuación dinamica que define cada motor en un punto de equilibrio en torno a velocidades nulas. Por lo tanto, las consideraciones que se tendrán en cuenta para linealizar la ecuación dinamica que define el comportamiento de cada articulacion del robot son:
 \begin{itemize}
 	\item Velocidades de equilibrio
 	\begin{center}
 		$ \dot{q_{eq}}=0 rad/s $\\
 		$ \dot{q} =\dot{q_{eq}}+\Delta\dot{q}$
 	\end{center}
-
 	\item Aceleraciones de equilibrio
 \begin{center}
 	$ \ddot{q_{eq}}=0 rad/s $\\
 	$  $
 	$ \ddot{q} =\ddot{q_{eq}}+\Delta\ddot{q}$
 \end{center}
-
 \end{itemize}
 
-Ademas de ello, se aplicarán una serie de simplificacines a la ecuación dinamica. A continuación, se mostrarán las ecuaciones dimámicas de los motores:\\
+Ademas de ello, se aplicarán una serie de simplificaciones a la ecuación dinámica. A continuación, se mostrarán las ecuaciones dinámicas de los motores:\\
 \begin{center}
-	
-	\begin{pmatriz}
-	$ \tau1$ \\
-	$ \tau2$ \\
-	$ \tau3$ 
-	\end{pmatriz}
-	=
-	\begin{pmatriz}
-		$ Kt_{1}R_{1}Im_{1} $ \\
-		$ Kt_{2}R_{2}Im_{2} $ \\
-		$ Kt_{3}R_{3}Im_{3} $ 
-	\end{pmatriz}
-	=
-	 \begin{pmatriz}
-	 	$ Ma$
-	 \end{pmatriz}
+	$$
+	\begin{pmatrix}
+	 \tau_{1} \\
+	 \tau_{2} \\
+	 \tau_ {3}
+	\end{pmatrix}=
+	\begin{pmatrix}
+	Kt_{1}R_{1}Im_{1}  \\
+	Kt_{2}R_{2}Im_{2}  \\
+	Kt_{3}R_{3}Im_{3}  
+	\end{pmatrix} =
+	\begin{pmatrix}
+	Ma_{11} & Ma_{12} & Ma_{13}  \\
+	Ma_{21} & Ma_{22} & Ma_{23}  \\
+	Ma_{31} & Ma_{32} & Ma_{33} 
+	\end{pmatrix}
+	\ddot{q}+
+	\begin{pmatrix}
+	Va_{1} \\
+	Va_{2} \\
+	Va_{3} \\
+	\end{pmatrix}	
+	\dot{q}+
+	\begin{pmatrix}
+	Ga_{1}  \\
+	Ga_{2}  \\
+	Ga_{3}\\
+	\end{pmatrix}
+	$$
 \end{center}
+donde se asume que dentro de los términos de inercia y de Coirolis se han tenido en cuenta las inercias y fricciones viscosas de los motores.\\
+
+La primera simplificación del modelo que se hará para poder linealizar el modelo en torno a un punto de operación, será suponer la matriz de inercias diagonal y, además de ello, se cogerá el valor medio de todos los senos y cosenos de tal modo que únicamente se tomen los valores de inercias medios. De éste modo, se desacoplará el sistema.\\
+En cuando a la matriz de términos de Coirolis, únicamente aportarán a la linealización la fricción viscosa de los motores. Por último, la gravedad se despreciará para obtener un modelo, de tal modo que, se emplearán las siguientes ecuaciones para obtener los modelos de las articulaciones del robot:
+\begin{equation}
+	\begin{pmatrix}
+	Kt_{1}R_{1}Im_{1}  \\
+	Kt_{2}R_{2}Im_{2}  \\
+	Kt_{3}R_{3}Im_{3}  
+	\end{pmatrix} =
+	\begin{pmatrix}
+	Ma_{11} & 0 	  & 0  \\
+		0   & Ma_{22} & 0  \\
+		0   & 0   	  & Ma_{33} 
+	\end{pmatrix}
+	\ddot{q}+
+	\begin{pmatrix}
+	Va_{1} \\
+	Va_{2} \\
+	Va_{3} \\
+	\end{pmatrix}	
+	\dot{q}
+\end{equation}
+
+A continuación, se obtendrá el modelo de la primera articulación y, el procedimiento será análogo para las restantes:
+\begin{center}
+	$Kt_{1}R_{1}Im_{1}(t)=Ma_{11}\ddot{q_{1}(t)} + Va_{1}\dot{q_{1}(t)}$
+\end{center}
+Se realizará una transformación al dominio de Laplace y, posteriormente, se expresará en forma de función de transferencia:
+\begin{center}
+	$Kt_{1}R_{1}Im_{1}(s)=s^{2}Ma_{11}q_{1}(s) + sVa_{1}q_{1}(s)$ $\rightarrow$ $\frac{q_{1}(s)}{Im_{1}(s)}=\frac{Kt_{1}R_{1}}{s(Ma_{11}s+Va_{1})}$
+\end{center}
+
+Por lo tanto, se definirá el modelo de cada articulación cómo:
+\begin{equation}
+	G_{1}(s)=\frac{Kt_{1}R_{1}}{s(Ma_{11}s+Va_{1})} \hspace{1cm} G_{2}(s)=\frac{Kt_{2}R_{2}}{s(Ma_{2}s+Va_{2})} \hspace{1cm} G_{3}(s)=\frac{Kt_{3}R_{3}}{s(Ma_{33}s+Va_{3})}
+\end{equation}
+
 	\subsection{Diseño de controladores}
-	\subsection{FANTASIA VARIADA DE GIL}
+	En éste apartado, se analizará cómo se hayarán los controladores que, posteriormente se implementarán sobre el robot para hacer que se traslade a lo largo de una trayectoria que se generará mediante el control cinemático.\\
+	A continuación se hará un análisis teórico de cada controlador y del calculo de los mismos.
+	\subsubsection{Controlador PD/PID}
+	\subsubsection{Controlador PD/PID con compensación de gravedad}
+	\subsubsection{Controlador PD/PID con compensación de dinámica (Feedforward)}
+	\subsubsection{Controlador PD/PID con par calculado}
+	\subsection{Analisis de controladores}
