@@ -1,4 +1,4 @@
-function [udd]=precompensador_dinamica(in)
+function [udd]=par_calculado(in)
 q1=in(1);
 q2=in(2);
 q3=in(3);
