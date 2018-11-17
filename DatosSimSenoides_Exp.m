@@ -11,57 +11,63 @@
 
 % %/*EXPONENCIALES*/%
 % %Valores de tiempo atenuacion
-% tau1=25; tau2=15; tau3=15;
+% tau1=80; tau2=90; tau3=100;
 % 
 % %%Parametros senoides
 % %Senoide I1
-% Im_cc1=18;
+% Im_cc1=8;
 % 
 % %Senoide I2
-% Im_cc2=8;
+% Im_cc2=2000;
 % 
 % %Senoide I3
-% Im_cc3=8;
-% 
-% % close all
-% x=[1:100];
-% y=exp(x);
-% sig1=(Im_cc1.*y)./(y.*exp(-x./tau1));
-% figure
-% plot(x,sig1)
+% Im_cc3=0.8;
 
-% %Valores de tiempo atenuacion
+% close all
+% Im_cc=[Im_cc1,Im_cc2,Im_cc3];
+% tau=[tau1,tau2,tau3];
+% % % 
+%  x=1:140;
+%  y=exp(x);
+%  figure(4)
+%  label=120;
+% for i=1:3
+%     sig1=(Im_cc(i).*y)./(y.*exp(-x./tau(i)));
+%  subplot(1,3,i); plot(x(1:label),sig1(1:label)); grid; title(['Forma Onda Im ',num2str(i),' para q ',num2str(i)]); 
+%  
+% end
+% % % Valores de tiempo atenuacion
 % tau1=500; tau2=500; tau3=500;
-% % 
-% %%Parametros senoides
-% %Senoide I1
-% Aa_1=500; Ab_1=-150;
-% wa_1=100; wb_1=25;
-% Im_cc1=20;
 % 
-% %Senoide I2
-% Aa_2=500; Ab_2=300;
+% %Parametros senoides
+% % Senoide I1
+% Aa_1=-50000; Ab_1=150;
+% wa_1=25; wb_1=25;
+% Im_cc1=0;
+% 
+% % Senoide I2
+% Aa_2=500; Ab_2=-300;
 % wa_2=100; wb_2=5;
-% Im_cc2=4;
+% Im_cc2=6.5;
 % 
-% %Senoide I3
-% Aa_3=500; Ab_3=1000;
-% wa_3=100; wb_3=1;
-% Im_cc3=0;
+% % Senoide I3
+% Aa_3=-500; Ab_3=100;
+% wa_3=100; wb_3=15;
+% Im_cc3=3.5;
 
-% %/*EXPONENCIALES*/%
-% %Valores de tiempo atenuacion
-% tau1=80000000; tau2=19; tau3=20;
-% 
-% %%Parametros senoides
-% %Senoide I1
-% Im_cc1=-00.000001;
-% 
-% %Senoide I2
-% Im_cc2=8004;
-% 
-% %Senoide I3
-% Im_cc3=4;
+%/*EXPONENCIALES*/% -- theta li 1 y 4
+%Valores de tiempo atenuacion
+tau1=45; tau2=50; tau3=60;  
+
+%%Parametros senoides
+%Senoide I1
+Im_cc1=14;
+
+%Senoide I2
+Im_cc2=80;
+
+%Senoide I3
+Im_cc3=15;
 
 % %/*EXPONENCIALES*/%
 % %Valores de tiempo atenuacion
@@ -80,10 +86,10 @@
 % %%%%%%%%%%%%%%%% RESULTADOS CON EL ROBOT 1 %%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% tetha_li(1)= -8.656330e+03 Valido con varianza 2.555327e+00 //ESTE
-% DIVIDIDO POR CIEN
+% tetha_li(1)= 1.699503e+01 Valido con varianza 4.057306e+00 
+% 
 % tetha_li(3)= 1.239397e+01 Valido con varianza 1.290980e+00 
-% tetha_li(4)= -7.978372e+00 Valido con varianza 4.994872e+00 
+% tetha_li(4)= 3.828013e+01 Valido con varianza 1.947205e+00 git
 % tetha_li(6)= 1.434048e+00 Valido con varianza 9.174805e-01 
 %  tetha_li(7)= 4.037223e+00 Valido con varianza 4.545900e+00 
 % tetha_li(8)= 4.914669e-02 Valido con varianza 1.234847e+00 
@@ -131,7 +137,7 @@
 % wa_3=8; wb_3=3;
 % Im_cc3=0;
 
-% Valores de tiempo atenuacion -->tetha_li(9)
+% % Valores de tiempo atenuacion -->tetha_li(9)
 % tau1=1; tau2=201; tau3=1;
 % 
 % %%Parametros senoides

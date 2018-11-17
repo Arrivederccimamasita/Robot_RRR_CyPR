@@ -4,7 +4,7 @@
 % "sl_R3GDL_Mfunction.mdl"                                                %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-function [qdd] = ModeloDinamico_RobotIdeal_cR(in)
+function [qdd] = ModeloDinamico_RobotReal_cR(in)
 % Variables de entrada en la funcion: [q(3)  qd(3)  Tau(3)]
 q1        = in(1);
 q2        = in(2);
