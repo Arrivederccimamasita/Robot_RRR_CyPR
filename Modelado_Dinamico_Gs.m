@@ -73,9 +73,9 @@ G3=tf(numG3,denG3);
   Kp3=956.67;  Td3=0.1;
 
 % PARAMETROS PID CON REDUCTORAS
-  Ti1=2*0.18; Td1=(2*(0.18^2))/Ti1;   Kp1=68.115*Ti1;
-  Ti2=2*0.19; Td2=(2*(0.19^2))/Ti2;   Kp2=513.04*Ti2; 
-  Ti3=2*0.18; Td3=(2*(0.18^2))/Ti3;   Kp3=542.09*Ti3; 
+  Ti1=0.36; Td1=0.18;   Kp1=68.115*Ti1;
+  Ti2=0.36; Td2=0.18;   Kp2=513.04*Ti2; 
+  Ti3=0.36; Td3=0.18;   Kp3=542.09*Ti3; 
 
 % Obtencion de las funciones de transferencia para los controladores ->
 % Feedforward
@@ -87,15 +87,8 @@ numG2_ff=1;
 denG2_ff=[1 0 0];
 G2_ff=tf(numG2_ff,denG2_ff);
 
-<<<<<<< HEAD
-
-
 numG3_ff=1;
 denG3_ff=[1 0 0];
-=======
-numG3_ff=Kt3*R3;
-denG3_ff=[1 0 0]*Ma3;
->>>>>>> d8c44c8f62d2d99eea4afdcc31b78b7dcb92209a
 G3_ff=tf(numG3_ff,denG3_ff);
 
 
