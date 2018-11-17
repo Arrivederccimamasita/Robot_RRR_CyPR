@@ -9,7 +9,8 @@
 % Para linealizar se tomaran todas las q como cero (Otro modo seria
 % despreciar todo lo que no sea termino independiente).
 
-% Va1=-8.6736e-21*qd1*(2.049e19*qd2*sin(2.0*q2 + q3) + 1.0245e19*qd3*sin(2.0*q2 + q3) + 2.7416e19*qd2*sin(2.0*q2) + 1.0245e19*qd3*sin(q3) + 6.7799e18*qd2*sin(2.0*q2 + 2.0*q3) + 6.7799e18*qd3*sin(2.0*q2 + 2.0*q3) - 1.3834e19)
+% Va1=-8.6736e-21*qd1*(2
+.049e19*qd2*sin(2.0*q2 + q3) + 1.0245e19*qd3*sin(2.0*q2 + q3) + 2.7416e19*qd2*sin(2.0*q2) + 1.0245e19*qd3*sin(q3) + 6.7799e18*qd2*sin(2.0*q2 + 2.0*q3) + 6.7799e18*qd3*sin(2.0*q2 + 2.0*q3) - 1.3834e19)
 % Va2=0.063796*qd2 - 0.18513*qd3^2*sin(q3) + 0.061258*qd1^2*sin(2.0*q2 + 2.0*q3) + 0.18513*qd1^2*sin(2.0*q2 + q3) + 0.2477*qd1^2*sin(2.0*q2) - 0.37026*qd2*qd3*sin(q3)
 % Va3=0.064287*qd3 + 0.21158*qd1^2*sin(q3) + 0.42316*qd2^2*sin(q3) + 0.14003*qd1^2*sin(2.0*q2 + 2.0*q3) + 0.21158*qd1^2*sin(2.0*q2 + q3)
 % Para linealizar la matriz V, se tomarán únicamente los terminos que
@@ -42,7 +43,8 @@ Va1=0.1200;     % Bm*(R^2)
 Va2=0.063796;
 Va3=0.064287;
 
-% Obtencion de las funciones de transferencia
+% Obtencion de las funciones de transferencia para los controladores PID Y
+% PD.
 numG1=Kt1*R1;
 denG1=conv([1 0],[Ma1 Va1]);
 G1=tf(numG1,denG1);
@@ -54,3 +56,29 @@ G2=tf(numG2,denG2);
 numG3=Kt3*R3;
 denG3=conv([1 0],[Ma3 Va3]);
 G3=tf(numG3,denG3);
+
+% PARAMETROS PD CON REDUCTORAS
+  Kp1=24.911; Td1=0.097; 
+  Kp2=157.48; Td2=0.11;
+  Kp3=187.4;  Td3=0.1;
+
+% PARAMETROS PID CON REDUCTORAS
+  Ti1=2*0.18; Td1=(2*(0.18^2))/Ti1;   Kp1=68.115*Ti1;
+  Ti2=2*0.19; Td2=(2*(0.19^2))/Ti2;   Kp2=513.04*Ti2; 
+  Ti3=2*0.18; Td3=(2*(0.18^2))/Ti3;   Kp3=542.09*Ti3; 
+
+% Obtencion de las funciones de transferencia para los controladores ->
+% Feedforward
+numG1_ff=Kt1*R1;
+denG1_ff=[1 0 0]*Ma1;
+G1_ff=tf(numG1_ff,denG1_ff);
+
+numG2_ff=Kt2*R2;
+denG2_ff=[1 0 0]*Ma2;
+G2_ff=tf(numG2_ff,denG2_ff);
+
+
+
+numG3_ff=Kt3*R3;
+denG3_ff=[1 0 0]*Ma3;
+G3_ff=tf(numG3_ff,denG3_ff);
