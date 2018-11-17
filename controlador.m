@@ -37,19 +37,7 @@ function [I_control]=controlador(in)
 
   % Definicion del tiempo de subida en bucle cerrado
   ts_bc=50e-3;
-  
-  % Definicion de las constantes del controlador
-  Ma1=1.4785;
-  Ma2=6.2002;
-  Ma3=2.4628;
 
-  
-  Va1=0.1200;     % Bm*(R^2)
-  Va2=0.063796;
-  Va3=0.064287;
-  
-  R1=50; R2=30; R3=15;
-  Kt1=0.5; Kt2=0.4; Kt3 =0.35;
   % Definicion de las intensidades de equilibrio
   Im1_eq=0;
   Im2_eq=0;
@@ -67,13 +55,8 @@ function [I_control]=controlador(in)
   e2_k= q2ref_k - q2_k;
   e3_k= q3ref_k - q3_k;
   
-  % Definicion de parametros del controlador PD
-  Kc=3/ts_bc;
-%   
-%   Kp1=(Va1/(Kt1*R1))*Kc; Td1=Ma1/Va1;
-%   Kp2=(Va2/(Kt2*R2))*Kc; Td2=Ma2/Va2;
-%   Kp3=(Va3/(Kt3*R3))*Kc; Td3=Ma3/Va3;
-
+  % Definicion de parametros del controlador PD sin cancelacion
+  % Ts_bc=50ms
   Kp1=24.911; Td1=0.097;
   Kp2=157.48; Td2=0.11;
   Kp3=187.4; Td3=0.1;
