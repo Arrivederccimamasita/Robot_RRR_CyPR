@@ -1,4 +1,43 @@
 \section{Control Dinámico del brazo}
-	\subsection{Obtencion del modelo lineal de las articulaciones del brazo}
+En esta última parte del proyecto, una vez se conoce el modelo del robot en las diferentes configuraciones, se pasará a buscar implementar un control dinámico sobre el mismo.Para poder implementar controladores sobre nuestro robot, será necesario obtener una función de transferencia matemática a modo de modelo que se asemeje al robot real.\\
+Una vez se tenga un modelo lineal de cada articulación del robot, junto con el generador de trayectorias creado anteriormente, se buscará que el robot siga una trayectoria predefinida.\\
+
+	\subsection{Obtención del modelo lineal de las articulaciones del brazo}
+Para obtener la función de transferencia de cada articulación del robot, se linealizará la ecuación dinamica que define cada motor en un punto de equilibrio en torno a velocidades nulas. Por lo tanto, las consideraciones que se tendrán en cuenta para linealizar la ecuación dinamica que define el comportamiento de cada articulacion del robot son:\\
+\begin{itemize}
+	\item Velocidades de equilibrio
+	\begin{center}
+		$ \dot{q_{eq}}=0 rad/s $\\
+		$ \dot{q} =\dot{q_{eq}}+\Delta\dot{q}$
+	\end{center}
+
+	\item Aceleraciones de equilibrio
+\begin{center}
+	$ \ddot{q_{eq}}=0 rad/s $\\
+	$  $
+	$ \ddot{q} =\ddot{q_{eq}}+\Delta\ddot{q}$
+\end{center}
+
+\end{itemize}
+
+Ademas de ello, se aplicarán una serie de simplificacines a la ecuación dinamica. A continuación, se mostrarán las ecuaciones dimámicas de los motores:\\
+\begin{center}
+	
+	\begin{pmatriz}
+	$ \tau1$ \\
+	$ \tau2$ \\
+	$ \tau3$ 
+	\end{pmatriz}
+	=
+	\begin{pmatriz}
+		$ Kt_{1}R_{1}Im_{1} $ \\
+		$ Kt_{2}R_{2}Im_{2} $ \\
+		$ Kt_{3}R_{3}Im_{3} $ 
+	\end{pmatriz}
+	=
+	 \begin{pmatriz}
+	 	$ Ma$
+	 \end{pmatriz}
+\end{center}
 	\subsection{Diseño de controladores}
 	\subsection{FANTASIA VARIADA DE GIL}
