@@ -1,7 +1,7 @@
 %% CONTROLADOR IMPLEMENTADO EN DISCRETO
 % IMPLEMENTACION DE UN CONTROLADOR PD EN DISCRETO
 
-function [I_control]=controlador(in)
+function [I_control]=controladorPID(in)
   % Definicion de entradas del controlador
   q1ref_k = in(1);   % Posiciones de referencia
   q2ref_k = in(2);
@@ -32,8 +32,8 @@ function [I_control]=controlador(in)
   
   % Se emplean variables persistentes para que mantengan su valor cada vez
   % que se entre en la funcion.
-  persistent Int_e1 Int_e2 Int_e3;
-    persistent e1_k1 e2_k1 e3_k1;
+   persistent Int_e1 Int_e2 Int_e3;
+  % persistent e1_k1 e2_k1 e3_k1;
   % Definicion del tiempo de subida en bucle cerrado
   ts_bc=50e-3;
 
@@ -41,12 +41,10 @@ function [I_control]=controlador(in)
   Im1_eq=0;
   Im2_eq=0;
   Im3_eq=0;
-  
-  % Tiempo de muestro
-  Tm=0.001;
+
   
   % Inicializacion de variables
- if (t<1e-8) Int_e1=0; Int_e2=0; Int_e3=0; e1_k1=0; e2_k1=0; e3_k1=0; end
+   if (t<1e-10) Int_e1=0; Int_e2=0; Int_e3=0; end
 
   % Calculo de los errores -> No se hasta que punto es mejor hayarlo aqui o
   % que sea la entrada del controlador
@@ -60,36 +58,18 @@ function [I_control]=controlador(in)
   
   % Definicion de parametros del controlador PID sin cancelacion
   % Ts_bc=50ms
-  Ti1=2*0.18; Td1=(2*(0.18^2))/Ti1;   Kp1=68.115*Ti1;
-  Ti2=2*0.19; Td2=(2*(0.19^2))/Ti2;   Kp2=513.04*Ti2; 
-  Ti3=2*0.18; Td3=(2*(0.18^2))/Ti3;   Kp3=542.09*Ti3; 
-  % Componentes del controlador discreto empleando la aproximacion de 
-  % Euler II
-  % %%%%%%%%%%%%%%%%%%%%%%%%%%
-  %        q0+q1*z+q2*z^2
-  %  C(z)= ---------------
-  %            (z-1)z
-  %%%%%%%%%%%%%%%%%%%%%%%%%%
-%   for i=1:3
-%     q0(i)=Kp(i)*(1+(Tm/Ti(i))+(Td(i)/Tm));
-%     q1(i)=Kp(i)*(-1-2*(Td(i)/Tm));
-%     q2(i)=Kp(i)*(Td(i)/Tm);
-%   end
+ Ti1=2*0.18; Td1=(0.18^2)/(0.18*2);   Kp1=1652.2*Ti1;
+ Ti2=2*0.2; Td2=(0.2^2)/(0.2*2);   Kp2=5227.8*Ti2; 
+ Ti3=2*0.18; Td3=(0.18^2)/(0.18*2);   Kp3=2761.4*Ti3; 
+  
+  I1_k=Kp1*(Td1*ed1_k + e1_k + (1/Ti1)*Int_e1);
+  I2_k=Kp2*(Td2*ed2_k + e2_k + (1/Ti2)*Int_e2);
+  I3_k=Kp3*(Td3*ed3_k + e3_k + (1/Ti3)*Int_e3);
 
-
-
-I1_k=Kp1*(e1_k + (Td1/Tm)*(e1_k-e1_k1) + (1/Ti1)*Int_e1);
-I2_k=Kp2*(e2_k + (Td2/Tm)*(e2_k-e2_k1) + (1/Ti2)*Int_e2);
-I3_k=Kp3*(e3_k + (Td3/Tm)*(e3_k-e3_k1) + (1/Ti3)*Int_e3);
-
- Int_e1 = e1_k*Tm + Int_e1;
- Int_e2 = e2_k*Tm + Int_e2;
- Int_e3 = e3_k*Tm + Int_e3;
-
-% actualizacion
-e1_k1=e1_k; e2_k1=e2_k; e3_k1=e3_k;
-
-
+  Int_e1 = e1_k + Int_e1;
+  Int_e2 = e2_k + Int_e2;
+  Int_e3 = e3_k + Int_e3;
+  
   % Calculo de la señal de control abosluta (incremento+Valor de equilibrio)
   Im1_k=I1_k+Im1_eq; 
   Im2_k=I2_k+Im2_eq;
@@ -98,5 +78,5 @@ e1_k1=e1_k; e2_k1=e2_k; e3_k1=e3_k;
   % AQUI SE AÑADIRIA LA SATURACION DEL SISTEMA SI FUERA NECESARIO
   
   % Devolvemos como parametro la señal de control absoluta
-  I_control=[Im1_k Im2_k Im3_k];
+  I_control=[Im1_k; Im2_k ;Im3_k];
 end
