@@ -1,7 +1,7 @@
 %% CONTROLADOR IMPLEMENTADO EN DISCRETO
 % IMPLEMENTACION DE UN CONTROLADOR PD EN DISCRETO
 
-function [I_control]=controlador(in)
+function [I_control]=controladorPD(in)
   % Definicion de entradas del controlador
   q1ref_k = in(1);   % Posiciones de referencia
   q2ref_k = in(2);
@@ -33,8 +33,7 @@ function [I_control]=controlador(in)
   % Se emplean variables persistentes para que mantengan su valor cada vez
   % que se entre en la funcion.
     %   persistent I1_k1 I2_k1 I3_k1;             % Se definen las variables anteriores
-       persistent e1_k1 e2_k1 e3_k1;            % Se definen los errores anteriores
-       persistent e1_k2 e2_k2 e3_k2;
+    %   persistent e1_k1 e2_k1 e3_k1;            % Se definen los errores anteriores
   
   % Definicion del tiempo de subida en bucle cerrado
   ts_bc=50e-3;
@@ -48,7 +47,7 @@ function [I_control]=controlador(in)
   Tm=0.001;
   
   % Inicializacion de variables
- if (t<1e-8) e1_k1=0; e2_k1=0; e3_k1=0; end
+ % if (t<1e-8) e1_k1=0; e2_k1=0; e3_k1=0; end
 
   % Calculo de los errores -> No se hasta que punto es mejor hayarlo aqui o
   % que sea la entrada del controlador
@@ -73,49 +72,13 @@ function [I_control]=controlador(in)
   Kp2=4075.9; Td2=0.07;
   Kp3=956.67;  Td3=0.1;
   
-%   Kp=[Kp1;Kp2;Kp3]; Td=[Td1;Td2;Td3]; Ti=[Ti1;Ti2;Ti3];
-  % Componentes del controlador discreto empleando la aproximacion de 
-  % Euler II
-  % %%%%%%%%%%%%%%%%%%%%%%%%%%
-  %        q0+q1*z+q2*z^2
-  %  C(z)= ---------------
-  %            (z-1)z
-  %%%%%%%%%%%%%%%%%%%%%%%%%%
-%   for i=1:3
-%     q0(i)=Kp(i)*(1+(Tm/Ti(i))+(Td(i)/Tm));
-%     q1(i)=Kp(i)*(-1-2*(Td(i)/Tm));
-%     q2(i)=Kp(i)*(Td(i)/Tm);
-%   end
-% q0=[ 2441.3, 17480.0, 18927.0]';
-% q1=[ -4857.6, -34803.0, -37667.0]';
-% q2=[ 2416.4, 17323.0, 18740.0]';
-  % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  
-  % Se transformara a discreto la funcion de transferencia del controlador
-  % continua empleando la aproximacion de Euler II s=(z-1)/(zTm)
-  %                  s=(z-1)/(zTm)             z(Tm+Td)-Td  z^-1  |Ya se 
-  % C(s)=Kp(Td*s+1) ---------------> C(z)= Kp ------------- ----> |podria
-  %                                               Tm*z      z^-1  |implemnt
-  %
   % Incremento de la señal de control
-  I1_k=(Kp1)*((1+(Td1/Tm))*e1_k - (Td1/Tm)*e1_k1);
-  I2_k=(Kp2)*((1+(Td2/Tm))*e2_k - (Td2/Tm)*e2_k1);
-  I3_k=(Kp3)*((1+(Td3/Tm))*e3_k - (Td3/Tm)*e3_k1);
 
-%   I1_k=I1_k1+q0(1)*e1_k + q1(1)*e1_k1 + q2(1)*e1_k2;
-%   I2_k=I2_k1+q0(2)*e2_k + q1(2)*e2_k1 + q2(2)*e2_k2;
-%   I3_k=I3_k1+q0(3)*e3_k + q1(3)*e3_k1 + q2(3)*e3_k2;
+    I1_k=Kp1*(Td1*ed1_k+e1_k);
+    I2_k=Kp2*(Td2*ed2_k+e2_k);
+    I3_k=Kp3*(Td3*ed3_k+e3_k);
 
-% I1_k=Kp1*(Td1*ed1_k+e1_k);
-% I2_k=Kp2*(Td2*ed2_k+e2_k);
-% I3_k=Kp3*(Td3*ed3_k+e3_k);
 
-  % Actualización de variables
-   e1_k2=e1_k1; e1_k1=e1_k;
-   e2_k2=e2_k1;  e2_k1=e2_k;
-   e3_k2=e3_k1;  e3_k1=e3_k;
-%   
-%   I1_k1=I1_k; I2_k1=I2_k; I3_k1=I3_k;
   % Calculo de la señal de control abosluta (incremento+Valor de equilibrio)
   Im1_k=I1_k+Im1_eq; 
   Im2_k=I2_k+Im2_eq;
