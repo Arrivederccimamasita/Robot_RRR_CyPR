@@ -5,7 +5,7 @@
 syms q1 q2 q3 qd1 qd2 qd3 qdd1 qdd2 qdd3  g real
 L0=0.6; L1=0.6; L2=1; L3=0.8;
 Kt1=0.5; Kt2=0.4; Kt3 =0.35; Kt=diag([Kt1; Kt2; Kt3]);
-% R1=50; R2=30; R3=15; 
+R1=50; R2=30; R3=15; 
 R=diag([R1 ;R2 ;R3]);   % Reductoras
 KtR=Kt*R;
     
@@ -17,15 +17,15 @@ gamma_li=[ qdd1, 2500*qd1, qdd1/2 - (qdd1*cos(2*q2))/2 + qd1*qd2*sin(2*q2),    0
 % Paramelos obtenidos mediante la sucesion de experimentos
 tetha_expr=zeros(11,1);
 
-tetha_expr(1)= -8.656330e+00;
+tetha_expr(1)= 1.699503e+01;
 tetha_expr(2)= 1.223191e-03;
 
 tetha_expr(3)= 1.239397e+01;
-tetha_expr(4)= -7.978372e+00 ;
+tetha_expr(4)= 3.828013e+01 ;
 tetha_expr(5)= 1.292382e-03;
 
 tetha_expr(6)= 1.434048e+00 ;
- tetha_expr(7)= 4.037223e+00 ;
+tetha_li(7)= -7.738743e+00; %Valido con varianza 2.875130e+00 
 tetha_expr(8)= 4.914669e-02 ;
 tetha_expr(9)= 1.511168e-03 ;
 tetha_expr(10)= -6.672244e+00;

@@ -31,35 +31,46 @@ elseif (flag==0)
     R1=1; R2=1; R3=1;   
 end
 
-% %%%% ROBOT IDEAL CON REDUCTORAS %%%%
-% Obtencion del termino de la matriz de inercias simplificado
-Ma1=1.4785; %Ma1=eval( subs(subs(subs(Ma11,q1,0),q2,0),q3,0)); 
-Ma2=6.2002; %Ma2=eval( subs(subs(subs(Ma22,q1,0),q2,0),q3,0)); 
-Ma3=2.4628; %Ma3=eval( subs(subs(subs(Ma33,q1,0),q2,0),q3,0)); 
+%%   % %%%% ROBOT IDEAL CON REDUCTORAS %%%%
+% % Obtencion del termino de la matriz de inercias simplificado
+% Ma1=1.4785; %Ma1=eval( subs(subs(subs(Ma(1,1),q1,0),q2,0),q3,0)); 
+% Ma2=6.2002; %Ma2=eval( subs(subs(subs(Ma(2,2),q1,0),q2,0),q3,0)); 
+% Ma3=2.4628; %Ma3=eval( subs(subs(subs(Ma(3,3),q1,0),q2,0),q3,0)); 
+% 
+% % Se ha extraido los valores de las Bm_i de los parametros tetha_li
+% Va1=0.1200;     % Bm*(R^2)
+% Va2=0.063796;
+% Va3=0.064287;
+
+
+%% %%%% ROBOT REAL CON REDUCTORAS %%%%
+Ma1=1.530232687999876; %Ma1=eval( subs(subs(subs(Ma(1,1),q1,0),q2,0),q3,0)); 
+Ma2=4.961743100000301; %Ma2=eval( subs(subs(subs(Ma(2,2),q1,0),q2,0),q3,0)); 
+Ma3=2.4628; %Ma3=eval( subs(subs(subs(Ma(3,3),q1,0),q2,0),q3,0)); 
 
 % Se ha extraido los valores de las Bm_i de los parametros tetha_li
-Va1=0.1200;     % Bm*(R^2)
-Va2=0.063796;
-Va3=0.064287;
+Va1= 0.1223;     % Bm*(R^2)
+Va2=0.096929;
+Va3=0.064764;
 
 % Obtencion de las funciones de transferencia para los controladores PID Y
 % PD.
-numG1=Kt1*R1;
+numG1=1;
 denG1=conv([1 0],[Ma1 Va1]);
 G1=tf(numG1,denG1);
 
-numG2=Kt2*R2;
+numG2=1;
 denG2=conv([1 0],[Ma2 Va2]);
 G2=tf(numG2,denG2);
 
-numG3=Kt3*R3;
+numG3=1;
 denG3=conv([1 0],[Ma3 Va3]);
 G3=tf(numG3,denG3);
 
 % PARAMETROS PD CON REDUCTORAS
-  Kp1=24.911; Td1=0.097; 
-  Kp2=157.48; Td2=0.11;
-  Kp3=187.4;  Td3=0.1;
+  Kp1=1386.4; Td1=0.066; 
+  Kp2=4075.9; Td2=0.07;
+  Kp3=956.67;  Td3=0.1;
 
 % PARAMETROS PID CON REDUCTORAS
   Ti1=2*0.18; Td1=(2*(0.18^2))/Ti1;   Kp1=68.115*Ti1;
@@ -76,10 +87,15 @@ numG2_ff=1;
 denG2_ff=[1 0 0];
 G2_ff=tf(numG2_ff,denG2_ff);
 
+<<<<<<< HEAD
 
 
 numG3_ff=1;
 denG3_ff=[1 0 0];
+=======
+numG3_ff=Kt3*R3;
+denG3_ff=[1 0 0]*Ma3;
+>>>>>>> d8c44c8f62d2d99eea4afdcc31b78b7dcb92209a
 G3_ff=tf(numG3_ff,denG3_ff);
 
 
