@@ -5,7 +5,7 @@
 syms q1 q2 q3 qd1 qd2 qd3 qdd1 qdd2 qdd3  g real
 L0=0.6; L1=0.6; L2=1; L3=0.8;
 Kt1=0.5; Kt2=0.4; Kt3 =0.35; Kt=diag([Kt1; Kt2; Kt3]);
-% R1=50; R2=30; R3=15; 
+R1=50; R2=30; R3=15; 
 R=diag([R1 ;R2 ;R3]);   % Reductoras
 KtR=Kt*R;
     

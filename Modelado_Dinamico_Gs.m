@@ -9,8 +9,7 @@
 % Para linealizar se tomaran todas las q como cero (Otro modo seria
 % despreciar todo lo que no sea termino independiente).
 
-% Va1=-8.6736e-21*qd1*(2
-.049e19*qd2*sin(2.0*q2 + q3) + 1.0245e19*qd3*sin(2.0*q2 + q3) + 2.7416e19*qd2*sin(2.0*q2) + 1.0245e19*qd3*sin(q3) + 6.7799e18*qd2*sin(2.0*q2 + 2.0*q3) + 6.7799e18*qd3*sin(2.0*q2 + 2.0*q3) - 1.3834e19)
+% Va1=-8.6736e-21*qd1*(2.049e19*qd2*sin(2.0*q2 + q3) + 1.0245e19*qd3*sin(2.0*q2 + q3) + 2.7416e19*qd2*sin(2.0*q2) + 1.0245e19*qd3*sin(q3) + 6.7799e18*qd2*sin(2.0*q2 + 2.0*q3) + 6.7799e18*qd3*sin(2.0*q2 + 2.0*q3) - 1.3834e19)
 % Va2=0.063796*qd2 - 0.18513*qd3^2*sin(q3) + 0.061258*qd1^2*sin(2.0*q2 + 2.0*q3) + 0.18513*qd1^2*sin(2.0*q2 + q3) + 0.2477*qd1^2*sin(2.0*q2) - 0.37026*qd2*qd3*sin(q3)
 % Va3=0.064287*qd3 + 0.21158*qd1^2*sin(q3) + 0.42316*qd2^2*sin(q3) + 0.14003*qd1^2*sin(2.0*q2 + 2.0*q3) + 0.21158*qd1^2*sin(2.0*q2 + q3)
 % Para linealizar la matriz V, se tomarán únicamente los terminos que
@@ -32,35 +31,46 @@ elseif (flag==0)
     R1=1; R2=1; R3=1;   
 end
 
-% %%%% ROBOT IDEAL CON REDUCTORAS %%%%
-% Obtencion del termino de la matriz de inercias simplificado
-Ma1=1.4785; %Ma1=eval( subs(subs(subs(Ma11,q1,0),q2,0),q3,0)); 
-Ma2=6.2002; %Ma2=eval( subs(subs(subs(Ma22,q1,0),q2,0),q3,0)); 
-Ma3=2.4628; %Ma3=eval( subs(subs(subs(Ma33,q1,0),q2,0),q3,0)); 
+%%   % %%%% ROBOT IDEAL CON REDUCTORAS %%%%
+% % Obtencion del termino de la matriz de inercias simplificado
+% Ma1=1.4785; %Ma1=eval( subs(subs(subs(Ma(1,1),q1,0),q2,0),q3,0)); 
+% Ma2=6.2002; %Ma2=eval( subs(subs(subs(Ma(2,2),q1,0),q2,0),q3,0)); 
+% Ma3=2.4628; %Ma3=eval( subs(subs(subs(Ma(3,3),q1,0),q2,0),q3,0)); 
+% 
+% % Se ha extraido los valores de las Bm_i de los parametros tetha_li
+% Va1=0.1200;     % Bm*(R^2)
+% Va2=0.063796;
+% Va3=0.064287;
+
+
+%% %%%% ROBOT REAL CON REDUCTORAS %%%%
+Ma1=1.530232687999876; %Ma1=eval( subs(subs(subs(Ma(1,1),q1,0),q2,0),q3,0)); 
+Ma2=4.961743100000301; %Ma2=eval( subs(subs(subs(Ma(2,2),q1,0),q2,0),q3,0)); 
+Ma3=2.4628; %Ma3=eval( subs(subs(subs(Ma(3,3),q1,0),q2,0),q3,0)); 
 
 % Se ha extraido los valores de las Bm_i de los parametros tetha_li
-Va1=0.1200;     % Bm*(R^2)
-Va2=0.063796;
-Va3=0.064287;
+Va1= 0.1223;     % Bm*(R^2)
+Va2=0.096929;
+Va3=0.064764;
 
 % Obtencion de las funciones de transferencia para los controladores PID Y
 % PD.
-numG1=Kt1*R1;
+numG1=1;
 denG1=conv([1 0],[Ma1 Va1]);
 G1=tf(numG1,denG1);
 
-numG2=Kt2*R2;
+numG2=1;
 denG2=conv([1 0],[Ma2 Va2]);
 G2=tf(numG2,denG2);
 
-numG3=Kt3*R3;
+numG3=1;
 denG3=conv([1 0],[Ma3 Va3]);
 G3=tf(numG3,denG3);
 
 % PARAMETROS PD CON REDUCTORAS
-  Kp1=24.911; Td1=0.097; 
-  Kp2=157.48; Td2=0.11;
-  Kp3=187.4;  Td3=0.1;
+  Kp1=1386.4; Td1=0.066; 
+  Kp2=4075.9; Td2=0.07;
+  Kp3=956.67;  Td3=0.1;
 
 % PARAMETROS PID CON REDUCTORAS
   Ti1=2*0.18; Td1=(2*(0.18^2))/Ti1;   Kp1=68.115*Ti1;
@@ -76,8 +86,6 @@ G1_ff=tf(numG1_ff,denG1_ff);
 numG2_ff=Kt2*R2;
 denG2_ff=[1 0 0]*Ma2;
 G2_ff=tf(numG2_ff,denG2_ff);
-
-
 
 numG3_ff=Kt3*R3;
 denG3_ff=[1 0 0]*Ma3;

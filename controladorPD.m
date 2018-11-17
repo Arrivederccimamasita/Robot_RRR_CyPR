@@ -33,8 +33,8 @@ function [I_control]=controlador(in)
   % Se emplean variables persistentes para que mantengan su valor cada vez
   % que se entre en la funcion.
     %   persistent I1_k1 I2_k1 I3_k1;             % Se definen las variables anteriores
-    %   persistent e1_k1 e2_k1 e3_k1;            % Se definen los errores anteriores
-    %   persistent e1_k2 e2_k2 e3_k2;
+       persistent e1_k1 e2_k1 e3_k1;            % Se definen los errores anteriores
+       persistent e1_k2 e2_k2 e3_k2;
   
   % Definicion del tiempo de subida en bucle cerrado
   ts_bc=50e-3;
@@ -60,11 +60,19 @@ function [I_control]=controlador(in)
   ed2_k= qd2ref_k - qd2_k;
   ed3_k= qd3ref_k - qd3_k;
   
-  % Definicion de parametros del controlador PD sin cancelacion
-  % Ts_bc=50ms
-  Kp1=24.911; Td1=0.097; 
-  Kp2=157.48; Td2=0.11;
-  Kp3=187.4; Td3=0.1;
+  % ///**ROBOT IDEAL**////
+  % Definicion de parametros del controlador PD sin cancelacion 
+  % %%///Ts_bc=50ms
+%   Kp1=24.911; Td1=0.097; 
+%   Kp2=157.48; Td2=0.11;
+%   Kp3=187.4; Td3=0.1;
+%   
+  % ///**ROBOT REAL ENCODERS**////
+    % %%///Ts_bc=50ms
+  Kp1=1386.4; Td1=0.066; 
+  Kp2=4075.9; Td2=0.07;
+  Kp3=956.67;  Td3=0.1;
+  
 %   Kp=[Kp1;Kp2;Kp3]; Td=[Td1;Td2;Td3]; Ti=[Ti1;Ti2;Ti3];
   % Componentes del controlador discreto empleando la aproximacion de 
   % Euler II
@@ -90,22 +98,22 @@ function [I_control]=controlador(in)
   %                                               Tm*z      z^-1  |implemnt
   %
   % Incremento de la señal de control
-%   I1_k=(Kp1)*((1+(Td1/Tm))*e1_k - (Td1/Tm)*e1_k1);
-%   I2_k=(Kp2)*((1+(Td2/Tm))*e2_k - (Td2/Tm)*e2_k1);
-%   I3_k=(Kp3)*((1+(Td3/Tm))*e3_k - (Td3/Tm)*e3_k1);
+  I1_k=(Kp1)*((1+(Td1/Tm))*e1_k - (Td1/Tm)*e1_k1);
+  I2_k=(Kp2)*((1+(Td2/Tm))*e2_k - (Td2/Tm)*e2_k1);
+  I3_k=(Kp3)*((1+(Td3/Tm))*e3_k - (Td3/Tm)*e3_k1);
 
 %   I1_k=I1_k1+q0(1)*e1_k + q1(1)*e1_k1 + q2(1)*e1_k2;
 %   I2_k=I2_k1+q0(2)*e2_k + q1(2)*e2_k1 + q2(2)*e2_k2;
 %   I3_k=I3_k1+q0(3)*e3_k + q1(3)*e3_k1 + q2(3)*e3_k2;
 
-I1_k=Kp1*(Td2*ed1_k+e1_k);
-I2_k=Kp2*(Td2*ed2_k+e2_k);
-I3_k=Kp3*(Td3*ed3_k+e3_k);
+% I1_k=Kp1*(Td1*ed1_k+e1_k);
+% I2_k=Kp2*(Td2*ed2_k+e2_k);
+% I3_k=Kp3*(Td3*ed3_k+e3_k);
 
   % Actualización de variables
-%   e1_k2=e1_k1; e1_k1=e1_k;
-%   e2_k2=e2_k1;  e2_k1=e2_k;
-%   e3_k2=e3_k1;  e3_k1=e3_k;
+   e1_k2=e1_k1; e1_k1=e1_k;
+   e2_k2=e2_k1;  e2_k1=e2_k;
+   e3_k2=e3_k1;  e3_k1=e3_k;
 %   
 %   I1_k1=I1_k; I2_k1=I2_k; I3_k1=I3_k;
   % Calculo de la señal de control abosluta (incremento+Valor de equilibrio)
@@ -116,5 +124,5 @@ I3_k=Kp3*(Td3*ed3_k+e3_k);
   % AQUI SE AÑADIRIA LA SATURACION DEL SISTEMA SI FUERA NECESARIO
   
   % Devolvemos como parametro la señal de control absoluta
-  I_control=[Im1_k Im2_k Im3_k];
+  I_control=[Im1_k; Im2_k ;Im3_k];
 end
