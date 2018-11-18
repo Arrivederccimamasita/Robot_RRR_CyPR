@@ -59,19 +59,9 @@ function [I_control]=controladorPD(in)
   ed2_k= qd2ref_k - qd2_k;
   ed3_k= qd3ref_k - qd3_k;
   
-  % ///**ROBOT IDEAL**////
   % Definicion de parametros del controlador PD sin cancelacion 
   % %%///Ts_bc=50ms
-%   Kp1=24.911; Td1=0.097; 
-%   Kp2=157.48; Td2=0.11;
-%   Kp3=187.4; Td3=0.1;
-%   
-  % ///**ROBOT REAL ENCODERS**////
-    % %%///Ts_bc=50ms
-  Kp1=1386.4; Td1=0.066; 
-  Kp2=4075.9; Td2=0.07;
-  Kp3=956.67;  Td3=0.1;
-  
+
   % Incremento de la señal de control
 
     I1_k=Kp1*(Td1*ed1_k+e1_k);
