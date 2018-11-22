@@ -254,7 +254,7 @@ switch selec
         %debido a esto los terminos de theta_li asociados a estos estaran
         %peor identificados
          whitebg('k')
-        figure(); %Representacion de las variables para la estimacion de parametros [Posicion/velocidad/aceleracion]
+        figure(1); %Representacion de las variables para la estimacion de parametros [Posicion/velocidad/aceleracion]
         subplot(431);plot(t_D,qr_D(:,1));title('Posicion real'); grid; subplot(432);plot(t_D,qr_D(:,2));grid;subplot(433);plot(t_D,qr_D(:,3));grid;
         subplot(434);plot(t_D,qd_est(:,1));title('Velocidad Estimada'); grid; subplot(435);plot(t_D,qd_est(:,2));grid;subplot(436);plot(t_D,qd_est(:,3));grid;
         subplot(437);plot(t_D,qdd_est(:,1));title('Aceleracion estimada'); grid; subplot(438);plot(t_D,qdd_est(:,2));grid;subplot(439);plot(t_D,qdd_est(:,3));grid;
