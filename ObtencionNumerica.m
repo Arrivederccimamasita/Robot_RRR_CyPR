@@ -26,7 +26,7 @@ function ObtencionNumerica(t,Im,q,qd,qdd,R1,R2,R3)
 
 % %% ESTIMACION DE LOS PARAMETROS DINAMICOS %%%%%% 
 % Valores de simulacion
-n=15; %Cada cuantas muestras tomamos los datos
+n=10; %Cada cuantas muestras tomamos los datos
 M=floor(length(t)/n); %Numero de datos totales
 
 % Valores conocidos
