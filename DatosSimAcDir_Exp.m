@@ -286,20 +286,24 @@
 % tetha_li(10)= -6.750857e+00 Valido con varianza 1.217596e-01 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% /*EXPONENCIALES*/% -- theta li(4)
-%/*EXPONENCIALES*/%
 %Valores de tiempo atenuacion
-tau1=80; tau2=300000; tau3=8000;
+tau1=1; tau2=3; tau3=3;
 
 %%Parametros senoides
 %Senoide I1
-Im_cc1=8;
+Aa_1=0.2; Ab_1=0.003;
+wa_1=10; wb_1=3;
+Im_cc1=0;
 
 %Senoide I2
-Im_cc2=1000;
+Aa_2=1; Ab_2=3;
+wa_2=15; wb_2=3;
+Im_cc2=25;
 
 %Senoide I3
-Im_cc3=100;
+Aa_3=0.5; Ab_3=2;
+wa_3=15; wb_3=3;
+Im_cc3=30;
 
 %Parametros senoides
 %Senoide I1
