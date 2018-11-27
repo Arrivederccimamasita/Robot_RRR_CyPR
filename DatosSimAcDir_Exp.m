@@ -181,13 +181,8 @@
 % wa_3=15; wb_3=3;
 % Im_cc3=3.5;
 
-% %%%%%%%%%%%%%%%% RESULTADOS CON EL ROBOT 1 %%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-%Valores de tiempo atenuacion -->tetha_li(5)
-tau1=1; tau2=60; tau3=0.01;
+%Valores de tiempo atenuacion -->tetha_li(10)
+tau1=1; tau2=100; tau3=6;
 
 %%Parametros senoides
 %Senoide I1
@@ -196,14 +191,39 @@ wa_1=10; wb_1=3;
 Im_cc1=0;
 
 %Senoide I2
-Aa_2=5; Ab_2=0.01;
+Aa_2=50; Ab_2=0.1;
 wa_2=40; wb_2=3;
-Im_cc2=5.39;
+Im_cc2=2900;
 
 %Senoide I3
-Aa_3=0.5; Ab_3=2;
+Aa_3=4; Ab_3=15;
 wa_3=8; wb_3=3;
-Im_cc3=0;
+Im_cc3=10;
+
+
+% %%%%%%%%%%%%%%%% RESULTADOS CON EL ROBOT 1 %%%%%%%%%%%%%%%%%%%%%%%%%%
+% tetha_li(10)= -6.750857e+00 Valido con varianza 1.217596e-01 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%Valores de tiempo atenuacion -->tetha_li(5)
+tau1=1; tau2=100; tau3=20;
+
+%%Parametros senoides
+%Senoide I1
+Aa_1=0.2; Ab_1=0.003;
+wa_1=10; wb_1=3;
+Im_cc1=0;
+
+%Senoide I2
+Aa_2=200; Ab_2=800;
+wa_2=40; wb_2=3;
+Im_cc2=2900;
+
+%Senoide I3
+Aa_3=4; Ab_3=15;
+wa_3=8; wb_3=50;
+Im_cc3=15;
 
 %Parametros senoides
 %Senoide I1
@@ -215,3 +235,12 @@ Im_cc2=Im_cc2/30;
 %Senoide I3
 Aa_3=Aa_3/15; Ab_3=Ab_3/15;
 Im_cc3=Im_cc3/15;
+
+% %%%%%%%%%%%%%%%% Apuntes Experimentos %%%%%%%%%%%%%%%%%%%%%%%%%%
+%  Aunque se realicen los mismos experimentos que con el robot real con
+%  reductoras, ya que se ha tomado de base ls experimentos realizados en
+%  este, y dividiendo los valores de intensidad entre las reductoras, el
+%  modelo de robot cambia; en este caso, la dependencia entre los eslabones
+%  es mayor--> sera necesaria mayores valores de intensidad para reducir
+%  este efecto.
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
