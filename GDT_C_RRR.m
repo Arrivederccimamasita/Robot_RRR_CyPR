@@ -6,36 +6,77 @@ function [ref] = GDT_C_RRR(in)
 x_init   = in(1);
 y_init   = in(2);
 z_init   = in(3);
-x_fin    = in(4);
-y_fin    = in(5);
-z_fin    = in(6);
-n_ptos   = in(7);
-t_init   = in(8);
-t_tray   = in(9);
-t    = in(10);
+x_med    = in(4);
+y_med    = in(5);
+z_med    = in(6);
+x_fin    = in(7);
+y_fin    = in(8);
+z_fin    = in(9);
+n_ptos   = in(10);
+t_init   = in(11);
+t_tray   = in(12);
+t    = in(13);
 
- %% Inicializacion de variables para testear la funcion
-% x_init=1.8000; y_init=0; z_init=1.2000;
-% x_fin =1.566; y_fin=0 ; z_fin=0.634;
-% n_ptos=5; t_init=2; t_tray=2;
+%%Inicializacion de variables para testear la funcion
+% x_init=0.7071; y_init=0.7071; z_init=0.4;
+% x_med=1.8; y_med=0; z_med=1.2;
+% x_fin =0.7071; y_fin=-0.7071; z_fin=2;
+% n_ptos=100; t_init=0; t_tray=5;
 
-%% Obtencion de la trayectoria en el espacio cartesiano
-pos_init=[x_init y_init z_init];
-pos_fin=[x_fin y_fin z_fin];    
+%%Obtencion de la trayectoria  circular en el espacio cartesiano
+P1=[x_init y_init z_init]';
+P2=[x_med y_med z_med]';
+P3=[x_fin y_fin z_fin]';
 
-x_tray=linspace(x_init,x_fin,n_ptos+2) ; % El +2 es para no tener en cuenta en la interpolacion el pto inicial y final
-y_tray=linspace(y_init,y_fin,n_ptos+2);
-z_tray=linspace(z_init,z_fin,n_ptos+2);
+v1 = cross(P2-P1,P3-P1);
+v1 = v1/norm(v1); %Vector unitario ortogonal al plano definido por los 3 puntos
+
+%Sistema de ecuaciones para hallar el centro de la circuenferencia
+% dot(P0-P1,v1) = 0
+% dot(P0-(p2+P1)/2,P2-P1) = 0
+% dot(P0-(p3+P1)/2,P3-P1) = 0
+A=[v1(1) v1(2) v1(3);
+   P2(1)-P1(1) P2(2)-P1(2) P2(3)-P1(3);
+   P3(1)-P1(1) P3(2)-P1(2) P3(3)-P1(3)];
+B=[P1(1)*v1(1)+P1(2)*v1(2)+P1(3)*v1(3);
+   ((P2(1)+P1(1))*(P2(1)-P1(1)))/2+((P2(2)+P1(2))*(P2(2)-P1(2)))/2+((P2(3)+P1(3))*(P2(3)-P1(3)))/2;
+   ((P3(1)+P1(1))*(P3(1)-P1(1)))/2+((P3(2)+P1(2))*(P3(2)-P1(2)))/2+((P3(3)+P1(3))*(P3(3)-P1(3)))/2];
+
+P0=A\B;
+
+v2 = P1-P0;
+R = norm(v2);
+v2 = v2/R;
+v3 = cross(v2,v1);
+v3 = -v3/norm(v3);
+
+g=(P3-P0)/norm(P3-P0);
+cos_g=dot(v2,g)/(norm(v2)*norm(g));
+sin_g=norm(cross(v2,g))/(norm(v2)*norm(g));
+rho_fin=2*pi-atan2(sin_g,cos_g);
+
+rho = linspace(0,rho_fin,n_ptos);
+%Conjunto de puntos equidistantes del arco de circunferencia
+P = repmat(P0,1,numel(rho)) + R*(v2*cos(rho) + v3*sin(rho));   
+
+x_tray=P(1,:);
+y_tray=P(2,:);
+z_tray=P(3,:);
+
 
 % % Grafica de la trayectoria deseada en XYZ
-% figure();plot3(x_tray,y_tray,z_tray,'b',x_tray,y_tray,z_tray,'*r');...
-%     legend('Recta interpolada obtenida','Puntos interpolados');grid;
+% 
+% figure();plot3(x_tray,y_tray,z_tray,'b');hold on;
+% plot3(P0(1),P0(2),P0(3),'*b');
+% plot3(x_init,y_init,z_init,'*r');
+% plot3(x_med,y_med,z_med,'*r');
+% plot3(x_fin,y_fin,z_fin,'*r');grid;
 
-%Una vez se han ontenido los puntos interpolados, se aplica el MCI a dichos
+%%Una vez se han ontenido los puntos interpolados, se aplica el MCI a dichos
 %puntos para pasarlo al espacio articular.
 esp_articular=[];
 
-T=t_tray/(n_ptos+1); %Calculo del paso entre muestras de la trayectoria
+T=t_tray/(n_ptos-2); %Calculo del paso entre muestras de la trayectoria
 
 for i=1:length(x_tray)
     %est_articular=[punto, tiempo, q1, q2, q3]
@@ -53,6 +94,7 @@ q2=esp_articular(:,4);
 q3=esp_articular(:,5);
 q_r=[q1  q2  q3];
 qd=[];
+
 
 for k=1:3
  
@@ -126,15 +168,14 @@ for k=1:(length(qd)-1)
     poliq3=[poliq3;tiempo(k) pol_spline_q3'];    
 end
 
-
 %Seleccionamos los coeficientes del polinomio dependiento del momento
 %temporal en el que nos enctontremos
 
 %  figure;
-%   Tm=0.001;
-%   for t=0:Tm:(t_init+t_tray)+5 % La instruccion 'for' solo es valida para plotear el resultado, se debe eliminar al tener l entrada de reloj
+  Tm=0.001;
+for t=0:Tm:(t_init+t_tray) % La instruccion 'for' solo es valida para plotear el resultado, se debe eliminar al tener l entrada de reloj
 
-if(t>=t_init && t<(t_init+t_tray))
+if((t>=t_init) && (t<(t_init+t_tray+T)))
     offset=(floor(t_init/T)-1);
     selec=(floor(t/T)-offset);    
     Aq1=poliq1(selec,2); Bq1=poliq1(selec,3); Cq1=poliq1(selec,4); Dq1=poliq1(selec,5);
@@ -142,7 +183,7 @@ if(t>=t_init && t<(t_init+t_tray))
     Aq3=poliq3(selec,2); Bq3=poliq3(selec,3); Cq3=poliq3(selec,4); Dq3=poliq3(selec,5);
     t_tramo=poliq2(selec,1);
     
-elseif(t>=(t_init+t_tray))
+elseif(t>=(t_init+t_tray+T))
     selec=length(poliq1);
     Aq1=poliq1(selec,2); Bq1=poliq1(selec,3); Cq1=poliq1(selec,4); Dq1=poliq1(selec,5);
     Aq2=poliq2(selec,2); Bq2=poliq2(selec,3); Cq2=poliq2(selec,4); Dq2=poliq2(selec,5);
@@ -150,12 +191,13 @@ elseif(t>=(t_init+t_tray))
     t_tramo=t-((t_init+t_tray)-poliq2(selec,1));
     
 elseif (t<(t_init+t_tray))
-    Aq1=0; Bq1=0; Cq1=0; Dq1=0;
-    Aq2=0; Bq2=0; Cq2=0; Dq2=0;
-    Aq3=0; Bq3=0; Cq3=0; Dq3=0;
+    Aq1=poliq1(1,2); Bq1=poliq1(1,3); Cq1=poliq1(1,4); Dq1=poliq1(1,5);
+    Aq2=poliq2(1,2); Bq2=poliq2(1,3); Cq2=poliq2(1,4); Dq2=poliq2(1,5);
+    Aq3=poliq3(1,2); Bq3=poliq3(1,3); Cq3=poliq3(1,4); Dq3=poliq3(1,5);
     t_tramo=t; %Esto hará que el polinomio al evaluarlo de 0
         
  end
+
 
 % Obtencion de los polinomios en cada intervalo de la trayectoria y para
 % todas las variables articulares.
@@ -173,15 +215,18 @@ qd3_r = 3*Aq3*( t-t_tramo ).^2 + 2*Bq3*(t-t_tramo) + Cq3;
 qdd1_r = 6*Aq1*( t-t_tramo ) + 2*Bq1;
 qdd2_r = 6*Aq2*( t-t_tramo ) + 2*Bq2;
 qdd3_r = 6*Aq3*( t-t_tramo ) + 2*Bq3;
-
+% if (t>t_init+t_tray-0.1)
+% t
+% pause()
+% end
 % %//Testeo//%
-%     hold on; 
-
+    hold on; 
+    
 % %     Ploteo Posiciones 
 %     plot(t,q1_r,'*');grid
 %     plot(t,q2_r,'*');grid
 %     plot(t,q3_r,'*');grid
-    
+%     
 % %      Ploteo Velocidades
 %     plot(t,qd1_r,'*');grid
 %     plot(t,qd2_r,'*');grid
@@ -191,10 +236,10 @@ qdd3_r = 6*Aq3*( t-t_tramo ) + 2*Bq3;
 %     plot(t,qdd1_r,'*');grid
 %     plot(t,qdd2_r,'*');grid
 %     plot(t,qdd3_r,'*');grid
-%     
-%  end % [Fin bucle para Testeo]
+    
+ end % [Fin bucle para Testeo]
 
-% Se devuelve la posicion, velocidad y aceleracion de referencia
+%%Se devuelve la posicion, velocidad y aceleracion de referencia
 q_r  =[q1_r   ;q2_r   ;q3_r];
 qd_r =[qd1_r  ;qd2_r  ;qd3_r];
 qdd_r=[qdd1_r ;qdd2_r ;qdd3_r];
