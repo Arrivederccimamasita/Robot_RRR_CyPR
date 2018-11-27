@@ -1,5 +1,5 @@
 %% SCRIPT PARA SIMULAR Y GRAFICAR CONTROLADORES
-function graficas_controladores(t,q,qd,q_ref,qd_ref,Im)
+function graficas_controladores(t,q,qd,q_ref,qd_ref,ref,xyz,Im)
 
 figure();subplot(231);plot(t,q_ref(:,1),t,q(:,1));grid;xlabel('Tiempo [s]');title('Posicion angular q1');ylabel('qr_1 vs q_1 [rad]');...
     subplot(232);plot(t,q_ref(:,2),t,q(:,2));grid;xlabel('Tiempo [s]');title('Posicion angular q2');ylabel('qr_2 vs q_2 [rad]');...
@@ -21,4 +21,6 @@ figure();subplot(311);title('Excitacion motor 1');plot(t,Im(:,1));grid;xlabel('T
     subplot(312);title('Excitacion motor 2');plot(t,Im(:,2));grid;xlabel('Tiempo [s]');ylabel('Intensidad [A]');...
     subplot(313);title('Excitacion motor 3');plot(t,Im(:,3));grid;xlabel('Tiempo [s]');ylabel('Intensidad [A]');
 
+figure();plot3(ref(:,1),ref(:,2),ref(:,3),xyz(:,1),xyz(:,2),xyz(:,3));title('Trayectoria en el espacio articular');...
+    xlabel('Posicion X');ylabel('Posicion Y');zlabel('Posicion Z');grid;
 end
