@@ -16,16 +16,17 @@
 \contentsline {section}{\numberline {5}Control Cinematico del robot}{9}{section.5}
 \contentsline {subsection}{\numberline {5.1}Generador de trayectorias punto a punto}{9}{subsection.5.1}
 \contentsline {subsection}{\numberline {5.2}Generador de trayectorias lineal}{9}{subsection.5.2}
-\contentsline {subsection}{\numberline {5.3}Pruebas y conclusiones}{9}{subsection.5.3}
-\contentsline {section}{\numberline {6}Control Din\IeC {\'a}mico del brazo}{10}{section.6}
-\contentsline {subsection}{\numberline {6.1}Obtenci\IeC {\'o}n del modelo lineal de las articulaciones del brazo}{10}{subsection.6.1}
-\contentsline {subsection}{\numberline {6.2}Dise\IeC {\~n}o de controladores}{11}{subsection.6.2}
-\contentsline {subsubsection}{\numberline {6.2.1}Controlador PD/PID}{11}{subsubsection.6.2.1}
-\contentsline {subsubsection}{\numberline {6.2.2}Controlador PD/PID con compensaci\IeC {\'o}n de gravedad}{11}{subsubsection.6.2.2}
-\contentsline {subsubsection}{\numberline {6.2.3}Controlador PD/PID con compensaci\IeC {\'o}n de din\IeC {\'a}mica (Feedforward)}{11}{subsubsection.6.2.3}
-\contentsline {subsubsection}{\numberline {6.2.4}Controlador PD/PID con par calculado}{11}{subsubsection.6.2.4}
-\contentsline {subsection}{\numberline {6.3}Analisis de controladores}{11}{subsection.6.3}
-\contentsline {section}{\numberline {7}Anexos}{12}{section.7}
-\contentsline {subsection}{\numberline {7.1}Conclusiones (A LO MEJON SI A LO MEJON NO)}{12}{subsection.7.1}
-\contentsline {subsection}{\numberline {7.2}Codigos de programacion}{12}{subsection.7.2}
-\contentsline {subsection}{\numberline {7.3}Montajes en Simulink}{12}{subsection.7.3}
+\contentsline {subsection}{\numberline {5.3}Generador de trayectorias circulares}{9}{subsection.5.3}
+\contentsline {subsection}{\numberline {5.4}Pruebas y conclusiones}{11}{subsection.5.4}
+\contentsline {section}{\numberline {6}Control Din\IeC {\'a}mico del brazo}{12}{section.6}
+\contentsline {subsection}{\numberline {6.1}Obtenci\IeC {\'o}n del modelo lineal de las articulaciones del brazo}{12}{subsection.6.1}
+\contentsline {subsection}{\numberline {6.2}Dise\IeC {\~n}o de controladores}{13}{subsection.6.2}
+\contentsline {subsubsection}{\numberline {6.2.1}Controlador PD/PID}{13}{subsubsection.6.2.1}
+\contentsline {subsubsection}{\numberline {6.2.2}Controlador PD/PID con compensaci\IeC {\'o}n de gravedad}{13}{subsubsection.6.2.2}
+\contentsline {subsubsection}{\numberline {6.2.3}Controlador PD/PID con compensaci\IeC {\'o}n de din\IeC {\'a}mica (Feedforward)}{13}{subsubsection.6.2.3}
+\contentsline {subsubsection}{\numberline {6.2.4}Controlador PD/PID con par calculado}{13}{subsubsection.6.2.4}
+\contentsline {subsection}{\numberline {6.3}Analisis de controladores}{13}{subsection.6.3}
+\contentsline {section}{\numberline {7}Anexos}{14}{section.7}
+\contentsline {subsection}{\numberline {7.1}Conclusiones (A LO MEJON SI A LO MEJON NO)}{14}{subsection.7.1}
+\contentsline {subsection}{\numberline {7.2}Codigos de programacion}{14}{subsection.7.2}
+\contentsline {subsection}{\numberline {7.3}Montajes en Simulink}{14}{subsection.7.3}

@@ -15,16 +15,17 @@
 \BOOKMARK [1][-]{section.5}{Control Cinematico del robot}{}% 15
 \BOOKMARK [2][-]{subsection.5.1}{Generador de trayectorias punto a punto}{section.5}% 16
 \BOOKMARK [2][-]{subsection.5.2}{Generador de trayectorias lineal}{section.5}% 17
-\BOOKMARK [2][-]{subsection.5.3}{Pruebas y conclusiones}{section.5}% 18
-\BOOKMARK [1][-]{section.6}{Control Din\341mico del brazo}{}% 19
-\BOOKMARK [2][-]{subsection.6.1}{Obtenci\363n del modelo lineal de las articulaciones del brazo}{section.6}% 20
-\BOOKMARK [2][-]{subsection.6.2}{Dise\361o de controladores}{section.6}% 21
-\BOOKMARK [3][-]{subsubsection.6.2.1}{Controlador PD/PID}{subsection.6.2}% 22
-\BOOKMARK [3][-]{subsubsection.6.2.2}{Controlador PD/PID con compensaci\363n de gravedad}{subsection.6.2}% 23
-\BOOKMARK [3][-]{subsubsection.6.2.3}{Controlador PD/PID con compensaci\363n de din\341mica \(Feedforward\)}{subsection.6.2}% 24
-\BOOKMARK [3][-]{subsubsection.6.2.4}{Controlador PD/PID con par calculado}{subsection.6.2}% 25
-\BOOKMARK [2][-]{subsection.6.3}{Analisis de controladores}{section.6}% 26
-\BOOKMARK [1][-]{section.7}{Anexos}{}% 27
-\BOOKMARK [2][-]{subsection.7.1}{Conclusiones \(A LO MEJON SI A LO MEJON NO\)}{section.7}% 28
-\BOOKMARK [2][-]{subsection.7.2}{Codigos de programacion}{section.7}% 29
-\BOOKMARK [2][-]{subsection.7.3}{Montajes en Simulink}{section.7}% 30
+\BOOKMARK [2][-]{subsection.5.3}{Generador de trayectorias circulares}{section.5}% 18
+\BOOKMARK [2][-]{subsection.5.4}{Pruebas y conclusiones}{section.5}% 19
+\BOOKMARK [1][-]{section.6}{Control Din\341mico del brazo}{}% 20
+\BOOKMARK [2][-]{subsection.6.1}{Obtenci\363n del modelo lineal de las articulaciones del brazo}{section.6}% 21
+\BOOKMARK [2][-]{subsection.6.2}{Dise\361o de controladores}{section.6}% 22
+\BOOKMARK [3][-]{subsubsection.6.2.1}{Controlador PD/PID}{subsection.6.2}% 23
+\BOOKMARK [3][-]{subsubsection.6.2.2}{Controlador PD/PID con compensaci\363n de gravedad}{subsection.6.2}% 24
+\BOOKMARK [3][-]{subsubsection.6.2.3}{Controlador PD/PID con compensaci\363n de din\341mica \(Feedforward\)}{subsection.6.2}% 25
+\BOOKMARK [3][-]{subsubsection.6.2.4}{Controlador PD/PID con par calculado}{subsection.6.2}% 26
+\BOOKMARK [2][-]{subsection.6.3}{Analisis de controladores}{section.6}% 27
+\BOOKMARK [1][-]{section.7}{Anexos}{}% 28
+\BOOKMARK [2][-]{subsection.7.1}{Conclusiones \(A LO MEJON SI A LO MEJON NO\)}{section.7}% 29
+\BOOKMARK [2][-]{subsection.7.2}{Codigos de programacion}{section.7}% 30
+\BOOKMARK [2][-]{subsection.7.3}{Montajes en Simulink}{section.7}% 31
