@@ -1,4 +1,4 @@
-\babel@toc {spanish}{}
+\select@language {spanish}
 \contentsline {section}{\numberline {1}Introducci\IeC {\'o}n al proyecto}{3}{section.1}
 \contentsline {section}{\numberline {2}An\IeC {\'a}lisis Cinem\IeC {\'a}tico del brazo}{4}{section.2}
 \contentsline {subsection}{\numberline {2.1}Modelo Cinem\IeC {\'a}tico Directo}{4}{subsection.2.1}
@@ -13,20 +13,21 @@
 \contentsline {subsection}{\numberline {4.2}Estimacion de parametros dinamicos}{8}{subsection.4.2}
 \contentsline {subsection}{\numberline {4.3}Calculos estadisticos}{8}{subsection.4.3}
 \contentsline {subsection}{\numberline {4.4}Analisis de resultados}{8}{subsection.4.4}
-\contentsline {section}{\numberline {5}Control Cinematico del robot}{9}{section.5}
-\contentsline {subsection}{\numberline {5.1}Generador de trayectorias punto a punto}{9}{subsection.5.1}
-\contentsline {subsection}{\numberline {5.2}Generador de trayectorias lineal}{9}{subsection.5.2}
-\contentsline {subsection}{\numberline {5.3}Generador de trayectorias circulares}{9}{subsection.5.3}
-\contentsline {subsection}{\numberline {5.4}Pruebas y conclusiones}{11}{subsection.5.4}
-\contentsline {section}{\numberline {6}Control Din\IeC {\'a}mico del brazo}{12}{section.6}
-\contentsline {subsection}{\numberline {6.1}Obtenci\IeC {\'o}n del modelo lineal de las articulaciones del brazo}{12}{subsection.6.1}
-\contentsline {subsection}{\numberline {6.2}Dise\IeC {\~n}o de controladores}{13}{subsection.6.2}
-\contentsline {subsubsection}{\numberline {6.2.1}Controlador PD/PID}{13}{subsubsection.6.2.1}
-\contentsline {subsubsection}{\numberline {6.2.2}Controlador PD/PID con compensaci\IeC {\'o}n de gravedad}{13}{subsubsection.6.2.2}
-\contentsline {subsubsection}{\numberline {6.2.3}Controlador PD/PID con compensaci\IeC {\'o}n de din\IeC {\'a}mica (Feedforward)}{13}{subsubsection.6.2.3}
-\contentsline {subsubsection}{\numberline {6.2.4}Controlador PD/PID con par calculado}{13}{subsubsection.6.2.4}
-\contentsline {subsection}{\numberline {6.3}Analisis de controladores}{13}{subsection.6.3}
-\contentsline {section}{\numberline {7}Anexos}{14}{section.7}
-\contentsline {subsection}{\numberline {7.1}Conclusiones (A LO MEJON SI A LO MEJON NO)}{14}{subsection.7.1}
-\contentsline {subsection}{\numberline {7.2}Codigos de programacion}{14}{subsection.7.2}
-\contentsline {subsection}{\numberline {7.3}Montajes en Simulink}{14}{subsection.7.3}
+\contentsline {subsubsection}{\numberline {4.4.1}Robot Ideal con reductoras}{9}{subsubsection.4.4.1}
+\contentsline {section}{\numberline {5}Control Cinematico del robot}{10}{section.5}
+\contentsline {subsection}{\numberline {5.1}Generador de trayectorias punto a punto}{10}{subsection.5.1}
+\contentsline {subsection}{\numberline {5.2}Generador de trayectorias lineal}{10}{subsection.5.2}
+\contentsline {subsection}{\numberline {5.3}Generador de trayectorias circulares}{10}{subsection.5.3}
+\contentsline {subsection}{\numberline {5.4}Pruebas y conclusiones}{12}{subsection.5.4}
+\contentsline {section}{\numberline {6}Control Din\IeC {\'a}mico del brazo}{13}{section.6}
+\contentsline {subsection}{\numberline {6.1}Obtenci\IeC {\'o}n del modelo lineal de las articulaciones del brazo}{13}{subsection.6.1}
+\contentsline {subsection}{\numberline {6.2}Dise\IeC {\~n}o de controladores}{14}{subsection.6.2}
+\contentsline {subsubsection}{\numberline {6.2.1}Controlador PD/PID}{14}{subsubsection.6.2.1}
+\contentsline {subsubsection}{\numberline {6.2.2}Controlador PD/PID con compensaci\IeC {\'o}n de gravedad}{14}{subsubsection.6.2.2}
+\contentsline {subsubsection}{\numberline {6.2.3}Controlador PD/PID con compensaci\IeC {\'o}n de din\IeC {\'a}mica (Feedforward)}{14}{subsubsection.6.2.3}
+\contentsline {subsubsection}{\numberline {6.2.4}Controlador PD/PID con par calculado}{14}{subsubsection.6.2.4}
+\contentsline {subsection}{\numberline {6.3}Analisis de controladores}{14}{subsection.6.3}
+\contentsline {section}{\numberline {7}Anexos}{15}{section.7}
+\contentsline {subsection}{\numberline {7.1}Conclusiones (A LO MEJON SI A LO MEJON NO)}{15}{subsection.7.1}
+\contentsline {subsection}{\numberline {7.2}Codigos de programacion}{15}{subsection.7.2}
+\contentsline {subsection}{\numberline {7.3}Montajes en Simulink}{15}{subsection.7.3}

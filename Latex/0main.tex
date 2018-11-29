@@ -10,7 +10,6 @@
 
 \usepackage{amsmath}			%Paquete matemático
 \usepackage{graphicx}
-\graphicspath{images/}
 \usepackage[colorinlistoftodos]{todonotes}
 
 \usepackage{hyperref}		%Paquete empleado para colocar hipervinculos
@@ -26,7 +25,7 @@
 \usepackage{float}				%Podremos crear y colocar boxes donee queramos
 \usepackage[export]{adjustbox}
 
-%Colocamos cabeceras y pies de pagina 
+%Colocamos cabeceras y pies de pagina
 %(CONSULTA: http://edicionesoniricas.com/maquetar-latex-encabezados-pies-pagina/)
 %(CONSULTA2: https://es.sharelatex.com/learn/Headers_and_footers)
 %\bfseries es análogo a \textbf{}
@@ -35,7 +34,7 @@
 \usepackage{fancyhdr}		%Paquetes necesarios
 \pagestyle{fancy}			%Borra los parametros por defecto
 \fancyhf{}
-\fancyhead[RO,LE]{\bfseries\thepage}	
+\fancyhead[RO,LE]{\bfseries\thepage}
 \fancyhead[LO,RE]{\bfseries\rightmark}
 %Nos aseguramos de que en las paginas plain, no haya ni cabeceras ni lineas
 \fancypagestyle{plain}
@@ -66,7 +65,7 @@
 
 %Nos generará texto para pruebas de maquetado
 \usepackage{lipsum}
-%---------------------------------------------------------------------------------------------------------------------------------- 
+%----------------------------------------------------------------------------------------------------------------------------------
 \begin{document}
 \begin{titlepage}
 	\centering
@@ -95,12 +94,12 @@
 \section{Introducción al proyecto}
 	Como objetivo de este trabajo se encuentra el análisis cinemático y dinámico, así como la estimación de ciertos parámetros dinámicos del robot, como pueden ser inercias o fricciones viscosas. Además de ello, se diseñará un control cinemático y dinámico del brazo robático.\\
 	El brazo sujeto a análisis será del tipo RRR, es decir, de tres articulaciones rotacionales.
-	
+
 	El robot que se va a estudiar, representado por la estructura de la portada de este trabajo, posee los siguientes parámetros estructurales:
 	\begin{center}
 		$L_0 = 0.60 m$ \hspace{0.5 cm} $L_1 = 0.60 m$ \hspace{0.5 cm}  $L_2 = 1.00 m$\hspace{0.5 cm}  $L_3 = 0.80 m$
 	\end{center}
-	
+
 	Además, también vienen dados los valores de factores de reducción de velocidad y constantes de par de los motores:
 	\begin{center}
 		$R_1 = 50; R_2 = 30; R_3 = 15$\\ \vspace{0.2 cm}
@@ -123,7 +122,7 @@ Por último, se diseñarán una serie de controladores dinámicos para el robot,
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 \include{1AnalisisCinDin}
-\newpage	
+\newpage
 \include{2EstimacParam}
 \newpage
 \include{3ControlCinem}

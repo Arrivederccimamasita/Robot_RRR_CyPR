@@ -1,5 +1,5 @@
 %% MODELADO CINEMATICO DEL ROBOT
-% Obtención del modelo a partir de las ecuaciones dinamicas para cada
+% Obtencion del modelo a partir de las ecuaciones dinamicas para cada
 % articulacion.
 
 % %%%%%%% MODELO CON REDUCTORAS DEL ROBOT IDEAL %%%%%%%%%%%%%%%
@@ -12,9 +12,9 @@
 % Va1=-8.6736e-21*qd1*(2.049e19*qd2*sin(2.0*q2 + q3) + 1.0245e19*qd3*sin(2.0*q2 + q3) + 2.7416e19*qd2*sin(2.0*q2) + 1.0245e19*qd3*sin(q3) + 6.7799e18*qd2*sin(2.0*q2 + 2.0*q3) + 6.7799e18*qd3*sin(2.0*q2 + 2.0*q3) - 1.3834e19)
 % Va2=0.063796*qd2 - 0.18513*qd3^2*sin(q3) + 0.061258*qd1^2*sin(2.0*q2 + 2.0*q3) + 0.18513*qd1^2*sin(2.0*q2 + q3) + 0.2477*qd1^2*sin(2.0*q2) - 0.37026*qd2*qd3*sin(q3)
 % Va3=0.064287*qd3 + 0.21158*qd1^2*sin(q3) + 0.42316*qd2^2*sin(q3) + 0.14003*qd1^2*sin(2.0*q2 + 2.0*q3) + 0.21158*qd1^2*sin(2.0*q2 + q3)
-% Para linealizar la matriz V, se tomarán únicamente los terminos que
-% acompañen la derivada de la componente que se esté hayando, por ejemplo,
-% en este caso sería
+% Para linealizar la matriz V, se tomarï¿½n ï¿½nicamente los terminos que
+% acompanen la derivada de la componente que se estï¿½ hayando, por ejemplo,
+% en este caso serï¿½a
 % Va1=0.1200*qd1
 % Va2=0.063796*qd2 
 % Va3=0.064287*qd3
@@ -82,12 +82,12 @@ G3=tf(numG3,denG3);
  denG3_ff=[Ma3 0 0];
  G3_ff=tf(numG3_ff,denG3_ff);
 
-%PARÁMETROS PD IDEAL FEEDFORWARD CON REDUCTORAS
+%PARï¿½METROS PD IDEAL FEEDFORWARD CON REDUCTORAS
   Td1=0.089; Kp1=747.26;
   Td2=0.096; Kp2=2691.1; 
   Td3=0.1; Kp3=985.12;
 
-%PARÁMETROS PID IDEAL FEEDFORWARD CON REDUCTORAS
+%PARï¿½METROS PID IDEAL FEEDFORWARD CON REDUCTORAS
   Ti1=0.36; Td1=0.09; Kp1=591.264;
   Ti2=0.36; Td2=0.09; Kp2=2474.1; 
   Ti3=0.36; Td3=0.09; Kp3=982.008;
@@ -107,12 +107,12 @@ numG3_pc=1;
 denG3_pc=[Ma3 0 0];
 G3_pc=tf(numG3_pc,denG3_pc);
   
-%PARÁMETROS PD IDEAL PAR CALCULADO CON REDUCTORA
+%PARï¿½METROS PD IDEAL PAR CALCULADO CON REDUCTORA
   Td1=0.082; Kp1=1468.3;
   Td2=0.082; Kp2=1468.3; 
   Td3=0.092; Kp3=1468.3;
 
-%PARÁMETROS PID IDEAL PAR CALCULADO CON REDUCTORA
+%PARï¿½METROS PID IDEAL PAR CALCULADO CON REDUCTORA
   Ti1=0.36; Td1=0.09; Kp1=1107.7;
   Ti2=0.36; Td2=0.09; Kp2=1107.7; 
   Ti3=0.36; Td3=0.09; Kp3=1107.7;
@@ -148,7 +148,7 @@ G3=tf(numG3,denG3);
   Kp3=956.67;  Td3=0.1;
 
 % PARAMETROS PID REAL  CON REDUCTORAS
-% -> (CUANDO FUNCIONEN LOS PID EN DISCRETO SE DISEÑARÁ, MIENTRAS TANTO DA
+% -> (CUANDO FUNCIONEN LOS PID EN DISCRETO SE DISEï¿½ARï¿½, MIENTRAS TANTO DA
 % PEREZA Y ES INNECESARIO.)
   Ti1=0.36; Td1=0.18;   Kp1=68.115*Ti1;
   Ti2=0.36; Td2=0.18;   Kp2=513.04*Ti2; 
@@ -169,12 +169,12 @@ numG3_ff=1;
 denG3_ff=[Ma3 0 0];
 G3_ff=tf(numG3_ff,denG3_ff);
 
-%PARÁMETROS PID REAL  FEEDFORWARD CON REDUCTORAS
+%PARï¿½METROS PID REAL  FEEDFORWARD CON REDUCTORAS
   Td1=0.082; Kp1=1468.3;
   Td2=0.098; Kp2=2085.2; 
   Td3=0.096; Kp3=1078.4;
 
-%PARÁMETROS PID REAL  FEEDFORWARD CON REDUCTORAS
+%PARï¿½METROS PID REAL  FEEDFORWARD CON REDUCTORAS
   Ti1=0.36; Td1=0.09; Kp1=591.264;
   Ti2=0.36; Td2=0.09; Kp2=2474.1; 
   Ti3=0.36; Td3=0.09; Kp3=982.008;
@@ -194,12 +194,12 @@ numG3_pc=1;
 denG3_pc=[1 0 0];
 G3_pc=tf(numG3_pc,denG3_pc);
   
-%PARÁMETROS PD REAL  PAR CALCULADO CON REDUCTORA
+%PARï¿½METROS PD REAL  PAR CALCULADO CON REDUCTORA
   Td1=0.1; Kp1=400;
   Td2=0.1; Kp2=400; 
   Td3=0.1; Kp3=400;
 
-%PARÁMETROS PID REAL  PAR CALCULADO CON REDUCTORA
+%PARï¿½METROS PID REAL  PAR CALCULADO CON REDUCTORA
   Ti1=0.36; Td1=0.09; Kp1=1107.7;
   Ti2=0.36; Td2=0.09; Kp2=1107.7; 
   Ti3=0.36; Td3=0.09; Kp3=1107.7;
