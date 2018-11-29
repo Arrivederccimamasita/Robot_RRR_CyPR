@@ -53,19 +53,44 @@
 % Im_cc3=200;
 
 
-% %/*EXPONENCIALES*/% --> Tetha_li (7)
-% %Valores de tiempo atenuacion
-% tau1=80; tau2=200; tau3=250;
+% %Valores de tiempo atenuacion -->tetha_li(7)
+% tau1=1; tau2=15; tau3=600;
 % 
 % %%Parametros senoides
 % %Senoide I1
-% Im_cc1=50;
+% Aa_1=0.2; Ab_1=0.003;
+% wa_1=10; wb_1=3;
+% Im_cc1=0;
 % 
 % %Senoide I2
-% Im_cc2=8400;
+% Aa_2=3000; Ab_2=-500;
+% wa_2=0.5; wb_2=3;
+% Im_cc2=50;
 % 
 % %Senoide I3
-% Im_cc3=400;
+% Aa_3=14; Ab_3=50;
+% wa_3=0.8; wb_3=0.3;
+% Im_cc3=10;
+
+
+% %Valores de tiempo atenuacion -->tetha_li(8)
+% tau1=1; tau2=1; tau3=200;
+% 
+% %%Parametros senoides
+% %Senoide I1
+% Aa_1=0.2; Ab_1=0.003;
+% wa_1=10; wb_1=3;
+% Im_cc1=0;
+% 
+% %Senoide I2
+% Aa_2=0.5; Ab_2=2;
+% wa_2=40; wb_2=3;
+% Im_cc2=0;
+% 
+% %Senoide I3
+% Aa_3=4; Ab_3=30;
+% wa_3=1; wb_3=0.5;
+% Im_cc3=1;
 
 % %/*EXPONENCIALES*/%
 % %Valores de tiempo atenuacion
@@ -147,7 +172,8 @@
 % tetha_li(3)= 7.753990e+00 Valido con varianza 3.293765e-01 
 % tetha_li(4)= -7.375660e+00 Valido con varianza 1.187990e+00 
 
-% tetha_li(7)= 7.146201e-01 Valido con varianza 1.703474e+00 
+%  tetha_li(7)= -1.005242e+00 Valido con varianza 2.889390e+00
+% tetha_li(8)= 1.040467e-01 Valido con varianza 4.149944e+00 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -174,6 +200,26 @@
 % Aa_3=0.5; Ab_3=2;
 % wa_3=8; wb_3=3;
 % Im_cc3=0;
+
+
+% %Valores de tiempo atenuacion -->tetha_li(5)
+% tau1=1; tau2=100; tau3=200;
+% 
+% %%Parametros senoides
+% %Senoide I1
+% Aa_1=0.2; Ab_1=0.003;
+% wa_1=10; wb_1=3;
+% Im_cc1=0;
+% 
+% %Senoide I2
+% Aa_2=0.5; Ab_2=10;
+% wa_2=1; wb_2=0.3;
+% Im_cc2=500;
+% 
+% %Senoide I3
+% Aa_3=15; Ab_3=20;
+% wa_3=0.1; wb_3=0.5;z
+% Im_cc3=40;
 
 % %Valores de tiempo atenuacion -->tetha_li(5?)
 % tau1=1; tau2=15; tau3=600;
@@ -255,6 +301,8 @@
 % %%%%%%%%%%%%%%%% RESULTADOS CON EL ROBOT 1 %%%%%%%%%%%%%%%%%%%%%%%%%%
 % tetha_li(2)= 1.817417e-02 Valido con varianza 5.484565e-01 
 
+% tetha_li(5)= 6.080764e-02 Valido con varianza 3.259390e+00 
+
 % tetha_li(9)= 6.486531e-03 Valido con varianza 4.030778e+00 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -307,8 +355,8 @@
 % tetha_li(10)= -6.750857e+00 Valido con varianza 1.217596e-01 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%Valores de tiempo atenuacion -->tetha_li
-tau1=1; tau2=1; tau3=200;
+%Valores de tiempo atenuacion -->tetha_li()
+tau1=1; tau2=1; tau3=600;
 
 %%Parametros senoides
 %Senoide I1
@@ -317,14 +365,15 @@ wa_1=10; wb_1=3;
 Im_cc1=0;
 
 %Senoide I2
-Aa_2=0.5; Ab_2=2;
-wa_2=40; wb_2=3;
-Im_cc2=0;
+Aa_2=3000; Ab_2=-500;
+wa_2=0.5; wb_2=3;
+Im_cc2=53;
 
 %Senoide I3
-Aa_3=4; Ab_3=30;
-wa_3=1; wb_3=50;
-Im_cc3=0;
+Aa_3=25; Ab_3=20;
+wa_3=0.03; wb_3=0.1;
+Im_cc3=10;
+
 
 
 %Parametros senoides
