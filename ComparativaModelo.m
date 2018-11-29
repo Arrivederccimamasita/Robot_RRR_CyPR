@@ -1,17 +1,17 @@
-R1=50; R2=30; R3=15;    % Reductoras
+R1=1; R2=1; R3=1;    % Reductoras
 L0=0.6; L1=0.6; L2=1; L3=0.8;
 Kt1=0.5; Kt2=0.4; Kt3 =0.35;
 Tm=0.001;
-DatosSimSenoides_Exp;
+DatosSimAcDir_Exp;
 sim('sl_RobotModelo_RRR');
 
 % Aplicacion del FILTRO de Butterworth --> Medidas reales de
 % Posicion 'qr_D'
 S_Filtr=[];
 %Asignacion de vbls de diseño
-Wp=0.0005; %Frecuencia de paso
+Wp=0.0004; %Frecuencia de paso
 Rp=3; %Rizado caracteristico en zona de paso
-Ws=0.00150; %Frecuencia de Corte
+Ws=0.0010; %Frecuencia de Corte
 Rs=6; %Rizado permitido en el corte
 
 %Aplicacion Filtro
@@ -29,9 +29,9 @@ qd_est=filtroNoCausal_derivada(t_D,qr_filt,Tm);   % Obtencion de la derivada
 % Velocidad
 S_Filtr=[];
 %Asignacion de vbls de diseño
-Wp=0.0010; %Frecuencia de paso
+Wp=0.00010; %Frecuencia de paso
 Rp=3; %Rizado caracteristico en zona de paso
-Ws=0.0020; %Frecuencia de Corte
+Ws=0.00020; %Frecuencia de Corte
 Rs=8; %Rizado permitido en el corte
 
 %Aplicacion Filtro
@@ -45,15 +45,15 @@ qd_est_filt=S_Filtr;%Velocidades Filtradas
 qdd_est=filtroNoCausal_derivada(t_D,qd_est_filt,Tm);   % Obtencion de la derivada
 
 
-% Aplicacion del FILTRO de Butterworth --> Medidas reales de
-% Posicion 'qr_D'
-S_Filtr=[];
-%Asignacion de vbls de diseño
-Wp=0.0005; %Frecuencia de paso
-Rp=3; %Rizado caracteristico en zona de paso
-Ws=0.00150; %Frecuencia de Corte
-Rs=6; %Rizado permitido en el corte
-
+% % Aplicacion del FILTRO de Butterworth --> Medidas reales de
+% % Posicion 'qr_D'
+% S_Filtr=[];
+% %Asignacion de vbls de diseño
+% Wp=0.0005; %Frecuencia de paso
+% Rp=3; %Rizado caracteristico en zona de paso
+% Ws=0.00150; %Frecuencia de Corte
+% Rs=6; %Rizado permitido en el corte
+% 
 
 
 
