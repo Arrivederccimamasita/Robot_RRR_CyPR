@@ -53,6 +53,20 @@
 % Im_cc3=200;
 
 
+% %/*EXPONENCIALES*/% --> tetha_li(6)
+% %Valores de tiempo atenuacion
+% tau1=600; tau2=500; tau3=80;
+% 
+% %%Parametros senoides
+% %Senoide I1
+% Im_cc1=1000;
+% 
+% %Senoide I2
+% Im_cc2=2000;
+% 
+% %Senoide I3
+% Im_cc3=800;
+
 % %Valores de tiempo atenuacion -->tetha_li(7)
 % tau1=1; tau2=15; tau3=600;
 % 
@@ -172,6 +186,7 @@
 % tetha_li(3)= 7.753990e+00 Valido con varianza 3.293765e-01 
 % tetha_li(4)= -7.375660e+00 Valido con varianza 1.187990e+00 
 
+%  tetha_li(6)= -2.191643e+00 Valido con varianza 1.329618e+00 
 %  tetha_li(7)= -1.005242e+00 Valido con varianza 2.889390e+00
 % tetha_li(8)= 1.040467e-01 Valido con varianza 4.149944e+00 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -350,41 +365,54 @@
 % wa_3=8; wb_3=3;
 % Im_cc3=10;
 
+% %Valores de tiempo atenuacion -->tetha_li(11)
+% tau1=1; tau2=1; tau3=100;
+% 
+% %%Parametros senoides
+% %Senoide I1
+% Aa_1=0.2; Ab_1=0.003;
+% wa_1=10; wb_1=3;
+% Im_cc1=0;
+% 
+% %Senoide I2
+% Aa_2=3000; Ab_2=-500;
+% wa_2=0.5; wb_2=3;
+% Im_cc2=53;
+% 
+% %Senoide I3
+% Aa_3=15; Ab_3=10;
+% wa_3=0.05; wb_3=0.3;
+% Im_cc3=4;
 
 % %%%%%%%%%%%%%%%% RESULTADOS CON EL ROBOT 1 %%%%%%%%%%%%%%%%%%%%%%%%%%
 % tetha_li(10)= -6.750857e+00 Valido con varianza 1.217596e-01 
+% tetha_li(11)= 3.741175e-03 Valido con varianza 4.972433e+00 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%Valores de tiempo atenuacion -->tetha_li()
-tau1=1; tau2=1; tau3=600;
+%/*EXPONENCIALES*/% --> tetha_li(6)
+%Valores de tiempo atenuacion
+tau1=600; tau2=500; tau3=80;
 
 %%Parametros senoides
 %Senoide I1
-Aa_1=0.2; Ab_1=0.003;
-wa_1=10; wb_1=3;
-Im_cc1=0;
+Im_cc1=1000;
 
 %Senoide I2
-Aa_2=3000; Ab_2=-500;
-wa_2=0.5; wb_2=3;
-Im_cc2=53;
+Im_cc2=2000;
 
 %Senoide I3
-Aa_3=25; Ab_3=20;
-wa_3=0.03; wb_3=0.1;
-Im_cc3=10;
-
+Im_cc3=800;
 
 
 %Parametros senoides
 %Senoide I1
-Aa_1=Aa_1/50; Ab_1=Ab_1/50;
+% Aa_1=Aa_1/50; Ab_1=Ab_1/50;
 Im_cc1=Im_cc1/50;
 %Senoide I2
-Aa_2=Aa_2/30; Ab_2=Ab_2/30;
+% Aa_2=Aa_2/30; Ab_2=Ab_2/30;
 Im_cc2=Im_cc2/30;
 %Senoide I3
-Aa_3=Aa_3/15; Ab_3=Ab_3/15;
+% Aa_3=Aa_3/15; Ab_3=Ab_3/15;
 Im_cc3=Im_cc3/15;
 
 % %%%%%%%%%%%%%%%% Apuntes Experimentos %%%%%%%%%%%%%%%%%%%%%%%%%%
