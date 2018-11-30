@@ -61,21 +61,23 @@ function [I_control]=controladorPD(in)
   
   % Definicion de parametros del controlador PD sin cancelacion 
   % %%///Ts_bc=50ms
-
-  % Incremento de la señal de control
+ Kp1=19173; Td1=0.1; 
+ Kp2=30077; Td2=0.1;
+ Kp3=6180.8;  Td3=0.091;
+  % Incremento de la seï¿½al de control
 
     I1_k=Kp1*(Td1*ed1_k+e1_k);
     I2_k=Kp2*(Td2*ed2_k+e2_k);
     I3_k=Kp3*(Td3*ed3_k+e3_k);
 
 
-  % Calculo de la señal de control abosluta (incremento+Valor de equilibrio)
+  % Calculo de la seï¿½al de control abosluta (incremento+Valor de equilibrio)
   Im1_k=I1_k+Im1_eq; 
   Im2_k=I2_k+Im2_eq;
   Im3_k=I3_k+Im3_eq;
   
-  % AQUI SE AÑADIRIA LA SATURACION DEL SISTEMA SI FUERA NECESARIO
+  % AQUI SE Aï¿½ADIRIA LA SATURACION DEL SISTEMA SI FUERA NECESARIO
   
-  % Devolvemos como parametro la señal de control absoluta
+  % Devolvemos como parametro la seï¿½al de control absoluta
   I_control=[Im1_k; Im2_k ;Im3_k];
 end
