@@ -87,10 +87,11 @@ Por lo tanto, se definirá el modelo de cada articulación cómo:
 \begin{equation}
 	G_{1}(s)=\frac{Kt_{1}R_{1}}{s(Ma_{11}s+Va_{1})} \hspace{1cm} G_{2}(s)=\frac{Kt_{2}R_{2}}{s(Ma_{2}s+Va_{2})} \hspace{1cm} G_{3}(s)=\frac{Kt_{3}R_{3}}{s(Ma_{33}s+Va_{3})}
 \end{equation}
-
+\newpage
 	\subsection{Diseño de controladores}
 	En éste apartado, se analizará cómo se hayarán los controladores que, posteriormente se implementarán sobre el robot para hacer que se traslade a lo largo de una trayectoria que se generará mediante el control cinemático.\\
-	A continuación se hará un análisis teórico de cada controlador y del calculo de los mismos.
+	Cabe destacar que, en los controladores que se implementen junto con el compensador de gravedad, el de dinámica o el par calculado, la realimentación podría ser por referencia, en lugar de emplear las medidas reales, de tal modo que se realimente con una señal sin ruido ni errores.
+
 	\subsubsection{Controlador PD/PID}
 	\subsubsection{Controlador PD/PID con compensación de gravedad}
 	Para implementar éste controlador, se parte de la base de que, aunque la gravedad es una perturbación mantenida, se puede
@@ -98,11 +99,13 @@ modelar, ya que se conoce de la obtención del modelo dinámico los efectos de l
 Por tanto, para implementar un controlador con compensación de gravedad se le sumará a la señal de control generada por el
 controlador los efectos de la gravedad en el robot.\\
 Este bloque que añade los efectos de la gravedad tendrá como entrada la posición actual del robot y la salida será la compensación de la señal de control. El esquema de montaje de éste tipo de control se muestra a continuación:
-%\begin{figure}[h!]
-%	\centering
-%	\includegraphics[width=1\textwidth]{brazo_portada}
-%	\caption{textodelaleyenda}
-%\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=.8\textwidth]{montaje_grav}
+	\caption{Diagrama de control del compensador de gravedad}
+\end{figure}
+
 	\subsubsection{Controlador PD/PID con compensación de dinámica (Feedforward)}
 	Para implementar éste controlador, también conocido como \textit{Feedforward}, se modificará el modelo de control de tal modo que se precompensen los efectos del modelo dinámico completo del robot, no solo la gravedad.
 	\begin{equation}
@@ -111,26 +114,42 @@ Este bloque que añade los efectos de la gravedad tendrá como entrada la posici
 cómo se observa, la señal de control generada estará formada por el modelo dinámico del robot más una señal adiccional,u.\\
 Para conocer el valor de esa señal de control adiccional, se restará al modelo del sistema la señal de control que se desea generar de tal modo que se obtenga la expresión del bucle cerrado interno de control.
 \begin{equation}
-	\begin{array}{ll}
+	\begin{array}{llll}
 	  & Im=M_{A}(q)\ddot{q} + C_{A}(q,\dot{q})\dot{q} + G_{A}(q) \\
 	- & Im=M_{A}(q)\ddot{q_{ref}} + C_{A}(q,\dot{q})\dot{q} + G_{A}(q) + u \\
-	\cline{2-3}
-	  & M_{A}(q)\tilde{\ddot{q}} & = & u
+	\cline{1-4}
+	\vspace{0.2cm}
+	  & M_{A}(q)\tilde{\ddot{q}} = u & &
 	\end{array}
 \end{equation}
-de ese modo se ha obtenido la señal de control adiccional, también conocida cómo la dinámica del error. Habrá que diseñar controladores para la función de transferencia transferencia que se obtendrá a continuación. Para obtener dicha función de transferencia será necesario partir de condiciones iniciales nulas y pasarla al dominio de \textit{Laplace}.
+de ese modo se ha obtenido la señal de control adiccional, también conocida cómo la dinámica del error. Habrá que diseñar controladores para la función de transferencia que se obtendrá a continuación. Para obtener dicha función de transferencia será necesario partir de condiciones iniciales nulas y pasarla al dominio de \textit{Laplace}.
 \begin{equation}
-	M_{A}(q)\tilde{\ddot{q(t)}} = u(t) \rightarrow M_{A}(q)\tilde{q(s)}s^{2} = u(s) \rightarrow \frac{\tilde{q(s)}}{u(s)}=\frac{1}{M_{A}s^{2}}
+	M_{A}(q)\tilde{\ddot{q(t)}} = u(t) \rightarrow M_{A}(q)\tilde{q(s)}s^{2} = u(s) \rightarrow \frac{\tilde{q(s)}}{u(s)}=\frac{K_{t}R}{M_{A}s^{2}}[\frac{ud.error}{ud.sc}]
 \end{equation}
 
 Se deberán diseñar tres funciones de transferencia, una por articulación. El esquema en diagrama de bloques de éste controlador se muestra a continuación:
-%\begin{figure}[h!]
-%	\centering
-%	\includegraphics[width=1\textwidth]{brazo_portada}
-%	\caption{textodelaleyenda}
-%\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=.8\textwidth]{montaje_feedforward}
+	\caption{Esquema de un controlador Feed Forward}
+\end{figure}
+
+debido a que no se puede medir la aceleración de las variables articulares, cómo se observa, el modelo dinámico inverso del robot se alimentará con los valores de las variables articulares en posición y velocidad y en el caso de la aceleración, se alimentará con la referencia obtenida del generador de trayectorias.
+
+Por lo tanto, a modo de resumen, las funciones de transferencia de las cuales hará que obtener controladores son:
+\begin{equation}
+	G_{1}(s)=\frac{K_{t1}R_1}{M_{a11}s^{2}} \hspace{2cm} G_{2}(s)=\frac{K_{t2}R_2}{M_{a22}s^{2}} \hspace{2cm} G_{3}(s)=\frac{K_{t3}R_3}{M_{a33}s^{2}}
+\end{equation}
+
+
 	\subsubsection{Controlador PD/PID con par calculado}
 
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=.8\textwidth]{montaje_parcalcul}
+		\caption{Esquema de un controlador Par Calculado}
+	\end{figure}
 
 
 
