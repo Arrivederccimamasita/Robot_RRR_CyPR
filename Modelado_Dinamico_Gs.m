@@ -158,9 +158,35 @@ G3=tf(numG3,denG3);
  Ti2=2*0.2; Td2=(0.2^2)/(0.2*2);   Kp2=63451*Ti2; 
  Ti3=2*0.2; Td3=(0.2^2)/(0.2*2);   Kp3=10775*Ti3; 
   
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Obtencion de las funciones de transferencia para los controladores ->
+% %%%%% PID Y PD FEEDFORWARD. %%%%%%%%%
+numG1_ff=Kt1*R1;
+denG1_ff=[Ma1 0 0];
+G1_ff=tf(numG1_ff,denG1_ff);
+
+numG2_ff=Kt2*R2;
+denG2_ff=[Ma2 0 0];
+G2_ff=tf(numG2_ff,denG2_ff);
+
+numG3_ff=Kt3*R3;
+denG3_ff=[Ma3 0 0];
+G3_ff=tf(numG3_ff,denG3_ff);
   
-  
-  
+% PARAMETROS PD REAL CON REDUCTORAS
+  Kp1=19173; Td1=0.1; 
+  Kp2=30078; Td2=0.1;
+  Kp3=5109.6;  Td3=0.1;
+% 
+% PARAMETROS PID REAL  CON REDUCTORAS
+% -> (CUANDO FUNCIONEN LOS PID EN DISCRETO SE DISE�AR�, MIENTRAS TANTO DA
+% PEREZA Y ES INNECESARIO.)
+  Ti1=0.04; Td1=0.1;   Kp1=40444*Ti1;
+  Ti2=0.04; Td2=0.1;   Kp2=63444*Ti2; 
+  Ti3=0.04; Td3=0.1;   Kp3=10777*Ti3; 
+%   
+%   
+%   
 
 
 %% %%%% ROBOT REAL CON REDUCTORAS %%%%
