@@ -42,18 +42,22 @@ Va1=0.1200;     % Bm*(R^2)
 Va2=0.063796;
 Va3=0.064287;
 
+
+% Reductoras y Kt
+Kt1=0.5; Kt2=0.4; Kt3 =0.35;
+R1=50; R2=30; R3=15;
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Obtencion de las funciones de transferencia para los controladores ->
 % %%%%% PID Y PD MONOARTICULAR. %%%%%%%%%
-numG1=1;
+numG1=Kt1*R1;
 denG1=conv([1 0],[Ma1 Va1]);
 G1=tf(numG1,denG1);
 
-numG2=1;
+numG2=Kt2*R2;
 denG2=conv([1 0],[Ma2 Va2]);
 G2=tf(numG2,denG2);
 
-numG3=1;
+numG3=Kt3*R3;
 denG3=conv([1 0],[Ma3 Va3]);
 G3=tf(numG3,denG3);
 
@@ -70,15 +74,15 @@ G3=tf(numG3,denG3);
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Obtencion de las funciones de transferencia para los controladores ->
 % %%%%% PID Y PD FEEDFORWARD. %%%%%%%%%
- numG1_ff=1;
+ numG1_ff=Kt1*R1;
  denG1_ff=[Ma1 0 0];
  G1_ff=tf(numG1_ff,denG1_ff);
 
- numG2_ff=1;
+ numG2_ff=Kt2*R2;
  denG2_ff=[Ma2 0 0];
  G2_ff=tf(numG2_ff,denG2_ff);
 
- numG3_ff=1;
+ numG3_ff=Kt3*R3;
  denG3_ff=[Ma3 0 0];
  G3_ff=tf(numG3_ff,denG3_ff);
 
@@ -117,6 +121,48 @@ G3_pc=tf(numG3_pc,denG3_pc);
   Ti2=0.36; Td2=0.09; Kp2=1107.7; 
   Ti3=0.36; Td3=0.09; Kp3=1107.7;
 
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  
+  %%   % %%%% ROBOT IDEAL SIN REDUCTORAS %%%%
+% Obtencion del termino de la matriz de inercias simplificado
+Ma1=23.9668; %Ma1=eval( subs(subs(subs(M(1,1),q1,0),q2,0),q3,0)); 
+Ma2=30.0770; %Ma2=eval( subs(subs(subs(M(2,2),q1,0),q2,0),q3,0)); 
+Ma3=4.4698; %Ma3=eval( subs(subs(subs(M(3,3),q1,0),q2,0),q3,0)); 
+% Se ha extraido los valores de las Bm_i de los parametros tetha_li
+Va1=0.0023878;     % Bm*(R^2)
+Va2=0.003035;
+Va3=0.0041829;
+% Reductoras y Kt
+Kt1=0.5; Kt2=0.4; Kt3 =0.35;
+R1=1; R2=1; R3=1; 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Obtencion de las funciones de transferencia para los controladores ->
+% %%%%% PID Y PD MONOARTICULAR. %%%%%%%%%
+numG1=Kt1*R1;
+denG1=conv([1 0],[Ma1 Va1]);
+G1=tf(numG1,denG1);
+numG2=Kt2*R2;
+denG2=conv([1 0],[Ma2 Va2]);
+G2=tf(numG2,denG2);
+numG3=Kt3*R3;
+denG3=conv([1 0],[Ma3 Va3]);
+G3=tf(numG3,denG3);
+% PARAMETROS PD IDEAL SIN REDUCTORAS
+ Kp1=19173; Td1=0.1; 
+ Kp2=30077; Td2=0.1;
+ Kp3=6180.8;  Td3=0.091;
+% PARAMETROS PID IDEAL SIN REDUCTORAS
+ Ti1=2*0.2; Td1=(0.2^2)/(0.2*2);   Kp1=40444*Ti1;
+ Ti2=2*0.2; Td2=(0.2^2)/(0.2*2);   Kp2=63451*Ti2; 
+ Ti3=2*0.2; Td3=(0.2^2)/(0.2*2);   Kp3=10775*Ti3; 
+  
+  
+  
+  
+
+
 %% %%%% ROBOT REAL CON REDUCTORAS %%%%
 Ma1=1.530232687999876; %Ma1=eval( subs(subs(subs(Ma(1,1),q1,0),q2,0),q3,0)); 
 Ma2=4.961743100000301; %Ma2=eval( subs(subs(subs(Ma(2,2),q1,0),q2,0),q3,0)); 
@@ -127,18 +173,21 @@ Va1= 0.1223;     % Bm*(R^2)
 Va2=0.096929;
 Va3=0.064764;
 
+% Reductoras y Kt
+Kt1=0.5; Kt2=0.4; Kt3 =0.35;
+R1=50; R2=30; R3=15;
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Obtencion de las funciones de transferencia para los controladores ->
 % %%%%% PID Y PD MONOARTICULAR. %%%%%%%%%
-numG1=1;
+numG1=Kt1*R1;
 denG1=conv([1 0],[Ma1 Va1]);
 G1=tf(numG1,denG1);
 
-numG2=1;
+numG2=Kt2*R2;
 denG2=conv([1 0],[Ma2 Va2]);
 G2=tf(numG2,denG2);
 
-numG3=1;
+numG3=Kt3*R3;
 denG3=conv([1 0],[Ma3 Va3]);
 G3=tf(numG3,denG3);
 
@@ -157,15 +206,15 @@ G3=tf(numG3,denG3);
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Obtencion de las funciones de transferencia para los controladores ->
 % %%%%% PID Y PD FEEDFORWARD. %%%%%%%%%
-numG1_ff=1;
+numG1_ff=Kt1*R1;
 denG1_ff=[Ma1 0 0];
 G1_ff=tf(numG1_ff,denG1_ff);
 
-numG2_ff=1;
+numG2_ff=Kt2*R2;
 denG2_ff=[Ma2 0 0];
 G2_ff=tf(numG2_ff,denG2_ff);
 
-numG3_ff=1;
+numG3_ff=Kt3*R3;
 denG3_ff=[Ma3 0 0];
 G3_ff=tf(numG3_ff,denG3_ff);
 
