@@ -215,9 +215,7 @@ G3_pc=tf(numG3_pc,denG3_pc);
   Ti1=0.48; Td1=0.095;   Kp1=1063*Ti1;
   Ti2=0.48; Td2=0.095;   Kp2=1062.9*Ti2; 
   Ti3=0.48; Td3=0.095;   Kp3=1063.2*Ti3; 
-%   
-%   
-%   
+
 
 %% %%%% ROBOT REAL CON REDUCTORAS %%%%
 Ma1=1.530232687999876; %Ma1=eval( subs(subs(subs(Ma(1,1),q1,0),q2,0),q3,0)); 
