@@ -1,10 +1,12 @@
-Funciones == ()
-Ficheros == *
+%% Organizacion Datos MATLAB %%
+
+Funciones ==> ()
+Ficheros ==> *
 
 
-Cinematica
+/*CINEMATICA*/
 
--->Analisis
+-->Analisis:
 *AnalisisCinematico.m
 
 ()fun_MDH.m
@@ -12,18 +14,19 @@ Cinematica
 ()CinematicaInversa.m
 ()CinematicaDirecta.m
 
--->Control
+-->Control:
 ()GDT_RRR.m
 ()GDT_C_RRR.m
 ().pGTCL_R3GDL_PROFESOR
 
--->No agrupado(?)
+-->No agrupado:(?)
 *Ploteo3d.m
 
-Dinamica
+/*DINAMICA*/
 
--->Anlisis
-*pruebas.m // Simulink: sl_RobotReal_RRR.slx
+-->Anlisis:
+
+*pruebas.m //--> Simulink: sl_RobotReal_RRR.slx
     |
      ->*DatosSimSenoides.m
     |
@@ -39,7 +42,7 @@ Dinamica
     |
      ->()filtroNoCausal_derivada.m
 
-*ComparativaModelo.m // Simulink: sl_RobotModelo_RRR.slx
+*ComparativaModelo.m //--> Simulink: sl_RobotModelo_RRR.slx
 
 
 *ObtencionParamDinam.m
@@ -60,7 +63,9 @@ Dinamica
 *matriz_tetha.txt
 *Datos_Robots.txt
 
--->No agrupado(?)
+
+-->No agrupado:(?)
+
 *Ploteo3d.m
 *deseseracion.m
 ()graficas.m
@@ -70,7 +75,8 @@ Dinamica
 
 
 
--->Control
+-->Control:
+
 *Modelado_Dinamico_Gs.m
 *Inicializaciones.c
 *Directivas.c
