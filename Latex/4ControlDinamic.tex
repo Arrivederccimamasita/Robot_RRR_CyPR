@@ -104,12 +104,50 @@ Este bloque que añade los efectos de la gravedad tendrá como entrada la posici
 %	\caption{textodelaleyenda}
 %\end{figure}
 	\subsubsection{Controlador PD/PID con compensación de dinámica (Feedforward)}
-	Para implementar éste controlador, también conocido como \textit{Feedforward}, se modificará el modelo del robot de tal modo que se le añada a la ecuación dinámica un nuevo parámetro:
+	Para implementar éste controlador, también conocido como \textit{Feedforward}, se modificará el modelo de control de tal modo que se precompensen los efectos del modelo dinámico completo del robot, no solo la gravedad.
 	\begin{equation}
-		I_{i}m= M_{A}(q)\ddot{q_{ref}} + C(q,\dot{q})\dot{q} + G_{A}(q) + u
+		I_m= M_{A}(q)\ddot{q_{ref}} + C(q,\dot{q})\dot{q} + G_{A}(q) + u
 	\end{equation}
-	si con el control anterior se compensaban los terminos gravitatorios del modelo del robot, en éste caso, también se
-	compensarán los términos de Coirolis del modelo, los cuales fueron despreciados al obtener el modelo a partir del cuál se
-	diseño el controlador.
+cómo se observa, la señal de control generada estará formada por la inversa del modelo dinámico del robot más una señal adiccional, u, la cuál se obtiene del siguiente modo:
+\begin{equation}
+	\begin{array}{lll}
+	  & Im=M_{A}(q)\ddot{q} + C_{A}(q,\dot{q})\dot{q} + G_{A}(q) & \rightarrow Modelo del sistema \\
+	- & Im=M_{A}(q)\ddot{q_{ref}} + C_{A}(q,\dot{q})\dot{q} + G_{A}(q) + u & \rightarrow Señal de control \\
+	\cline{2-3}
+	  & M_{A}(q)\tilde{\ddot{q}} & = & u & \rightarrow Bucle cerrado interno
+	\end{array}
+\end{equation}
+por tanto, se puede definir la señal adicional como el controlador deseado empleando la funcion de transferencia del bucle cerrado interno.
+\begin{equation}
+	u()
+\end{equation}
+
+
 	\subsubsection{Controlador PD/PID con par calculado}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	\subsection{Analisis de controladores}
