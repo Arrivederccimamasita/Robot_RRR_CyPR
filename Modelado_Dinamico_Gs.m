@@ -307,8 +307,6 @@ G3_pc=tf(numG3_pc,denG3_pc);
   
   %% %%%% ROBOT REAL SIN REDUCTORAS %%%%
 
-
-  
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -380,12 +378,12 @@ numG3_pc=1;
 denG3_pc=[1 0 0];
 G3_pc=tf(numG3_pc,denG3_pc);
   
-% PARAMETROS PC_PD IDEAL SIN REDUCTORAS
+% PARAMETROS PC_PD REAL SIN REDUCTORAS
   Kp1=400; Td1=0.1; 
   Kp2=400; Td2=0.1;
   Kp3=400;  Td3=0.1;
 % 
-% PARAMETROS PC_PID IDEAL SIN REDUCTORAS
+% PARAMETROS PC_PID REAL SIN REDUCTORAS
 % -> (CUANDO FUNCIONEN LOS PID EN DISCRETO SE DISE�AR�, MIENTRAS TANTO DA
 % PEREZA Y ES INNECESARIO.)
   Ti1=0.3600; Td1=0.0900;   Kp1=1185.6*Ti1;
