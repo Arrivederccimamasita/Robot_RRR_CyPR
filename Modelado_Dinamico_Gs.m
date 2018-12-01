@@ -173,12 +173,12 @@ numG3_ff=Kt3*R3;
 denG3_ff=[Ma3 0 0];
 G3_ff=tf(numG3_ff,denG3_ff);
   
-% PARAMETROS PD REAL CON REDUCTORAS
+% PARAMETROS FF_PD IDEAL SIN REDUCTORAS
   Kp1=19173; Td1=0.1; 
   Kp2=30078; Td2=0.1;
   Kp3=5109.6;  Td3=0.1;
 % 
-% PARAMETROS PID REAL  CON REDUCTORAS
+% PARAMETROS FF_PID IDEAL SIN REDUCTORAS
 % -> (CUANDO FUNCIONEN LOS PID EN DISCRETO SE DISE�AR�, MIENTRAS TANTO DA
 % PEREZA Y ES INNECESARIO.)
   Ti1=0.04; Td1=0.1;   Kp1=40444*Ti1;
@@ -187,6 +187,34 @@ G3_ff=tf(numG3_ff,denG3_ff);
 %   
 %   
 %   
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Obtencion de las funciones de transferencia para los controladores ->
+% %%%%% PID Y PD PAR CALCULADO. %%%%%%%%%
+numG1_pc=1;
+denG1_pc=[1 0 0];
+G1_pc=tf(numG1_pc,denG1_pc);
+
+numG2_pc=1;
+denG2_pc=[1 0 0];
+G2_pc=tf(numG2_pc,denG2_pc);
+
+numG3_pc=1;
+denG3_pc=[1 0 0];
+G3_pc=tf(numG3_pc,denG3_pc);
+  
+% PARAMETROS PC_PD IDEAL SIN REDUCTORAS
+  Kp1=400; Td1=0.1; 
+  Kp2=400; Td2=0.1;
+  Kp3=400;  Td3=0.1;
+% 
+% PARAMETROS PC_PID IDEAL SIN REDUCTORAS
+% -> (CUANDO FUNCIONEN LOS PID EN DISCRETO SE DISE�AR�, MIENTRAS TANTO DA
+% PEREZA Y ES INNECESARIO.)
+  Ti1=0.48; Td1=0.095;   Kp1=1063*Ti1;
+  Ti2=0.48; Td2=0.095;   Kp2=1062.9*Ti2; 
+  Ti3=0.48; Td3=0.095;   Kp3=1063.2*Ti3; 
 
 
 %% %%%% ROBOT REAL CON REDUCTORAS %%%%
