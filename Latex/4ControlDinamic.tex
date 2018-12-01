@@ -108,18 +108,19 @@ Este bloque que añade los efectos de la gravedad tendrá como entrada la posici
 	\begin{equation}
 		I_m= M_{A}(q)\ddot{q_{ref}} + C(q,\dot{q})\dot{q} + G_{A}(q) + u
 	\end{equation}
-cómo se observa, la señal de control generada estará formada por la inversa del modelo dinámico del robot más una señal adiccional, u, la cuál se obtiene del siguiente modo:
+cómo se observa, la señal de control generada estará formada por el modelo dinámico del robot más una señal adiccional,u.\\
+Para conocer el valor de esa señal de control adiccional, se restará al modelo del sistema la señal de control que se desea generar de tal modo que se obtenga la expresión del bucle cerrado interno de control.
 \begin{equation}
-	\begin{array}{lll}
-	  & Im=M_{A}(q)\ddot{q} + C_{A}(q,\dot{q})\dot{q} + G_{A}(q) & \rightarrow Modelo del sistema \\
-	- & Im=M_{A}(q)\ddot{q_{ref}} + C_{A}(q,\dot{q})\dot{q} + G_{A}(q) + u & \rightarrow Señal de control \\
+	\begin{array}{ll}
+	  & Im=M_{A}(q)\ddot{q} + C_{A}(q,\dot{q})\dot{q} + G_{A}(q) \\
+	- & Im=M_{A}(q)\ddot{q_{ref}} + C_{A}(q,\dot{q})\dot{q} + G_{A}(q) + u \\
 	\cline{2-3}
-	  & M_{A}(q)\tilde{\ddot{q}} & = & u & \rightarrow Bucle cerrado interno
+	  & M_{A}(q)\tilde{\ddot{q}} & = & u
 	\end{array}
 \end{equation}
-por tanto, se puede definir la señal adicional como el controlador deseado empleando la funcion de transferencia del bucle cerrado interno.
+de ese modo se ha obtenido la señal de control adiccional, también conocida cómo la dinámica del error. Habrá que diseñar controladores para la función de transferencia transferencia que se obtendrá a continuación. Para obtener dicha función de transferencia será necesario partir de condiciones iniciales nulas y pasarla al dominio de \textit{Laplace}.
 \begin{equation}
-	u()
+	M_{A}(q)\tilde{\ddot{q(t)}} = u(t) \rightarrow M_{A}(q)\tilde{q(s)}s^{2} = u(s) \rightarrow \frac{\tilde{q(s)}}{u(s)}=\frac{1}{M_{A}s^{2}}
 \end{equation}
 
 
