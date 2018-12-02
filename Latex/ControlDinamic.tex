@@ -107,8 +107,7 @@ Este bloque que añade los efectos de la gravedad tendrá como entrada la posici
 \end{figure}
 
 	\subsubsection{Controlador PD/PID con compensación de dinámica (Feedforward)}
-	Para implementar éste controlador, también conocido como \textit{Feedforward}, se modificará el modelo de control de tal modo que se precompensen los efectos del modelo dinámico completo del robot, no solo la gravedad. \\
-	% HABLAR UN POCO MAS DEL FEEDFORWARD
+	Para implementar éste controlador, también conocido como \textit{Feedforward}, se modificará el modelo de control de tal modo que se precompensen los efectos del modelo dinámico completo del robot, no solo la gravedad.
 	\begin{equation}
 		I_m= M_{A}(q)\ddot{q_{ref}} + C(q,\dot{q})\dot{q} + G_{A}(q) + u
 	\end{equation}
@@ -145,26 +144,7 @@ Por lo tanto, a modo de resumen, las funciones de transferencia de las cuales ha
 
 
 	\subsubsection{Controlador PD/PID con par calculado}
-El control mediante par calculado será el último en implementar en éste proyecto. El par calculado se basa en la intención de desacoplar totalmente las interaciones del robot, resultando la dinámica del error cómo un doble integrador, para el cuál habrá que diseñar controladores. \\
-%AÑADIR MAS FANTASIA
-Por tanto, la diferencia de éste controlador frente al resto es que es un controlador dinámico. Además, es un controlador totalmente basado en el modelo, lo que conlleva que si el modelo es malo el control también lo será.
-Si, al igual que antes, se resta al sistema la señal de control que se desea implementar, se obtendrá la dinámica del error:
-\begin{equation}
-	\begin{array}{llll}
-	  & Im=M_{A}(q)\ddot{q} + C_{A}(q,\dot{q})\dot{q} + G_{A}(q) \\
-	- & Im=M_{A}(q)\ddot{q_{ref}+u} + C_{A}(q,\dot{q})\dot{q} + G_{A}(q) \\
-	\cline{1-4}
-	\vspace{0.2cm}
-	  & \tilde{\ddot{q}} = u & &
-	\end{array}
-\end{equation}
 
-Por tanto, las funciones de transferencia a partir de las cuales hay que diseñar los controladores serán:
-\begin{equation}
-	G_{1}(s)=\frac{1}{s^{2}} \hspace{2cm} G_{2}(s)=\frac{1}{s^{2}} \hspace{2cm} G_{3}(s)=\frac{1}{s^{2}}
-\end{equation}
-
-Y, el esquema de control del par calculado se muestra a continuación
 	\begin{figure}[h!]
 		\centering
 		\includegraphics[width=.8\textwidth]{montaje_parcalcul}

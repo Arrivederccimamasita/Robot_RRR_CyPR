@@ -156,39 +156,3 @@ donde será de ayuda despejar la función A en una suma de un término por el se
 	\end{center}
 	\subsection{Jacobiano del robot y análisis de puntos singulares}
 	
-	\newpage
-\section{Análisis Dinámico del brazo}
-Una vez analizada la cinemática del brazo, se debe pasar a realizar un análisis dinámico del mismo. Este análisis nos muestra la relación que existe entre las intensidades aplicadas a los motores delas articulaciones del robot y las posiciones, velocidades y aceleraciones de dichas articulaciones.\\
-
-La ecuación que permite obtener dicha relación es la siguiente:\\
-
-	\begin{equation}
-	K_tRI_m=(M(q)+J_mR^2)qdd+(C(q,qd)+B_mR^2)qd+G(q)+F(qd)
-	\end{equation}\\
-	
-En la ecuación anterior, se tiene, en el término de la izquierda, las matrices de constantes de par de cada motor ($K_t$) y de reductoras ($R$) e intensidades ($I_m$) aplicadas a cada motor.\\
-
-Por otro lado, en el término de la derecha encontramos las matrices de inercia de los eslabones ($M(q)$) y de los motores ($J_m$), la matriz de términos de Coriolis ($C(q,qd)$) y la de términos viscosos de los motores ($B_m$), y las matrices de términos gravitatorios ($G(q)$) y de fricciones ($F(qd)$), donde esta última no se tendrá en cuenta para la estimación del modelo.\\
-
-Aparecen también los vectores columna $q$, $qd$ y $qdd$ que corresponden, respectivamente, a los valores de posición, velocidad y aceleración de las articulaciones.\\
-
-Para tratar de hallar la ecuación anterior, se va a realizar un método recursivo que se basa en la segunda ley de Newton denominado algoritmo de Newton-Euler, el cual obtiene los esfuerzos/pares aplicados en cada articulación. Dicho algoritmo ha sido proporcionado en clase por lo que no se explicará aquí. Sí decir que como del robot sólo se conocen las longitudes de los eslabones y algunos parámetros dinámicos (reductoras y constantes de par) se realizará el cálculo con variables simbólicas que serán estimadas y sustituidas más adelante.\\
-
-El resultado que se desea obtener con dicho algoritmo es el siguiente:\\
-\begin{equation}
-T=M(q)qdd+V(q,qd)+G(q),
-\end{equation}
-donde el término $V(q,qd)$ hace referencia al conjunto $C(q,qd)qd$.\\
-
-Como el algoritmo anterior obtiene el resultado total, se debe derivar el mismo para poder hallar las matrices aisladas. Por ello, el resultado $T$ se deriva respecto a $qdd$ para obtener la matriz $M(q)$. Acto seguido restar la matriz obtenida multiplicada por $qdd$ al valor de $T$ para eliminarlo y obtener las otras dos matrices.\\
-
-El siguiente paso consiste en derivar la nueva $T$ respecto a la constante de gravedad $g$, puesto que aparece únicamente en los términos gravitatorios. Así, y multiplicando por $g$ a posteriori, se obtiene la matriz $G(q)$. Para hallar la matriz $V(q,qd)$ basta con restar a la $T$ resultante de extraer la matriz de inercia la $G(q)$ anterior.\\
-
-Una de las características que hay que tener en cuenta del algoritmo de Newton-Euler es que no tiene en cuenta las viscosidades e inercias de los motores, por lo que hay que añadirlas a posteriori obteniendo las matrices $Ma(q)=M(q)+J_mR^2$ y $Va(q,qd)=V(q,qd)+B_mR^2qd$.\\
-
-Una vez realizado todo esto se ha obtenido el modelo dinámico simbólico del robot, que se va a suponer correcto pues únicamente consiste en seguir unos pasos descritos en clase, pero que, si se desease, se podría comparar con un robot diseñado en Robotics Toolbox de Matlab asignando valores a los parámetros y realizando un mismo experimento para ambos modelos, tomando como referencia correcta el último de ellos.\\
-
-
-
-
-	
