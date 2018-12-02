@@ -17,6 +17,7 @@ En la ecuación anterior, se tiene; en el término de la izquierda, las matrices
 Aparecen también los vectores columna $q$, $\dot{q}$ y $\ddot{q}$ que corresponden, respectivamente, a los valores de posición, velocidad y aceleración de las articulaciones.\\
 
 Teniendo la ecuación matricial, se prosigue definiendo el contenido interno de estas matrices, donde entramos a considerar las incertidumbres dinámicas del robot. Estas son, en base a la estructura tomada:
+\vspace{0.3cm}
 
 \begin{itemize}
 	\item Momentos de Inercia º0:
@@ -37,25 +38,153 @@ Teniendo la ecuación matricial, se prosigue definiendo el contenido interno de 
 	\end{center}
 \end{itemize}
 
-Para tratar de , se va a realizar un método recursivo que se basa en la segunda ley de Newton denominado algoritmo de Newton-Euler, el cual obtiene los esfuerzos/pares aplicados en cada articulación. Dicho algoritmo ha sido proporcionado en clase por lo que no se explicará aquí. Sí decir que como del robot sólo se conocen las longitudes de los eslabones y algunos parámetros dinámicos (reductoras y constantes de par) se realizará el cálculo con variables simbólicas que serán estimadas y sustituidas más adelante.\\
+\newpage
 
-
+Tras definir las incógnitas inerciales, y el conocimiento geométrico del robot, se procede a la descripcion interna de las matrices que definen nuestro modelo. Para ello, se va a realizar un método recursivo que se basa en la segunda ley de Newton denominado algoritmo de Newton-Euler, el cual obtiene los esfuerzos/pares aplicados en cada articulación.\\
+ Dicho algoritmo ha sido proporcionado en clase por lo que no se explicará aquí; sí decir, que del robot sólo se conocen las longitudes de los eslabones y algunos parámetros dinámicos (reductoras y constantes de par) se realizará el cálculo con las incertidumbres dinámicas definidas como variables simbólicas que serán estimadas y sustituidas más adelante.\\
 
 El resultado que se desea obtener con dicho algoritmo es el siguiente:\\
 \begin{equation}
-T=M(q)qdd+V(q,qd)+G(q),
+\tau=M(q)\ddot{q}+V(q,\dot{q})+G(q),
 \end{equation}
-donde el término $V(q,qd)$ hace referencia al conjunto $C(q,qd)qd$.\\
+donde el término $V(q,\dot{q})$ hace referencia al conjunto $C(q,\dot{q})\dot{q}$.\\
 
-Como el algoritmo anterior obtiene el resultado total, se debe derivar el mismo para poder hallar las matrices aisladas. Por ello, el resultado $T$ se deriva respecto a $qdd$ para obtener la matriz $M(q)$. Acto seguido restar la matriz obtenida multiplicada por $qdd$ al valor de $T$ para eliminarlo y obtener las otras dos matrices.\\
+Como el algoritmo anterior obtiene el resultado total, se debe derivar el mismo para poder hallar las matrices aisladas. Por ello, el resultado $\tau$ se deriva respecto a $\ddot{q}$ para obtener la matriz $M(q)$. Acto seguido restar la matriz obtenida multiplicada por $\ddot{q}$ al valor de $\tau$ para eliminarlo y obtener las otras dos matrices.\\
+\begin{equation}
+M(q)=\dfrac{\partial{\tau}}{\partial{\ddot{q}}},
+\end{equation}
 
-El siguiente paso consiste en derivar la nueva $T$ respecto a la constante de gravedad $g$, puesto que aparece únicamente en los términos gravitatorios. Así, y multiplicando por $g$ a posteriori, se obtiene la matriz $G(q)$. Para hallar la matriz $V(q,qd)$ basta con restar a la $T$ resultante de extraer la matriz de inercia la $G(q)$ anterior.\\
+El siguiente paso consiste en derivar la nueva $\tau$ respecto a la constante de gravedad $g$, puesto que aparece únicamente en los términos gravitatorios. Así, y multiplicando por $g$ a posteriori, se obtiene la matriz $G(q)$. Para hallar la matriz $V(q,\dot{q})$ basta con restar a la $\tau$ resultante de extraer la matriz de inercia la $G(q)$ anterior.\\
+\begin{equation}
+\tau_{new}=\tau-\dfrac{\partial{\tau}}{\partial{\ddot{q}}}\ddot{q},
+\end{equation}
 
-Una de las características que hay que tener en cuenta del algoritmo de Newton-Euler es que no tiene en cuenta las viscosidades e inercias de los motores, por lo que hay que añadirlas a posteriori obteniendo las matrices $Ma(q)=M(q)+J_mR^2$ y $Va(q,qd)=V(q,qd)+B_mR^2qd$.\\
+\begin{equation}
+G(q)=\dfrac{\partial{\tau_{new}}}{\partial{g}},
+\end{equation}
+
+\begin{equation}
+V(q,\dot{q})=\tau_{new}-G(q).
+\end{equation}
+
+Una de las características que hay que tener en cuenta del algoritmo de Newton-Euler es que no tiene en cuenta las viscosidades e inercias de los motores, por lo que hay que añadirlas a posteriori obteniendo las matrices $Ma(q)=M(q)+J_mR^2$ ; $Va(q,\dot{q})=V(q,\dot{q})+B_mR^2\dot{q}$ y $Ga(q)=G(q)$.\\
 
 Una vez realizado todo esto se ha obtenido el modelo dinámico simbólico del robot, que se va a suponer correcto pues únicamente consiste en seguir unos pasos descritos en clase, pero que, si se desease, se podría comparar con un robot diseñado en Robotics Toolbox de Matlab asignando valores a los parámetros y realizando un mismo experimento para ambos modelos, tomando como referencia correcta el último de ellos.\\
+\newpage
+\[
+Ma=
+\begin{bmatrix}
+Ma_{1,1} & 0 & 0\\
+0 & Ma_{2,2} & Ma_{2,3}\\
+0 & Ma_{3,2} & Ma_{3,3}\\
+\end{bmatrix} \] 
 
-
-
+\begin{itemize}
+	\item 
+	$Ma_{1,1}= I_{11yy}+0.5I_{22xx}+0.5I_{22yy}+0.5I_{33xx} +0.5I_{33yy} - 			0.5I_{22xx}cos(2q_{2})+ 0.5I_{22yy}cos(2q_2)+Jm_1R_{1}^{2} + 0.5L_{2}^{2}m_{2} +0.5L_{2}^{2}m_{3}+ 0.5L_{3}^{2}m_{3}- 0.5I_{33xx}cos(2q_{2} + 2q_{3}) +0.5I_{33yy}cos(2q_{2} + 2q_{3}) + m_{1}s{11z}^{2} + 0.5m_{2}s_{22x}^{2}+ 0.5m_{3}s_{33x}^{2}+ 0.5m_{2}s_{22x}^{2}cos(2q_{2})+ 0.5L_{3}^{2}m_{3}cos(2q_{2} + 2q_{3})+ 0.5m_{3}s{33x}^{2}cos(2q_{2}+2q_{3}) - 1.0L_{2}m_{2}s_{22x}- 1.0L_{3}m_{3}s_{33x} + 0.5L_{2}^{2}m_{2}cos(2q_{2}+ 0.5L_{2}^{2}m_{3}cos(2q_{2}+L_{2}L_{3}m_{3}cos(q_{3}) -1.0L_{2}m_{3}s_{33x}cos(q_{3})- 1.0L_{3}m_{3}s_{33x}cos(2q_{2} + 2q_{3})+L_{2}L_{3}m_{3}cos(2q_{2} + q_{3})-1.0L_{2}m_{3}s_{33x}cos(2q_{2} + q_{3})-1.0L_{2}m_{2}s_{22x}cos(2q_{2}).$ \\ 
+	\vspace{0.2cm}
+	
+	\item $Ma_{2,2}=I_{22zz}+I_{33zz}+Jm_{2}R_{2}^{2}+L_{2}^{2}m_{2}+L_{2}^{2}m_{3}+L_{3}^{2}m_{3}+m_{2}s_{s22x}^{2}++m_{3}s_{s33x}^{2}- 2L_{2}m_{2}s_{22x}- 2L_{3}m_{3}s_{33x}+ 2L_{2}L_{3}m_{3}cos(q_{3}-2L_{2}m_{3}s_{33x}cos(q_{3})$ \\
+	 \vspace{0.2cm}
+	
+	\item 
+	$Ma_{2,3}=m_{3}L_{3}^{2}- 2L_{3}m_{3}s_{33x}+L_{2}L_{3}m_{3}cos(q_{3})+m_{3}s_{33x}^{2}-L_{2}m_{3}s_{33x}cos(q_{3})+I_{33zz}$ \\ \vspace{0.2cm}
+	
+	\item 
+	$Ma_{3,2}=I_{33zz}+m_{3}(L_{3}-s_{33x})(L_{3}-s_{33x}+L_{2}cos(q_{3}))$ \\ 
+	\vspace{0.2cm}
+	
+	\item 
+	$Ma_{3,3}=I_{33zz}+Jm_{3}R_{3}^{2}+m_{3}(L_{3}-s_{33x})^{2}$ \\ 
+	\vspace{0.2cm}
 
 	
+\end{itemize}
+
+\[
+Va=
+\begin{pmatrix}
+Va_{1}\\
+Va_{2}\\
+Va_{3}\\
+\end{pmatrix} \] 
+\begin{itemize}
+	\item 
+	$Va_{1}=Bm_{1}\dot{q_{1}}R_{1}^{2}
+	-\dot{q_{1}}(I_{33yy}\dot{q_{2}} sin(2q_{2}+2q_{3}))
+	-I_{33xx}\dot{q_{3}} sin(2q_{2}+2q_{3})
+	-I_{33xx}\dot{q_{2}} sin(2q_{2}+2q_{3})
+	+I_{33yy}\dot{q_{3}} sin(2q_{2}+2q_{3})
+	-I_{22xx}\dot{q_{2}} sin(2q_{2})
+	+I_{22yy}\dot{q_{2}} sin(2q_{2})
+	 +m_{3}\dot{q_{2}}s_{33x}^{2}sin(2q_{2}+2q_{3})
+	+m_{3}\dot{q_{3}}s_{33x}^{2}sin(2q_{2}+2q_{3})
+	+L_{2}^{2}m_2 \dot{q_{2}}sin(2q_{2})
+	+L_{2}^{2}m_{3}\dot{q_{2}}sin( 2q_{2})
+	+m_{2}\dot{q_{2}}s_{22x}^{2}sin(2q_{2})
+	+L_{3}^{2}m_{3} \dot{q_{2}}sin(2q_{2}+2q_{3})
+	+L_{3}^{2}m_{3} \dot{q_{3}}sin(2q_{2}+2q_{3})
+	+2L_{3}L_{2}m_{3} \dot{q_{2}}sin(2q_{2}+q_{3})
+	+L_{3}L_{2}m_{3} \dot{q_{3}}sin(2q_{2}+q_{3})
+	-2L_{2}m_{3}\dot{q_{2}}s_{33x}sin(2q_{2}+q_{3})
+	-L_{2}m_{3}\dot{q_{3}}s_{33x}sin(2q_{2}+q_{3})
+	-2L_{2}m_{2}\dot{q_{2}}s_{22x}sin(2q_{2})
+	+L_{3}L_{2}m_{3} \dot{q_{3}}sin(q_{3})
+	-L_{2}m_{3} \dot{q_{3}}s_{33x}sin(q_{3})
+	-2L_{3}m_{3}\dot{q_{2}}s_{33x}^{2}sin(2q_{2}+2q_{3})
+	-2L_{3}m_{3}\dot{q_{3}}s_{33x}^{2}sin(2q_{2}+2q_{3})
+	$
+	\item 
+	$Va_{2}=0.5I_{33yy}\dot{q_{1}}^{2}sin(2q_{2}+2q_{3})
+	-0.5I_{33xx}\dot{q_{1}}^{2}sin(2q_{2}+2q_{3})
+	+Bm_{2}R_{2}^{2}\dot{q_{2}}
+	-0.5I_{22xx}\dot{q_{1}}^{2}sin(2q_{2})
+	+0.5I_{22yy}\dot{q_{1}}^{2}sin(2q_{2})
+	+0.5L_{3}^{2}m_{3} \dot{q_{1}}^{2}sin(2q_{2}+2q_{3})
+	+0.5m_{3}\dot{q_{1}}^{2}s_{33x}^{2}sin(2q_{2}+2q_{3})
+	+0.5L_{2}^{2}m_{2} \dot{q_{1}}^{2}sin(2q_{2})
+	+0.5L_{2}^{2}m_{3} \dot{q_{1}}^{2}sin(2q_{2})
+	+0.5m_{2} \dot{q_{1}}^{2}s_{22x}^{2}sin(2q_{2})
+	-L_{3}L_{2}m_{3} \dot{q_{3}}^{2}sin(q_{3})
+	+L_{2}m_{3}\dot{q_{3}}^{2}s_{33x}sin(q_{3})
+	-L_{3}m_{3}\dot{q_{1}}^{2}s_{33x}sin(2q_{2}+2q_{3})
+	+L_{3}L_{2}m_{3} \dot{q_{1}}^{2}sin(2q_{2}+q_{3})
+	-L_{2}m_{3}\dot{q_{1}}^{2}s_{33x}sin(2q_{2}+q_{3})
+	-L_{2}m_{2}\dot{q_{1}}^{2}s_{22x}sin(2q_{2})
+	-2L_{3}L_{2}m_{3} \dot{q_{3}}\dot{q_{2}}sin(q_{3})
+	+2L_{2}m_{3} \dot{q_{2}}\dot{q_{3}}s_{33x}sin(q_{3})
+	$
+	
+	\item 
+	$Va_{3}=0.5I_{33yy}\dot{q_{1}}^{2}sin(2q_{2}+2q_{3})
+	-0.5I_{33xx}\dot{q_{1}}^{2}sin(2q_{2}+2q_{3})
+	+Bm_{3}R_{3}^{2}\dot{q_{3}}
+	+0.5L_{3}^{2}m_{3} \dot{q_{1}}^{2}sin(2q_{2}+2q_{3})
+	+0.5m_{3}\dot{q_{1}}^{2}s_{33x}^{2}sin(2q_{2}+2q_{3})
+	+0.5L_{3}L_{2}m_{3} \dot{q_{1}}^{2}sin(q_{3})
+	+L_{3}L_{2}m_{3} \dot{q_{2}}^{2}sin(q_{3})
+	-0.5m_{3}L_{2}\dot{q_{1}}^{2}s_{33x}sin(q_{3})
+	-m_{3}L_{2}\dot{q_{2}}^{2}s_{33x}sin(q_{3})
+	-L_{3}m_{3}\dot{q_{1}}^{2}s_{33x}sin(2q_{2}+2q_{3})
+	+0.5L_{2}L_{3}m_{3}\dot{q_{1}}^{2}sin(2q_{2}+q_{3})
+	-0.5L_{2}m_{3}\dot{q_{1}}^{2}s_{33x}sin(2q_{2}+q_{3})
+	$
+\end{itemize}
+
+	\[
+	Ga=
+	\begin{pmatrix}
+	0\\
+	Ga_{2}\\
+	Ga_{3}\\
+	\end{pmatrix} \] 
+	
+	\begin{itemize}
+		\item 
+		$Ga_{2}=g(L_{3}m_{3}cos(q_{2}+q_{3})-m_{2}s_{22x}cos(q_{2})-m_{3}s_{33x}cos(q_{2}+q_{3})+L_{2}m_{2}cos(q_{2})+L_{2}m_{3}cos(q_{2}))
+		$
+		
+		\item 
+		$Ga_{3}=g*m_{3}cos(q_{2}+q_{3})(L_{3}-s_{33x})
+		$
+	\end{itemize}
