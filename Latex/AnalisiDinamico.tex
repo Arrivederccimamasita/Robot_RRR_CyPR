@@ -40,14 +40,18 @@ Teniendo la ecuación matricial, se prosigue definiendo el contenido interno de 
 
 \newpage
 
-Tras definir las incógnitas inerciales, y el conocimiento geométrico del robot, se procede a la descripcion interna de las matrices que definen nuestro modelo. Para ello, se va a realizar un método recursivo que se basa en la segunda ley de Newton denominado algoritmo de Newton-Euler, el cual obtiene los esfuerzos/pares aplicados en cada articulación.\\
- Dicho algoritmo ha sido proporcionado en clase por lo que no se explicará aquí; sí decir, que del robot sólo se conocen las longitudes de los eslabones y algunos parámetros dinámicos (reductoras y constantes de par) se realizará el cálculo con las incertidumbres dinámicas definidas como variables simbólicas que serán estimadas y sustituidas más adelante.\\
+Tras definir las incógnitas inerciales, y el conocimiento geométrico del robot, se procede a la descripción interna de las
+ matrices que definen nuestro modelo. Para ello, se va a realizar un método recursivo que se basa en la segunda ley de
+ Newton denominado algoritmo de Newton-Euler, el cual obtiene los esfuerzos/pares aplicados en cada articulación.\\
+ Dicho algoritmo ha sido proporcionado en clase por lo que no se explicará aquí; sí decir, que del robot sólo se conocen
+ las longitudes de los eslabones y algunos parámetros dinámicos (reductoras y constantes de par) se realizará el cálculo 
+ con las incertidumbres dinámicas definidas como variables simbólicas que serán estimadas y sustituidas más adelante.\\
 
 El resultado que se desea obtener con dicho algoritmo es el siguiente:\\
 \begin{equation}
 \tau=M(q)\ddot{q}+V(q,\dot{q})+G(q),
 \end{equation}
-donde el término $V(q,\dot{q})$ hace referencia al conjunto $C(q,\dot{q})\dot{q}$.\\
+donde el término $V(q,\dot{q})$ hace referencia al producto $C(q,\dot{q})\dot{q}$.\\
 
 Como el algoritmo anterior obtiene el resultado total, se debe derivar el mismo para poder hallar las matrices aisladas. Por ello, el resultado $\tau$ se deriva respecto a $\ddot{q}$ para obtener la matriz $M(q)$. Acto seguido restar la matriz obtenida multiplicada por $\ddot{q}$ al valor de $\tau$ para eliminarlo y obtener las otras dos matrices.\\
 \begin{equation}
@@ -82,8 +86,8 @@ Ma_{1,1} & 0 & 0\\
 \begin{itemize}
 	\item 
 	$Ma_{1,1}= I_{11yy}+0.5I_{22xx}+0.5I_{22yy}+0.5I_{33xx} +0.5I_{33yy} - 			0.5I_{22xx}cos(2q_{2})+ 0.5I_{22yy}cos(2q_2)+Jm_1R_{1}^{2} + 0.5L_{2}^{2}m_{2} +0.5L_{2}^{2}m_{3}+ 0.5L_{3}^{2}m_{3}- 0.5I_{33xx}cos(2q_{2} + 2q_{3}) +0.5I_{33yy}cos(2q_{2} + 2q_{3}) + m_{1}s{11z}^{2} + 0.5m_{2}s_{22x}^{2}+ 0.5m_{3}s_{33x}^{2}+ 0.5m_{2}s_{22x}^{2}cos(2q_{2})+ 0.5L_{3}^{2}m_{3}cos(2q_{2} + 2q_{3})+ 0.5m_{3}s{33x}^{2}cos(2q_{2}+2q_{3}) - 1.0L_{2}m_{2}s_{22x}- 1.0L_{3}m_{3}s_{33x} + 0.5L_{2}^{2}m_{2}cos(2q_{2}+ 0.5L_{2}^{2}m_{3}cos(2q_{2}+L_{2}L_{3}m_{3}cos(q_{3}) -1.0L_{2}m_{3}s_{33x}cos(q_{3})- 1.0L_{3}m_{3}s_{33x}cos(2q_{2} + 2q_{3})+L_{2}L_{3}m_{3}cos(2q_{2} + q_{3})-1.0L_{2}m_{3}s_{33x}cos(2q_{2} + q_{3})-1.0L_{2}m_{2}s_{22x}cos(2q_{2}).$ \\ 
-	\vspace{0.2cm}
-	
+	\vspace{0.2cm}	
+
 	\item $Ma_{2,2}=I_{22zz}+I_{33zz}+Jm_{2}R_{2}^{2}+L_{2}^{2}m_{2}+L_{2}^{2}m_{3}+L_{3}^{2}m_{3}+m_{2}s_{s22x}^{2}++m_{3}s_{s33x}^{2}- 2L_{2}m_{2}s_{22x}- 2L_{3}m_{3}s_{33x}+ 2L_{2}L_{3}m_{3}cos(q_{3}-2L_{2}m_{3}s_{33x}cos(q_{3})$ \\
 	 \vspace{0.2cm}
 	
@@ -188,3 +192,5 @@ Va_{3}\\
 		$Ga_{3}=g*m_{3}cos(q_{2}+q_{3})(L_{3}-s_{33x})
 		$
 	\end{itemize}
+
+
