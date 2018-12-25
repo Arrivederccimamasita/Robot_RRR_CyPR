@@ -1,6 +1,6 @@
 \section{Control Dinámico del brazo}
 En esta última parte del proyecto, una vez se conoce el modelo del robot en las diferentes configuraciones, se pasará a buscar implementar un control dinámico sobre el mismo.Para poder implementar controladores sobre nuestro robot, será necesario obtener una función de transferencia matemática a modo de modelo que se asemeje al robot real.\\
-Una vez se tenga un modelo lineal de cada articulación del robot, junto con el generador de trayectorias creado anteriormente, se buscará que el robot siga una trayectoria predefinida. Básicamente, se busca que el robot se desplace de un punto a otro con minimizando el error y del modo y a la velocidad que el usuario desee.\\
+Una vez se tenga un modelo lineal de cada articulación del robot, junto con el generador de trayectorias creado anteriormente, se buscará que el robot siga una trayectoria predefinida. Básicamente, se busca que el robot se desplace de un punto a otro minimizando el error y del modo y a la velocidad que el usuario desee.\\
 
 	\subsection{Obtención del modelo lineal de las articulaciones del brazo}
 Para obtener la función de transferencia de cada articulación del robot, se linealizará la ecuación dinamica que define cada motor en un punto de equilibrio en torno a velocidades nulas. Por lo tanto, las consideraciones que se tendrán en cuenta para linealizar la ecuación dinamica que define el comportamiento de cada articulacion del robot son:
@@ -93,7 +93,7 @@ Por lo tanto, se definirá el modelo de cada articulación cómo:
 	En éste apartado, se analizará cómo se hayarán los controladores que, posteriormente se implementarán sobre el robot para hacer que se desplace a lo largo de una trayectoria que se generará mediante el control cinemático.\\
 	Cabe destacar que, en los controladores que se implementen junto con el compensador de gravedad, el de dinámica o el par calculado, la realimentación podrá ser por referencia, en lugar de emplear las medidas reales, de tal modo que se realimente con una señal sin ruido ni errores.\\
 	\subsubsection{Controlador PD/PID}
-	Para diseñar éstos controladores lineales, se empleará el modelo anteriormente mostrado y se implementarán directamente. El esquema de control será el esquema clásico de control, ya que éste tipo de controladores serán lo primeros en implementar y, por extensión, los más sencillos de hacer. \\
+	Para diseñar éstos controladores lineales, se empleará el modelo anteriormente mostrado y se implementarán directamente. El esquema de control será el esquema clásico de control, ya que éste tipo de controladores serán lo primeros en implementar y, por extensión, los más sencillos. \\
 	La función de transferencia de los controladores a implementar será:\\
 	\begin{equation}
 		C(s)=K_{P}(T_{D}s+1) \hspace{2cm} C(s)=K_{P}\frac{T_{D}T_{I}s^{2}+T_{I}s+1}{T_{I}s}
@@ -113,6 +113,8 @@ Este bloque que añade los efectos de la gravedad tendrá como entrada la posici
 \end{figure}
 
 	\subsubsection{Controlador PD/PID con compensación de dinámica (Feedforward)}
+	La implementación de controladores por precompensación de dinámica será la primera vez que se implementen controladores basados en modelo. La principal diferencia de éste tipo de controladores es que dependen en gran parte de la bondad del modelo obtenido, ya que se realimentará con el modelo dinámico inverso obtenido. Sin embargo, cabe destacar que en control de brazos manipuladores se emplea bastante debido a que se suele lograr obtener buenos modelos dinámicos de los robots.\\
+
 	Para implementar éste controlador, también conocido como \textit{Feedforward}, se modificará el modelo de control de tal modo que se precompensen los efectos del modelo dinámico completo del robot, no solo la gravedad.
 	\begin{equation}
 		I_m= M_{A}(q)\ddot{q_{ref}} + C(q,\dot{q})\dot{q} + G_{A}(q) + u
@@ -124,13 +126,13 @@ Para conocer el valor de esa señal de control adiccional, se restará al modelo
 	  & Im=M_{A}(q)\ddot{q} + C_{A}(q,\dot{q})\dot{q} + G_{A}(q) \\
 	- & Im=M_{A}(q)\ddot{q_{ref}} + C_{A}(q,\dot{q})\dot{q} + G_{A}(q) + u \\
 	\cline{1-4}
-	\vspace{0.2cm}
 	  & M_{A}(q)\tilde{\ddot{q}} = u & &
 	\end{array}
 \end{equation}
-de ese modo se ha obtenido la señal de control adiccional, también conocida cómo la dinámica del error. Habrá que diseñar controladores para la función de transferencia que se obtendrá a continuación. Para obtener dicha función de transferencia será necesario partir de condiciones iniciales nulas y pasarla al dominio de \textit{Laplace}.
+de ese modo se ha obtenido la señal de control adiccional, también conocida cómo la dinámica del error. Aunque no se lea correctamente, la ecuación obtenida es: $M_{A}(q)\tilde{\ddot{q}} = u$, dónde $\tilde{\ddot{q}}$ será el error en aceleración. \\
+Habrá que diseñar controladores para la función de transferencia que se obtendrá a continuación. Para obtener dicha función de transferencia será necesario partir de condiciones iniciales nulas y transformarla al dominio de \textit{Laplace}.
 \begin{equation}
-	M_{A}(q)\tilde{\ddot{q(t)}} = u(t) \rightarrow M_{A}(q)\tilde{q(s)}s^{2} = u(s) \rightarrow \frac{\tilde{q(s)}}{u(s)}=\frac{K_{t}R}{M_{A}s^{2}}[\frac{ud.error}{ud.sc}]
+	M_{A}(q)\tilde{\ddot{q}}(t) = u(t) \rightarrow M_{A}(q)\tilde{q}(s)s^{2} = u(s) \rightarrow \frac{\tilde{q}(s)}{u(s)}=\frac{K_{t}R}{M_{A}s^{2}}[\frac{ud.error}{ud.sc}]
 \end{equation}
 
 Se deberán diseñar tres funciones de transferencia, una por articulación. El esquema en diagrama de bloques de éste controlador se muestra a continuación:
@@ -150,8 +152,8 @@ Por lo tanto, a modo de resumen, las funciones de transferencia de las cuales ha
 
 
 	\subsubsection{Controlador PD/PID con par calculado}
-	El control mediante par calculado será el último en implementar en éste proyecto. El par calculado se basa en la intención de desacoplar totalmente las interaciones del robot, resultando la dinámica del error cómo un doble integrador, para el cuál habrá que diseñar controladores. \\
-	%AÑADIR MAS FANTASIA
+	El control mediante par calculado será el último en implementar en éste proyecto. El par calculado se basa en la busqueda de desacoplar totalmente las interaciones del robot, resultando la dinámica del error cómo un doble integrador, para el cuál habrá que diseñar controladores. \\
+	Que las articulaciones de un robot estén desacopladas implica que un par en un determinado actuador únicamente afectará al movimiento de dicha articulación.\\
 	Por tanto, la diferencia de éste controlador frente al resto es que es un controlador dinámico. Además, es un controlador totalmente basado en el modelo, lo que conlleva que si el modelo es malo el control también lo será.
 	Si, al igual que antes, se resta al sistema la señal de control que se desea implementar, se obtendrá la dinámica del error:
 	\begin{equation}
@@ -164,7 +166,7 @@ Por lo tanto, a modo de resumen, las funciones de transferencia de las cuales ha
 		\end{array}
 	\end{equation}
 
-	Por tanto, las funciones de transferencia a partir de las cuales hay que diseñar los controladores serán:
+	Por tanto, transformando la dinámica del error al dominio de \textit{Laplace}, las funciones de transferencia a partir de las cuales hay que diseñar los controladores serán:
 	\begin{equation}
 		G_{1}(s)=\frac{1}{s^{2}} \hspace{2cm} G_{2}(s)=\frac{1}{s^{2}} \hspace{2cm} G_{3}(s)=\frac{1}{s^{2}}
 	\end{equation}
@@ -184,10 +186,17 @@ Por tanto, los controladores que se van a implementar son los anteriores y los m
 
 Por consiguiente, se realizarán los siguientes experimentos, en los cuales se definirá qué controladores se desea comparar y con qué fin:
 \begin{itemize}
-	\item blablabla \\
-	\item blablabla \\
-	\item blablabla \\
-	\item blablabla \\
-	\item blablabla \\
-	\item blablabla \\	
+	\item En primer lugar, se realizará una comparativa entre los controladores PD y PID, de tal modo que se acentúe el efecto integral del PID y se observe la diferencia entre ambos controladores. \\
+	\item Debido a que la principal perturbación que se tendrá es la gravedad, la cuál es una perturbación mantenida y conocida, la acometida del efecto integral será contrarestar ésta perturbación mantenida. Sin embargo, el principal problema del efecto integral es la agresividad del mismo. \\
+	Por tanto, en éste caso, se comprobará si el error es menor al emplear un control PD con compensación de gravedad o un PID. En un ambiente real, teoricamente sería más correcto emplear el PD con la compensación para evitar los "latigazos" que podría llegar a generar en el robot el efecto integral.\\
+	Seria conveniente para poder mostrar más correctamente éstos resultados buscar experimentos en los cuales se acentuen los efectos de la gravedad, para ello, lo ideal sería generar trayectorias que ..... . \\
+
+	\item Posteriormente, se analizará el primer controlador basado en modelo, el control \textit{FeedForward}. En primer lugar sería convenientee realizar un análisis de cómo afecta la bondad del modelo a éste controlador comparando robot reales y robots ideales. \\
+	Tras ello, se comprobará éste control realizando experimentos dónde se afectúen los términos de Coirolis, para ello sería conveniente realizar trayectorias ... .\\
+
+	\item Finalmente, se analizará el controlador par calculado, el cuál se basará en desacoplar totalmente las articulaciones del robot, de tal modo que el modelo de cada articulación resulte en un doble integrador.\\
+	Sería conveniente analizar trayectorias en las que se acentúen los términos inerciales del brazo robótico, ya que en éste caso se busca compensar todo el modelo.\\
+	Teóricamente, si el modelo obtenido es buen modelo, debería ser el mejor controlador implementado.\\
+
+	\item Además de todo, sería conveniente comparar el resultado del emplear una realimentación de los controladores con medidas reales o con referencia, ya que al realimentar con la referencia, se obtendrá una medida mucho más limpia y que, como es de esperar, generará un menor error. Este estudio sería conveniente en el caso de emplear los modelos con medidas reales obtenidos.\\
 \end{itemize}

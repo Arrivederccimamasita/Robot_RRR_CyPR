@@ -19,7 +19,7 @@
 	% %%%%%%%%%%%%%%%%%
 	% anadir foto del analisis del brazo
 	% %%%%%%%%%%%%%%%%%
-	
+
 	\subsubsection{Matrices de transformación homogéneas del robot}
 	A continuación, se mostrarán las matrices de transformación homogéneas que definen los cambios de sistema de referencia que han hecho posible relacionar el sistema de referencia base con el del efector final. La matriz de transformación homogénea que relaciona un sistema de referencia con el siguiente se define como:\\
 	\begin{equation}
@@ -31,39 +31,39 @@
 	0 		&					0				&				0  		  		  & 1
 	\end{pmatrix}
 	\end{equation}
-	
+
 	Ahora que se ha definido la matriz general, se definirán las matrices de transformación homogéneas de cada cambio de sistema de referencia del robot: \\
-	
+
 	\[ {^0}A_{1} =
 	\left( \begin{array}{cccc}
-	cos(\theta_{1}) &  0 &  sin(\theta_{1}) & 0  \\ 
+	cos(\theta_{1}) &  0 &  sin(\theta_{1}) & 0  \\
 	sin(\theta_{1}) &  0 & -cos(\theta_{1}) & 0  \\
 	0		&  1 &		 0 			& L0+L1 \\
 	0		&  0 & 		 0			& 1
 	\end{array} \right) \]
-	
+
 	\[ {^1}A_{2} =
 	\left( \begin{array}{cccc}
-	cos(\theta_{2}) & -sin(\theta_{2}) & 0 & L2cos(\theta_{2}) \\ 
+	cos(\theta_{2}) & -sin(\theta_{2}) & 0 & L2cos(\theta_{2}) \\
 	sin(\theta_{2}) & cos(\theta_{2})  & 0 & L2sin(\theta_{2})  \\
 	0 		 	   & 			0 			& 1	& 		0 			 \\
 	0		 	   &			 0			& 0	& 		1
 	\end{array} \right) \]
-	
+
 	\[ {^2}A_{3} =
 	\left( \begin{array}{cccc}
-	cos(\theta_{3}) &  -sin(\theta_{3}) &  0 & L3cos(\theta_{3})   \\ 
+	cos(\theta_{3}) &  -sin(\theta_{3}) &  0 & L3cos(\theta_{3})   \\
 	sin(\theta_{3}) &  cos(\theta_{3}) &  0 & L3sin(\theta_{3})   \\
 	0 					 &  0 &  				1 					  & 0 \\
 	0 					 &  0 & 				 0					  & 1
 	\end{array} \right) \]
-	
+
 	\subsubsection{Ecuaciones simbólicas del MCD}
 	A partir de estos parámetros será posible obtener las matrices de transformación homogéneas asociadas a cada traslación y giro de sistema de referencia. Si se premultiplican las matrices desde la base hasta el punto final del brazo (efector final), la matriz de transformación obtenida será:
 	\begin{equation}
-	{^3}T_{0} = 
+	{^3}T_{0} =
 	\left( \begin{array}{cccc}
-	cos(\theta_{2}+\theta_{3})cos(\theta_{1})  & -sin(\theta_{2}+\theta_{3})cos(\theta_{1}) &  -sin(\theta_{1})  & cos(\theta_{1})[L3cos(\theta_{2}+\theta_{3}) + L2cos(\theta_{2})] \\ 
+	cos(\theta_{2}+\theta_{3})cos(\theta_{1})  & -sin(\theta_{2}+\theta_{3})cos(\theta_{1}) &  -sin(\theta_{1})  & cos(\theta_{1})[L3cos(\theta_{2}+\theta_{3}) + L2cos(\theta_{2})] \\
 	cos(\theta_{2}+\theta_{3})sin(\theta_{1})  & -sin(\theta_{2}+\theta_{3})sin(\theta_{1}) & cos(\theta_{1})  & sin(\theta_{1})[L3cos(\theta_{2}+\theta_{3}) + L2cos(\theta_{2})] \\
 	sin(\theta_{2}+\theta_{3})		 		  &		 cos(\theta_{2}+\theta_{3})		        & 		0 			& L0 + L1 + L3sin(\theta_{2}+\theta_{3}) + L2sin(\theta_{2})	 \\
 	0						  &		 	0  									&       0		    &   1
@@ -72,31 +72,31 @@
 	Donde se puede extraer que la matriz de orientación del efector final y la posición del mismo respecto al sistema de referencia de la base son:
 	\[ noa =
 	\left( \begin{array}{ccc}
-cos(\theta_{2}+\theta_{3})cos(\theta_{1})  & -sin(\theta_{2}+\theta_{3})cos(\theta_{1}) & -sin(\theta_{1})  \\ 
+cos(\theta_{2}+\theta_{3})cos(\theta_{1})  & -sin(\theta_{2}+\theta_{3})cos(\theta_{1}) & -sin(\theta_{1})  \\
 cos(\theta_{2}+\theta_{3})sin(\theta_{1})  & -sin(\theta_{2}+\theta_{3})sin(\theta_{1}) & cos(\theta_{1})  \\
-sin(\theta_{2}+\theta_{3})		 		  &		 cos(\theta_{2}+\theta_{3})		        & 		0 						 			 
+sin(\theta_{2}+\theta_{3})		 		  &		 cos(\theta_{2}+\theta_{3})		        & 		0
 	\end{array} \right) \]
-	
+
 	\[ p =
 	\left( \begin{array}{c}
-	cos(\theta_{1})[L3cos(\theta_{2}+\theta_{3}) + L2cos(\theta_{2})] \\ 
-	sin(\theta_{1})[L3cos(\theta_{2}+\theta_{3}) + L2cos(\theta_{2})] \\ 
-	L0 + L1 + L3sin(\theta_{2}+\theta_{3}) + L2sin(\theta_{2})			 
+	cos(\theta_{1})[L3cos(\theta_{2}+\theta_{3}) + L2cos(\theta_{2})] \\
+	sin(\theta_{1})[L3cos(\theta_{2}+\theta_{3}) + L2cos(\theta_{2})] \\
+	L0 + L1 + L3sin(\theta_{2}+\theta_{3}) + L2sin(\theta_{2})
 	\end{array} \right) \]
-	
+
 	\subsection{Modelo Cinemático Inverso}
-	
+
 	En lo que a la resolución del modelo cinemático inverso del robot respecta, se basará en obtener los valores de las variables articulares a partir de la posición del efector final. Por tanto, se partirá de las ecuaciones del vector $p$:
-	
+
 	\begin{center}
-		$px=cos(\theta_{1})[L3cos(\theta_{2}+\theta_{3}) + L2cos(\theta_{2})]$ \\ 
-		$py=sin(\theta_{1})[L3cos(\theta_{2}+\theta_{3}) + L2cos(\theta_{2})]$ \\ 
-		$pz=L0 + L1 + L3sin(\theta_{2}+\theta_{3}) + L2sin(\theta_{2})$			
+		$px=cos(\theta_{1})[L3cos(\theta_{2}+\theta_{3}) + L2cos(\theta_{2})]$ \\
+		$py=sin(\theta_{1})[L3cos(\theta_{2}+\theta_{3}) + L2cos(\theta_{2})]$ \\
+		$pz=L0 + L1 + L3sin(\theta_{2}+\theta_{3}) + L2sin(\theta_{2})$
 	\end{center}
-	
+
 	Para obtener las ecuaciones que definen el valor de $\theta_{1}$,$\theta_{2}$ y $\theta_{3}$, se trabajará con las funciones que definen px,py y pz. Será necesario definir los ángulos empleando la función atan2 de \textit{Matlab}, ya que de ese modo se distinguirá en qué cuadrante se encuentra la tangente.\\
 	Por tanto el objetivo es obtener el valor del seno y el coseno de cada ángulo.\\
-	
+
 	Se comenzará obteniendo el valor de $\theta_{1}$. Para ello se define:\\
 	\begin{center}
 		$ A = \sqrt{px^{2}+py^{2}} = L3cos(\theta_{2}+\theta_{3}) + L2cos(\theta_{2})$
@@ -113,7 +113,7 @@ sin(\theta_{2}+\theta_{3})		 		  &		 cos(\theta_{2}+\theta_{3})		        & 		0
 	\begin{center}
 		$C= A^{2} + B^{2} = L2^{2}+ 2L2L3cos(\theta_{3}) + L3^{2} $
 	\end{center}
-	
+
 	Cómo último paso para obtener el valor de $\theta_{3}$, se despejará el valor del coseno del mismo:\\
 	\begin{center}
 		$ (cos(\theta_{3})) = \frac{C-L2^{2}-L3^{2}}{2L2L3} $
@@ -122,7 +122,7 @@ sin(\theta_{2}+\theta_{3})		 		  &		 cos(\theta_{2}+\theta_{3})		        & 		0
 	\begin{equation}
 	\theta_{3}=\beta -atan2(sin(\theta_{3}),cos(\theta_{3}))=\beta-atan2(\pm \sqrt{1-(\frac{C-L2^{2}-L3^{2}}{2L2L3})^{2}},\frac{C-L2^{2}-L3^{2}}{2L2L3} )
 	\end{equation}
-	
+
 	\newpage
 	Por último, se hallará el valor de la variable articular $\theta_{2}$. Para ello, se partirá de la ecuación A y se desarrollará empleando la fórmula del coseno del ángulo doble. La ecuación quedará de la forma: \\
 	\begin{center}
@@ -143,7 +143,7 @@ donde será de ayuda despejar la función A en una suma de un término por el se
 	\begin{center}
 	$A=\rho cos(\theta_{2})cos(\alpha)-\rho sin(\theta_{2})sin(\alpha)$ $\rightarrow$ $A=\rho cos(\theta_{2}+\alpha)$
 	\end{center}
-	
+
 	Despejando el valor del coseno $\theta_{3}$ se obtendrá:
 	\begin{equation}
 	\theta_{2}=atan2(\pm \sqrt{1-(\frac{A}{\rho})^{2}},\frac{A}{\rho})-\alpha
@@ -155,4 +155,3 @@ donde será de ayuda despejar la función A en una suma de un término por el se
 		$\theta_{3}=\beta -atan2(sin(\theta_{3}),cos(\theta_{3}))=\beta-atan2(\pm \sqrt{1-(\frac{C-L2^{2}-L3^{2}}{2L2L3})^{2}},\frac{C-L2^{2}-L3^{2}}{2L2L3} )$
 	\end{center}
 	\subsection{Jacobiano del robot y análisis de puntos singulares}
-	
