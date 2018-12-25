@@ -1,10 +1,10 @@
-/* CÓDIGO DEL CONTROLADOR */
+/* CODIGO DEL CONTROLADOR */
 /* Las variables utilizadas deben haber sido DECLARADAS PREVIAMENTE en "Declaraciones.c" */ 
-/* La medida del error ya está declarada como ek */
-/* La señal de control ya está declarado como Ireal */
+/* La medida del error ya estï¿½ declarada como ek */
+/* La seï¿½al de control ya estï¿½ declarado como Ireal */
 /* Hay disponible una salida auxiliar ya declarada como POutAux */
-/* El tiempo de muestreo ya está declarado como Tm */
-tiempo = ssGetT(S);  /* Tiempo de la simulación */
+/* El tiempo de muestreo ya estï¿½ declarado como Tm */
+tiempo = ssGetT(S);  /* Tiempo de la simulaciï¿½n */
   
 
 /* La entrada del sistema sera un vector columna de 3 componentes. */
