@@ -22,5 +22,6 @@ figure();subplot(311);title('Excitacion motor 1');plot(t,Im(:,1));grid;xlabel('T
     subplot(313);title('Excitacion motor 3');plot(t,Im(:,3));grid;xlabel('Tiempo [s]');ylabel('Intensidad [A]');
 
 figure();plot3(ref(:,1),ref(:,2),ref(:,3),xyz(:,1),xyz(:,2),xyz(:,3));title('Trayectoria en el espacio articular');...
-    xlabel('Posicion X');ylabel('Posicion Y');zlabel('Posicion Z');grid;
+    xlabel('Posicion X');ylabel('Posicion Y');zlabel('Posicion Z');...
+    legend('Referencia Trayectoria','Trayectoria real','Location','BestOutside');grid;
 end

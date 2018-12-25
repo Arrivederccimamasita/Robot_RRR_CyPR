@@ -179,17 +179,19 @@ Por lo tanto, a modo de resumen, las funciones de transferencia de las cuales ha
 			\caption{Esquema de un controlador Par Calculado}
 		\end{figure}
 
-
-	\subsection{Analisis de controladores}
+\newpage
+	\subsection{Analisis de experimentos para probar controladores}
 En éste último apartado, se diseñarán diversos experimentos de control en los cuales se acentuen los efectos de un controlador u otro, por ejemplo, se realizarán trayectorias en las cuales se noten los efectos gravitatorios y así se observe la mejoría del controlador empleando un compensador de gravedad, etcétera.\\
 Por tanto, los controladores que se van a implementar son los anteriores y los modelos a partir de los cuales se obtendrán serán el ideal y el real con y sin reductoras. También se diseñarán experimentos en el que se comparen los modelos obtenidos con medidas ideales y reales.\\
 
 Por consiguiente, se realizarán los siguientes experimentos, en los cuales se definirá qué controladores se desea comparar y con qué fin:
 \begin{itemize}
-	\item En primer lugar, se realizará una comparativa entre los controladores PD y PID, de tal modo que se acentúe el efecto integral del PID y se observe la diferencia entre ambos controladores. \\
+	\item En primer lugar, se realizará una comparativa entre los controladores PD y PID, de tal modo que se acentúe el efecto integral del PID y se observe la diferencia entre ambos controladores. Para ello, se generará una trayectoria relativamente lenta en la dirección negativa del eje Z, es decir, se partirá de la posición inicial del robot y se hará descender el brazo. \\
+
 	\item Debido a que la principal perturbación que se tendrá es la gravedad, la cuál es una perturbación mantenida y conocida, la acometida del efecto integral será contrarestar ésta perturbación mantenida. Sin embargo, el principal problema del efecto integral es la agresividad del mismo. \\
 	Por tanto, en éste caso, se comprobará si el error es menor al emplear un control PD con compensación de gravedad o un PID. En un ambiente real, teoricamente sería más correcto emplear el PD con la compensación para evitar los "latigazos" que podría llegar a generar en el robot el efecto integral.\\
-	Seria conveniente para poder mostrar más correctamente éstos resultados buscar experimentos en los cuales se acentuen los efectos de la gravedad, para ello, lo ideal sería generar trayectorias que ..... . \\
+	Seria conveniente para poder mostrar más correctamente éstos resultados buscar experimentos en los cuales se acentuen los efectos de la gravedad, para ello, lo ideal sería generar una trayectoria similar a la anterior pero en éste caso se emplearán los controladores diseñados para el robot real y se realimentarán con medidas reales. \\
+	Es posible que, para mejorar el control, en lugar de realimentar el compensador de gravedad con la medida real de posición sea conveniente realimentarlo con la referencia de posición obtenida del generador de trayectorias. \\
 
 	\item Posteriormente, se analizará el primer controlador basado en modelo, el control \textit{FeedForward}. En primer lugar sería convenientee realizar un análisis de cómo afecta la bondad del modelo a éste controlador comparando robot reales y robots ideales. \\
 	Tras ello, se comprobará éste control realizando experimentos dónde se afectúen los términos de Coirolis, para ello sería conveniente realizar trayectorias ... .\\
@@ -200,3 +202,40 @@ Por consiguiente, se realizarán los siguientes experimentos, en los cuales se d
 
 	\item Además de todo, sería conveniente comparar el resultado del emplear una realimentación de los controladores con medidas reales o con referencia, ya que al realimentar con la referencia, se obtendrá una medida mucho más limpia y que, como es de esperar, generará un menor error. Este estudio sería conveniente en el caso de emplear los modelos con medidas reales obtenidos.\\
 \end{itemize}
+
+\newpage
+\subsubsection{Comparativa controladores PD-PID ideales con reductoras}
+En éste experimento, se compararán los controladores diseñados a partir del modelo ideal con reductoras. \\
+La trayectoria que se empleará para éste experimentos se muestra a continuación gráficamente:
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=.8\textwidth]{exp1_tray}
+	\caption{Trayectoria diseñada para evaluar el efecto integral de los controladores}
+\end{figure}
+
+Cómo se ha dicho anteriormente, con éste experimento se busca evaluar el efecto integral del controlador, lo que conllevará que cuando se implemente el PID el error en regimen permamente tenderá a ser nulo, sin embargo en el caso del PD se tendrá un error mantenido.\\
+Se comparará el error en posición de las tres articulaciones, ya que es dónde se observa dicho efecto:
+\begin{itemize}
+	\item \textbf{Controlador PD}
+
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=.8\textwidth]{exp1_posPD}
+		\caption{Seguimiento de referencia en posición con el controlador PD}
+	\end{figure}
+
+\newpage
+	\item \textbf{Controlador PID}
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=.8\textwidth]{exp1_posPID}
+		\caption{Seguimiento de referencia en posición con el controlador PID}
+	\end{figure}
+
+\end{itemize}
+
+Se observa claramente cómo el efecto integral compensa la perturbación mantenida que es la gravedad, por tanto, el controlador PID mejora la respuesta del PD asumiento la agresividad del efecto integral.
+
+\subsubsection{Comparativa controlador PID Y PD con compensacion gravedad}
+En éste caso, se implementarán los controladores diseñados en base al modelo del robot real con reductoras. Debido a que se han empleado medidas reales, se realimentarán con las medidas reales del robot. Si la respuesta no fuese lo suficientemente aceptable, se alimentaría el compensador de gravedad con la referencia obtenida del generador de trayectorias. \\
+Se ha optado por emplear la misma trayectoria que anteriormente debido a que se busca que se acentuen los efectos asociados a los terminos gravitatorios, al igual que antes.
