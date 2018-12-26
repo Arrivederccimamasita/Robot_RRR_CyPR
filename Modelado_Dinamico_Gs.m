@@ -217,7 +217,7 @@ G3_pc=tf(numG3_pc,denG3_pc);
 %% %%%% ROBOT REAL CON REDUCTORAS %%%%
 Ma1=1.530232687999876; %Ma1=eval( subs(subs(subs(Ma(1,1),q1,0),q2,0),q3,0)); 
 Ma2=4.961743100000301; %Ma2=eval( subs(subs(subs(Ma(2,2),q1,0),q2,0),q3,0)); 
-Ma3=2.4628; %Ma3=eval( subs(subs(subs(Ma(3,3),q1,0),q2,0),q3,0)); 
+Ma3=2.7764; %Ma3=eval( subs(subs(subs(Ma(3,3),q1,0),q2,0),q3,0)); 
 
 % Se ha extraido los valores de las Bm_i de los parametros tetha_li
 Va1= 0.1223;     % Bm*(R^2)
@@ -247,12 +247,11 @@ G3=tf(numG3,denG3);
   Kp2=4075.9; Td2=0.07;
   Kp3=956.67;  Td3=0.1;
 
-% PARAMETROS PID REAL  CON REDUCTORAS
-% -> (CUANDO FUNCIONEN LOS PID EN DISCRETO SE DISE�AR�, MIENTRAS TANTO DA
-% PEREZA Y ES INNECESARIO.)
-  Ti1=0.36; Td1=0.18;   Kp1=68.115*Ti1;
-  Ti2=0.36; Td2=0.18;   Kp2=513.04*Ti2; 
-  Ti3=0.36; Td3=0.18;   Kp3=542.09*Ti3; 
+% PARAMETROS PID REAL  CON REDUCTORAS -> 
+%NO FUNCIONA LOCO. NO SE XQ PERO NO SALE!!!
+  Ti1=0.34; Td1=0.0850;   Kp1=88.846*Ti1;
+  Ti2=0.34; Td2=0.0850;   Kp2=513.04*Ti2; 
+  Ti3=0.34; Td3=0.0850;   Kp3=542.09*Ti3; 
   
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Obtencion de las funciones de transferencia para los controladores ->
@@ -269,7 +268,7 @@ numG3_ff=Kt3*R3;
 denG3_ff=[Ma3 0 0];
 G3_ff=tf(numG3_ff,denG3_ff);
 
-%PAR�METROS PID REAL  FEEDFORWARD CON REDUCTORAS
+%PAR�METROS PD REAL  FEEDFORWARD CON REDUCTORAS
   Td1=0.082; Kp1=1468.3;
   Td2=0.098; Kp2=2085.2; 
   Td3=0.096; Kp3=1078.4;

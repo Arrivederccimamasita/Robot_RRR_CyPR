@@ -30,12 +30,13 @@ V=[-2.2204e-24*qd1*(7.9226e22*qd2*sin(2.0*q2 + q3) + 3.9613e22*qd3*sin(2.0*q2 + 
         0.096929*qd2 - 0.18325*qd3^2*sin(q3) + 0.086846*qd1^2*sin(2.0*q2 + 2.0*q3) + 0.18325*qd1^2*sin(2.0*q2 + q3) + 0.039605*qd1^2*sin(2.0*q2) - 0.3665*qd2*qd3*sin(q3);
     0.064764*qd3 + 0.20943*qd1^2*sin(q3) + 0.41885*qd2^2*sin(q3) + 0.19851*qd1^2*sin(2.0*q2 + 2.0*q3) + 0.20943*qd1^2*sin(2.0*q2 + q3)];
 
+Vaux=[V(1) 0 0; 0 V(2) 0 ; 0 0 V(3)]; 
 % Par gravitatorio
 G=[                                               0;
      0.083333*g*(2.199*cos(q2 + q3) + 6.6722*cos(q2));
       0.41885*g*cos(q2 + q3)];
   
   
-udd=M.*qddr+V.*qd+G;
+udd=M*qddr+Vaux*qd+G;
                                                                                                                                                                                                 udd=[M(1,1)*qddr1 M(2,2)*qddr2 M(3,3)*qddr3];                       
 return

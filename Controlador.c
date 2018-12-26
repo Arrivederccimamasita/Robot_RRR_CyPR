@@ -22,6 +22,7 @@ for (i=0;i<3;i++){
 	Ireal[i]=Kp[i]*( ek[i] + (Td[i]*dt_e[i]) + (1/Ti[i])*Int_e[i] );
   }
 */
+
 /* Calculo de la senal de control del PD */
 
 for (i=0;i<3;i++){	

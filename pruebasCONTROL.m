@@ -11,11 +11,17 @@ R1=50; R2=30; R3=15;
 t_sim=5;
 
 % Deficicion de los valores necesarios para el GDT
+% EXPERIMENTO 1 Y 2
+% XYZ_init=[1.8 ; 0 ; 1.2];
+% XYZ_fin =[1.5071 ; 0 ; 0.4929];
+%t_mov=3;
+
+%EXPERIMENTO 3
 XYZ_init=[1.8 ; 0 ; 1.2];
-XYZ_fin =[1.5071 ; 0 ; 0.4929];
+XYZ_fin=[0.9;0.9;1.0586];   % var articulares -> [pi/4;-pi/4;pi/2]
 n_ptos=5;                   % Numero de ptos empleado para la trayectoria
-t_init_tray=1;              % Tiempo de inicio de la trayectoria
-t_mov=3;                    % Duracion del movimiento
+t_init_tray=2;              % Tiempo de inicio de la trayectoria
+t_mov=2;                    % Duracion del movimiento
 
 % Definicion de las variables articulares iniciales del robot
 q1_init=0; q2_init=0; q3_init=0;
