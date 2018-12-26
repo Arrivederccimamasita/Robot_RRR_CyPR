@@ -299,6 +299,38 @@ Por tanto, se puede estimar que no se ha obtenido un mal modelo real del robot c
 
 \end{itemize}
 
+Otro buen experimento para probar éste controlador será la generación de trayectorias curvas, ya que se podrá llegar a acenturar los términos de Coirolis. Se ha optado por una trayectoria no muy rápida pero que sí recorra algo mas que media circunferencia, de tal modo que puedan llegar a obtenerse resultados concluyentes. Al igual que antes, se comparará la respuesta del robot a partir del controlador diseñado en base al modelo real con el diseñado en base al modelo ideal. \\
+\begin{itemize}
+	\item \textbf{Robot Real con reductoras}
+La trayectoria a seguir por el robot en el plano XYZ se muestra a continuación:
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=.8\textwidth]{exp3_trayPDreal_circular}
+	\caption{Referencia y seguimiento de trayectoria en el plano XYZ}
+\end{figure}
+
+Se obseva que va a aparecer un error en la trayectoria, además será un error mantenido. En el caso del seguimiento de referencia en las variables articulares, el resultado obtenido es:
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=.8\textwidth]{exp3_posPDrealCR_circular}
+	\caption{Seguimiento de referencia de las variables articulares}
+\end{figure}
+
+Se observa que hay un error mantenido, el cual podría llegar a no ser asumible. Por tanto, se optará por emplear el modelo ideal obtenido del robot y en aumentarle el tiempo en el que tiene que hacer la trayectoria, en post de minimizar el error del robot.
+
+\newpage
+	\item \textbf{Robot Ideal con reductoras}
+En éste caso, al haber empleado más tiempo para seguir la trayectoria y el modelo ideal del robot, los errores cometidos por el robot, aunque siguen existiendo, han decrementado su magnitud cómo puede verse a continuación:
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=.8\textwidth]{exp3_posPDidealCR_circular_lento}
+	\caption{Seguimiento de referencia de las variables articulares}
+\end{figure}
+
+\end{itemize}
 \newpage
 \subsubsection{Comparativa del control par calculado}
 En el controlador mediante par calculado se ha desacoplado totalmente las articulaciones del robot, de tal modo que la dinámica del error resultante es un doble integrador. \\
