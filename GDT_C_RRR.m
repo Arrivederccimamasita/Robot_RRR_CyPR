@@ -1,5 +1,5 @@
 %% GENERADOR DE TRAYECTORIAS DEL ROBOT RRR Lineal
-% Diseño de un GDT Circular.
+% Diseï¿½o de un GDT Circular.
 
 function [ref] = GDT_C_RRR(in)
 % Variables de entrada en la funcion
@@ -172,30 +172,30 @@ end
 %temporal en el que nos enctontremos
 
 %  figure;
-  Tm=0.001;
-for t=0:Tm:(t_init+t_tray) % La instruccion 'for' solo es valida para plotear el resultado, se debe eliminar al tener l entrada de reloj
+%  Tm=0.001;
+%for t=0:Tm:(t_init+t_tray) % La instruccion 'for' solo es valida para plotear el resultado, se debe eliminar al tener l entrada de reloj
 
-if((t>=t_init) && (t<(t_init+t_tray+T)))
-    offset=(floor(t_init/T)-1);
-    selec=(floor(t/T)-offset);    
-    Aq1=poliq1(selec,2); Bq1=poliq1(selec,3); Cq1=poliq1(selec,4); Dq1=poliq1(selec,5);
-    Aq2=poliq2(selec,2); Bq2=poliq2(selec,3); Cq2=poliq2(selec,4); Dq2=poliq2(selec,5);
-    Aq3=poliq3(selec,2); Bq3=poliq3(selec,3); Cq3=poliq3(selec,4); Dq3=poliq3(selec,5);
-    t_tramo=poliq2(selec,1);
-    
-elseif(t>=(t_init+t_tray+T))
-    selec=length(poliq1);
-    Aq1=poliq1(selec,2); Bq1=poliq1(selec,3); Cq1=poliq1(selec,4); Dq1=poliq1(selec,5);
-    Aq2=poliq2(selec,2); Bq2=poliq2(selec,3); Cq2=poliq2(selec,4); Dq2=poliq2(selec,5);
-    Aq3=poliq3(selec,2); Bq3=poliq3(selec,3); Cq3=poliq3(selec,4); Dq3=poliq3(selec,5);
-    t_tramo=t-((t_init+t_tray)-poliq2(selec,1));
-    
-elseif (t<(t_init+t_tray))
-    Aq1=poliq1(1,2); Bq1=poliq1(1,3); Cq1=poliq1(1,4); Dq1=poliq1(1,5);
-    Aq2=poliq2(1,2); Bq2=poliq2(1,3); Cq2=poliq2(1,4); Dq2=poliq2(1,5);
-    Aq3=poliq3(1,2); Bq3=poliq3(1,3); Cq3=poliq3(1,4); Dq3=poliq3(1,5);
-    t_tramo=t; %Esto hará que el polinomio al evaluarlo de 0
-        
+    if((t>=t_init) && (t<(t_init+t_tray+T)))
+        offset=(floor(t_init/T)-1);
+        selec=(floor(t/T)-offset);    
+        Aq1=poliq1(selec,2); Bq1=poliq1(selec,3); Cq1=poliq1(selec,4); Dq1=poliq1(selec,5);
+        Aq2=poliq2(selec,2); Bq2=poliq2(selec,3); Cq2=poliq2(selec,4); Dq2=poliq2(selec,5);
+        Aq3=poliq3(selec,2); Bq3=poliq3(selec,3); Cq3=poliq3(selec,4); Dq3=poliq3(selec,5);
+        t_tramo=poliq2(selec,1);
+
+    elseif(t>=(t_init+t_tray+T))
+        selec=length(poliq1);
+        Aq1=poliq1(selec,2); Bq1=poliq1(selec,3); Cq1=poliq1(selec,4); Dq1=poliq1(selec,5);
+        Aq2=poliq2(selec,2); Bq2=poliq2(selec,3); Cq2=poliq2(selec,4); Dq2=poliq2(selec,5);
+        Aq3=poliq3(selec,2); Bq3=poliq3(selec,3); Cq3=poliq3(selec,4); Dq3=poliq3(selec,5);
+        t_tramo=t-((t_init+t_tray)-poliq2(selec,1));
+
+    elseif (t<(t_init+t_tray))
+        Aq1=poliq1(1,2); Bq1=poliq1(1,3); Cq1=poliq1(1,4); Dq1=poliq1(1,5);
+        Aq2=poliq2(1,2); Bq2=poliq2(1,3); Cq2=poliq2(1,4); Dq2=poliq2(1,5);
+        Aq3=poliq3(1,2); Bq3=poliq3(1,3); Cq3=poliq3(1,4); Dq3=poliq3(1,5);
+        t_tramo=t; %Esto harï¿½ que el polinomio al evaluarlo de 0
+
  end
 
 
@@ -220,7 +220,7 @@ qdd3_r = 6*Aq3*( t-t_tramo ) + 2*Bq3;
 % pause()
 % end
 % %//Testeo//%
-    hold on; 
+%    hold on; 
     
 % %     Ploteo Posiciones 
 %     plot(t,q1_r,'*');grid
@@ -237,7 +237,7 @@ qdd3_r = 6*Aq3*( t-t_tramo ) + 2*Bq3;
 %     plot(t,qdd2_r,'*');grid
 %     plot(t,qdd3_r,'*');grid
     
- end % [Fin bucle para Testeo]
+% end % [Fin bucle para Testeo]
 
 %%Se devuelve la posicion, velocidad y aceleracion de referencia
 q_r  =[q1_r   ;q2_r   ;q3_r];

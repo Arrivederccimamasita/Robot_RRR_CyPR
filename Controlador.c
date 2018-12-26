@@ -1,10 +1,10 @@
-/* CÓDIGO DEL CONTROLADOR */
+/* CODIGO DEL CONTROLADOR */
 /* Las variables utilizadas deben haber sido DECLARADAS PREVIAMENTE en "Declaraciones.c" */ 
-/* La medida del error ya está declarada como ek */
-/* La señal de control ya está declarado como Ireal */
+/* La medida del error ya estï¿½ declarada como ek */
+/* La seï¿½al de control ya estï¿½ declarado como Ireal */
 /* Hay disponible una salida auxiliar ya declarada como POutAux */
-/* El tiempo de muestreo ya está declarado como Tm */
-tiempo = ssGetT(S);  /* Tiempo de la simulación */
+/* El tiempo de muestreo ya estï¿½ declarado como Tm */
+tiempo = ssGetT(S);  /* Tiempo de la simulaciï¿½n */
   
 
 /* La entrada del sistema sera un vector columna de 3 componentes. */
@@ -17,17 +17,18 @@ for (i=0;i<3;i++){
   }
 
 /* Calculo de la senal de control del PID */
-
+/*
 for (i=0;i<3;i++){	
 	Ireal[i]=Kp[i]*( ek[i] + (Td[i]*dt_e[i]) + (1/Ti[i])*Int_e[i] );
   }
+*/
 
 /* Calculo de la senal de control del PD */
-/*
+
 for (i=0;i<3;i++){	
 	Ireal[i]=Kp[i]*( ek[i] + (Td[i]*dt_e[i]));
   }
-*/
+
 
 /* Actualizacion de las variables anteriores */
 for (i=0;i<3;i++){

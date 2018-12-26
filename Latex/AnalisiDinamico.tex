@@ -11,7 +11,7 @@ En primer lugar, nos basamos en el modelo estructural que permite obtener dicha 
 	\begin{equation}
 	K_tRI_m=(M(q)+J_mR^2)\ddot{q}+(C(q,\dot{q})+B_mR^2)\dot{q}+G(q)+F(\dot{q})
 	\end{equation}\\
-	
+
 En la ecuación anterior, se tiene; en el término de la izquierda, las matrices de constantes de par de cada motor ($K_t$) y de reductoras ($R$) e intensidades ($I_m$) aplicadas a cada motor; por otro lado, en el término de la derecha encontramos las matrices de inercia de los eslabones ($M(q)$) y de los motores ($J_m$), la matriz de términos de Coriolis ($C(q,\dot{q})$) y la de términos viscosos de los motores ($B_m$), y las matrices de términos gravitatorios ($G(q)$) y de fricciones ($F(\dot{q})$), donde esta última no se tendrá en cuenta para la estimación del modelo.\\
 
 Aparecen también los vectores columna $q$, $\dot{q}$ y $\ddot{q}$ que corresponden, respectivamente, a los valores de posición, velocidad y aceleración de las articulaciones.\\
@@ -20,15 +20,15 @@ Teniendo la ecuación matricial, se prosigue definiendo el contenido interno de 
 \vspace{0.3cm}
 
 \begin{itemize}
-	\item Momentos de Inercia º0:
+	\item Momentos de Inercia orden 0:
 		\begin{center}
 		$ m_0$ \hspace{0.2cm} $m_1$\hspace{0.2cm} $m_2$ \hspace{0.2cm}$m_3$
 		\end{center}
-	\item Momentos de Inercia 1º:
+	\item Momentos de Inercia orden 1:
 		\begin{center}
 		$ s_{11x}$\hspace{0.2cm} $s_{11y}$\hspace{0.2cm} $s_{11z}$\hspace{0.2cm}$ s_{22x}$\hspace{0.2cm}$ s_{22y}$\hspace{0.2cm}$ s_{22z}$\hspace{0.2cm}$ s_{33x}$\hspace{0.2cm}$ s_{33y}$\hspace{0.2cm}$ s_{33z} $
 	\end{center}
-	\item Momentos de Inercia 2º:
+	\item Momentos de Inercia orden 2:
 		\begin{center}
 		$ I_{11xx} $\hspace{0.2cm}$I_{11yy}$\hspace{0.2cm}$ I_{11zz}$\hspace{0.2cm}$ I_{22xx}$\hspace{0.2cm}$ I_{22yy}$\hspace{0.2cm}$ I_{22zz}$\hspace{0.2cm}$ I_{33xx}$\hspace{0.2cm}$ I_{33yy}$\hspace{0.2cm}$ I_{33zz} $
 	\end{center}
@@ -44,7 +44,7 @@ Tras definir las incógnitas inerciales, y el conocimiento geométrico del robot
  matrices que definen nuestro modelo. Para ello, se va a realizar un método recursivo que se basa en la segunda ley de
  Newton denominado algoritmo de Newton-Euler, el cual obtiene los esfuerzos/pares aplicados en cada articulación.\\
  Dicho algoritmo ha sido proporcionado en clase por lo que no se explicará aquí; sí decir, que del robot sólo se conocen
- las longitudes de los eslabones y algunos parámetros dinámicos (reductoras y constantes de par) se realizará el cálculo 
+ las longitudes de los eslabones y algunos parámetros dinámicos (reductoras y constantes de par) se realizará el cálculo
  con las incertidumbres dinámicas definidas como variables simbólicas que serán estimadas y sustituidas más adelante.\\
 
 El resultado que se desea obtener con dicho algoritmo es el siguiente:\\
@@ -74,123 +74,105 @@ V(q,\dot{q})=\tau_{new}-G(q).
 Una de las características que hay que tener en cuenta del algoritmo de Newton-Euler es que no tiene en cuenta las viscosidades e inercias de los motores, por lo que hay que añadirlas a posteriori obteniendo las matrices $Ma(q)=M(q)+J_mR^2$ ; $Va(q,\dot{q})=V(q,\dot{q})+B_mR^2\dot{q}$ y $Ga(q)=G(q)$.\\
 
 Una vez realizado todo esto se ha obtenido el modelo dinámico simbólico del robot, que se va a suponer correcto pues únicamente consiste en seguir unos pasos descritos en clase, pero que, si se desease, se podría comparar con un robot diseñado en Robotics Toolbox de Matlab asignando valores a los parámetros y realizando un mismo experimento para ambos modelos, tomando como referencia correcta el último de ellos.\\
+
+Las ecuaciones dinámicas simbólicas que definen las articulaciones del robot se muestran a continuación: \\
+\[
+	\begin{pmatrix}
+	\tau_{1} \\
+	\tau_{2} \\
+	\tau_{3}
+	\end{pmatrix} =
+	\begin{pmatrix}
+		Ma_{1,1} & 0 & 0\\
+		0 & Ma_{2,2} & Ma_{2,3}\\
+		0 & Ma_{3,2} & Ma_{3,3}\\
+	\end{pmatrix}
+	\begin{pmatrix}
+	\ddot{q_{1}} \\
+	\ddot{q_{2}}  \\
+	\ddot{q_{3}}
+\end{pmatrix} +
+\begin{pmatrix}
+	Va_{1,1}\\
+	Va_{2,1} \\
+  Va_{3,1}
+\end{pmatrix}
+\begin{pmatrix}
+		\dot{q_{1}} \\
+		\dot{q_{2}}  \\
+		\dot{q_{3}}
+\end{pmatrix} +
+\begin{pmatrix}
+	0\\
+	Ga_{2}\\
+	Ga_{3}\\
+\end{pmatrix}
+\]
+
 \newpage
+A continuación se definirán las matrices que conforman las ecuaciones dinámicas del robot por separado: \\
+La matriz asociada a los terminos inerciales del robot será:
 \[
 Ma=
 \begin{bmatrix}
 Ma_{1,1} & 0 & 0\\
 0 & Ma_{2,2} & Ma_{2,3}\\
 0 & Ma_{3,2} & Ma_{3,3}\\
-\end{bmatrix} \] 
+\end{bmatrix} \]
 
 \begin{itemize}
-	\item 
-	$Ma_{1,1}= I_{11yy}+0.5I_{22xx}+0.5I_{22yy}+0.5I_{33xx} +0.5I_{33yy} - 			0.5I_{22xx}cos(2q_{2})+ 0.5I_{22yy}cos(2q_2)+Jm_1R_{1}^{2} + 0.5L_{2}^{2}m_{2} +0.5L_{2}^{2}m_{3}+ 0.5L_{3}^{2}m_{3}- 0.5I_{33xx}cos(2q_{2} + 2q_{3}) +0.5I_{33yy}cos(2q_{2} + 2q_{3}) + m_{1}s{11z}^{2} + 0.5m_{2}s_{22x}^{2}+ 0.5m_{3}s_{33x}^{2}+ 0.5m_{2}s_{22x}^{2}cos(2q_{2})+ 0.5L_{3}^{2}m_{3}cos(2q_{2} + 2q_{3})+ 0.5m_{3}s{33x}^{2}cos(2q_{2}+2q_{3}) - 1.0L_{2}m_{2}s_{22x}- 1.0L_{3}m_{3}s_{33x} + 0.5L_{2}^{2}m_{2}cos(2q_{2}+ 0.5L_{2}^{2}m_{3}cos(2q_{2}+L_{2}L_{3}m_{3}cos(q_{3}) -1.0L_{2}m_{3}s_{33x}cos(q_{3})- 1.0L_{3}m_{3}s_{33x}cos(2q_{2} + 2q_{3})+L_{2}L_{3}m_{3}cos(2q_{2} + q_{3})-1.0L_{2}m_{3}s_{33x}cos(2q_{2} + q_{3})-1.0L_{2}m_{2}s_{22x}cos(2q_{2}).$ \\ 
-	\vspace{0.2cm}	
-
-	\item $Ma_{2,2}=I_{22zz}+I_{33zz}+Jm_{2}R_{2}^{2}+L_{2}^{2}m_{2}+L_{2}^{2}m_{3}+L_{3}^{2}m_{3}+m_{2}s_{s22x}^{2}++m_{3}s_{s33x}^{2}- 2L_{2}m_{2}s_{22x}- 2L_{3}m_{3}s_{33x}+ 2L_{2}L_{3}m_{3}cos(q_{3}-2L_{2}m_{3}s_{33x}cos(q_{3})$ \\
-	 \vspace{0.2cm}
-	
-	\item 
-	$Ma_{2,3}=m_{3}L_{3}^{2}- 2L_{3}m_{3}s_{33x}+L_{2}L_{3}m_{3}cos(q_{3})+m_{3}s_{33x}^{2}-L_{2}m_{3}s_{33x}cos(q_{3})+I_{33zz}$ \\ \vspace{0.2cm}
-	
-	\item 
-	$Ma_{3,2}=I_{33zz}+m_{3}(L_{3}-s_{33x})(L_{3}-s_{33x}+L_{2}cos(q_{3}))$ \\ 
-	\vspace{0.2cm}
-	
-	\item 
-	$Ma_{3,3}=I_{33zz}+Jm_{3}R_{3}^{2}+m_{3}(L_{3}-s_{33x})^{2}$ \\ 
-	\vspace{0.2cm}
-
-	
+	\item $Ma_{1,1}= I_{11yy}+0.5I_{22xx}+0.5I_{22yy}+0.5I_{33xx} +0.5I_{33yy} - 0.5I_{22xx}cos(2q_{2})+0.5I_{22yy}cos(2q_2) +$ \\ \vspace{0.1cm}
+	$+ Jm_1R_{1}^{2} + 0.5L_{2}^{2}m_{2} +0.5L_{2}^{2}m_{3}+ 0.5L_{3}^{2}m_{3}- 0.5I_{33xx}cos(2q_{2} + 2q_{3}) +0.5I_{33yy}cos(2q_{2} + 2q_{3}) +$ \\ \vspace{0.1cm}
+	$+ m_{1}s{11z}^{2} + 0.5m_{2}s_{22x}^{2}+ 0.5m_{3}s_{33x}^{2}+ 0.5m_{2}s_{22x}^{2}cos(2q_{2})+ 0.5L_{3}^{2}m_{3}cos(2q_{2} + 2q_{3})+ $ \\ \vspace{0.1cm}
+	$+ 0.5m_{3}s{33x}^{2}cos(2q_{2}+2q_{3}) - L_{2}m_{2}s_{22x}- L_{3}m_{3}s_{33x} + 0.5L_{2}^{2}m_{2}cos(2q_{2})+ 0.5L_{2}^{2}m_{3}cos(2q_{2})+ $ \\ \vspace{0.1cm}
+	$+ L_{2}L_{3}m_{3}cos(q_{3}) -L_{2}m_{3}s_{33x}cos(q_{3})- L_{3}m_{3}s_{33x}cos(2q_{2} + 2q_{3})+L_{2}L_{3}m_{3}cos(2q_{2} + q_{3}) - $ \\ \vspace{0.1cm}
+	$- L_{2}m_{3}s_{33x}cos(2q_{2} + q_{3})-L_{2}m_{2}s_{22x}cos(2q_{2})$ \\ \vspace{0.2cm}
+	\item $Ma_{2,2}=I_{22zz}+I_{33zz}+Jm_{2}R_{2}^{2}+L_{2}^{2}m_{2}+L_{2}^{2}m_{3}+L_{3}^{2}m_{3}+m_{2}s_{s22x}^{2}++m_{3}s_{s33x}^{2}- 2L_{2}m_{2}s_{22x} - $ \\ \vspace{0.1cm}
+	$ + 2L_{3}m_{3}s_{33x}+ 2L_{2}L_{3}m_{3}cos(q_{3}-2L_{2}m_{3}s_{33x}cos(q_{3})$ \\ \vspace{0.2cm}
+	\item $Ma_{2,3}=m_{3}L_{3}^{2}- 2L_{3}m_{3}s_{33x}+L_{2}L_{3}m_{3}cos(q_{3})+m_{3}s_{33x}^{2}-L_{2}m_{3}s_{33x}cos(q_{3})+I_{33zz}$ \\ \vspace{0.2cm}
+	\item $Ma_{3,2}=I_{33zz}+m_{3}(L_{3}-s_{33x})(L_{3}-s_{33x}+L_{2}cos(q_{3}))$ \\ \vspace{0.2cm}
+	\item $Ma_{3,3}=I_{33zz}+Jm_{3}R_{3}^{2}+m_{3}(L_{3}-s_{33x})^{2}$ \\ \vspace{0.2cm}
 \end{itemize}
 
+La matriz asociada a los terminos de Coirolis del robot será:
 \[
 Va=
 \begin{pmatrix}
 Va_{1}\\
 Va_{2}\\
 Va_{3}\\
-\end{pmatrix} \] 
+\end{pmatrix} \]
 \begin{itemize}
-	\item 
-	$Va_{1}=Bm_{1}\dot{q_{1}}R_{1}^{2}
-	-\dot{q_{1}}(I_{33yy}\dot{q_{2}} sin(2q_{2}+2q_{3}))
-	-I_{33xx}\dot{q_{3}} sin(2q_{2}+2q_{3})
-	-I_{33xx}\dot{q_{2}} sin(2q_{2}+2q_{3})
-	+I_{33yy}\dot{q_{3}} sin(2q_{2}+2q_{3})
-	-I_{22xx}\dot{q_{2}} sin(2q_{2})
-	+I_{22yy}\dot{q_{2}} sin(2q_{2})
-	 +m_{3}\dot{q_{2}}s_{33x}^{2}sin(2q_{2}+2q_{3})
-	+m_{3}\dot{q_{3}}s_{33x}^{2}sin(2q_{2}+2q_{3})
-	+L_{2}^{2}m_2 \dot{q_{2}}sin(2q_{2})
-	+L_{2}^{2}m_{3}\dot{q_{2}}sin( 2q_{2})
-	+m_{2}\dot{q_{2}}s_{22x}^{2}sin(2q_{2})
-	+L_{3}^{2}m_{3} \dot{q_{2}}sin(2q_{2}+2q_{3})
-	+L_{3}^{2}m_{3} \dot{q_{3}}sin(2q_{2}+2q_{3})
-	+2L_{3}L_{2}m_{3} \dot{q_{2}}sin(2q_{2}+q_{3})
-	+L_{3}L_{2}m_{3} \dot{q_{3}}sin(2q_{2}+q_{3})
-	-2L_{2}m_{3}\dot{q_{2}}s_{33x}sin(2q_{2}+q_{3})
-	-L_{2}m_{3}\dot{q_{3}}s_{33x}sin(2q_{2}+q_{3})
-	-2L_{2}m_{2}\dot{q_{2}}s_{22x}sin(2q_{2})
-	+L_{3}L_{2}m_{3} \dot{q_{3}}sin(q_{3})
-	-L_{2}m_{3} \dot{q_{3}}s_{33x}sin(q_{3})
-	-2L_{3}m_{3}\dot{q_{2}}s_{33x}^{2}sin(2q_{2}+2q_{3})
-	-2L_{3}m_{3}\dot{q_{3}}s_{33x}^{2}sin(2q_{2}+2q_{3})
-	$
-	\item 
-	$Va_{2}=0.5I_{33yy}\dot{q_{1}}^{2}sin(2q_{2}+2q_{3})
-	-0.5I_{33xx}\dot{q_{1}}^{2}sin(2q_{2}+2q_{3})
-	+Bm_{2}R_{2}^{2}\dot{q_{2}}
-	-0.5I_{22xx}\dot{q_{1}}^{2}sin(2q_{2})
-	+0.5I_{22yy}\dot{q_{1}}^{2}sin(2q_{2})
-	+0.5L_{3}^{2}m_{3} \dot{q_{1}}^{2}sin(2q_{2}+2q_{3})
-	+0.5m_{3}\dot{q_{1}}^{2}s_{33x}^{2}sin(2q_{2}+2q_{3})
-	+0.5L_{2}^{2}m_{2} \dot{q_{1}}^{2}sin(2q_{2})
-	+0.5L_{2}^{2}m_{3} \dot{q_{1}}^{2}sin(2q_{2})
-	+0.5m_{2} \dot{q_{1}}^{2}s_{22x}^{2}sin(2q_{2})
-	-L_{3}L_{2}m_{3} \dot{q_{3}}^{2}sin(q_{3})
-	+L_{2}m_{3}\dot{q_{3}}^{2}s_{33x}sin(q_{3})
-	-L_{3}m_{3}\dot{q_{1}}^{2}s_{33x}sin(2q_{2}+2q_{3})
-	+L_{3}L_{2}m_{3} \dot{q_{1}}^{2}sin(2q_{2}+q_{3})
-	-L_{2}m_{3}\dot{q_{1}}^{2}s_{33x}sin(2q_{2}+q_{3})
-	-L_{2}m_{2}\dot{q_{1}}^{2}s_{22x}sin(2q_{2})
-	-2L_{3}L_{2}m_{3} \dot{q_{3}}\dot{q_{2}}sin(q_{3})
-	+2L_{2}m_{3} \dot{q_{2}}\dot{q_{3}}s_{33x}sin(q_{3})
-	$
-	
-	\item 
-	$Va_{3}=0.5I_{33yy}\dot{q_{1}}^{2}sin(2q_{2}+2q_{3})
-	-0.5I_{33xx}\dot{q_{1}}^{2}sin(2q_{2}+2q_{3})
-	+Bm_{3}R_{3}^{2}\dot{q_{3}}
-	+0.5L_{3}^{2}m_{3} \dot{q_{1}}^{2}sin(2q_{2}+2q_{3})
-	+0.5m_{3}\dot{q_{1}}^{2}s_{33x}^{2}sin(2q_{2}+2q_{3})
-	+0.5L_{3}L_{2}m_{3} \dot{q_{1}}^{2}sin(q_{3})
-	+L_{3}L_{2}m_{3} \dot{q_{2}}^{2}sin(q_{3})
-	-0.5m_{3}L_{2}\dot{q_{1}}^{2}s_{33x}sin(q_{3})
-	-m_{3}L_{2}\dot{q_{2}}^{2}s_{33x}sin(q_{3})
-	-L_{3}m_{3}\dot{q_{1}}^{2}s_{33x}sin(2q_{2}+2q_{3})
-	+0.5L_{2}L_{3}m_{3}\dot{q_{1}}^{2}sin(2q_{2}+q_{3})
-	-0.5L_{2}m_{3}\dot{q_{1}}^{2}s_{33x}sin(2q_{2}+q_{3})
-	$
+	\item $Va_{1}=Bm_{1}\dot{q_{1}}R_{1}^{2} -\dot{q_{1}}(I_{33yy}\dot{q_{2}} sin(2q_{2}+2q_{3})) -I_{33xx}\dot{q_{3}} sin(2q_{2}+2q_{3}) +I_{33yy}\dot{q_{3}}sin(2q_{2}+2q_{3})- $ \\ \vspace{0.1cm}
+	$ -I_{22xx}\dot{q_{2}} sin(2q_{2}) +I_{22yy}\dot{q_{2}} sin(2q_{2}) +  m_{3}\dot{q_{2}}s_{33x}^{2}sin(2q_{2}+2q_{3}) + m_{3}\dot{q_{3}}s_{33x}^{2}sin(2q_{2}+2q_{3}) +$ \\ \vspace{0.1cm}
+  $  +L_{2}^{2}m_2 \dot{q_{2}}sin(2q_{2}) + L_{2}^{2}m_{3}\dot{q_{2}}sin( 2q_{2}) +  m_{2}\dot{q_{2}}s_{22x}^{2}sin(2q_{2}) +L_{3}^{2}m_{3} \dot{q_{2}}sin(2q_{2}+2q_{3}) +$ \\ \vspace{0.1cm}
+	$ + L_{3}^{2}m_{3} \dot{q_{3}}sin(2q_{2}+2q_{3}) +  2L_{3}L_{2}m_{3} \dot{q_{2}}sin(2q_{2}+q_{3}) +L_{3}L_{2}m_{3} \dot{q_{3}}sin(2q_{2}+q_{3}) - $ \\ \vspace{0.1cm}
+	$ -2L_{2}m_{3}\dot{q_{2}}s_{33x}sin(2q_{2}+q_{3})- L_{2}m_{3}\dot{q_{3}}s_{33x}sin(2q_{2}+q_{3}) -2L_{2}m_{2}\dot{q_{2}}s_{22x}sin(2q_{2}) +$ \\ \vspace{0.1cm}
+	$ +L_{3}L_{2}m_{3} \dot{q_{3}}sin(q_{3}) -L_{2}m_{3} \dot{q_{3}}s_{33x}sin(q_{3}) -2L_{3}m_{3}\dot{q_{2}}s_{33x}^{2}sin(2q_{2}+2q_{3}) - 2L_{3}m_{3}\dot{q_{3}}s_{33x}^{2}sin(2q_{2}+2q_{3})  $ \\ \vspace{0.2cm}
+
+	\item $Va_{2}=0.5I_{33yy}\dot{q_{1}}^{2}sin(2q_{2}+2q_{3}) -0.5I_{33xx}\dot{q_{1}}^{2}sin(2q_{2}+2q_{3}) +Bm_{2}R_{2}^{2}\dot{q_{2}} -0.5I_{22xx}\dot{q_{1}}^{2}sin(2q_{2})+ $ \\ \vspace{0.1cm}
+	$+0.5I_{22yy}\dot{q_{1}}^{2}sin(2q_{2}) +0.5L_{3}^{2}m_{3} \dot{q_{1}}^{2}sin(2q_{2}+2q_{3}) +0.5m_{3}\dot{q_{1}}^{2}s_{33x}^{2}sin(2q_{2}+2q_{3}) $ \\ \vspace{0.1cm}
+  $+0.5L_{2}^{2}m_{2} \dot{q_{1}}^{2}sin(2q_{2}) +0.5L_{2}^{2}m_{3} \dot{q_{1}}^{2}sin(2q_{2}) +0.5m_{2} \dot{q_{1}}^{2}s_{22x}^{2}sin(2q_{2}) $ \\ \vspace{0.1cm}
+	$-L_{3}L_{2}m_{3} \dot{q_{3}}^{2}sin(q_{3}) +L_{2}m_{3}\dot{q_{3}}^{2}s_{33x}sin(q_{3}) -L_{3}m_{3}\dot{q_{1}}^{2}s_{33x}sin(2q_{2}+2q_{3}) $ \\ \vspace{0.1cm}
+	$ +L_{3}L_{2}m_{3} \dot{q_{1}}^{2}sin(2q_{2}+q_{3}) -L_{2}m_{3}\dot{q_{1}}^{2}s_{33x}sin(2q_{2}+q_{3}) -L_{2}m_{2}\dot{q_{1}}^{2}s_{22x}sin(2q_{2}) $ \\ \vspace{0.1cm}
+	$-2L_{3}L_{2}m_{3} \dot{q_{3}}\dot{q_{2}}sin(q_{3}) +2L_{2}m_{3} \dot{q_{2}}\dot{q_{3}}s_{33x}sin(q_{3}) $ \\ \vspace{0.2cm}
+
+	\item $Va_{3}=0.5I_{33yy}\dot{q_{1}}^{2}sin(2q_{2}+2q_{3}) -0.5I_{33xx}\dot{q_{1}}^{2}sin(2q_{2}+2q_{3}) +Bm_{3}R_{3}^{2}\dot{q_{3}} $ \\ \vspace{0.1cm}
+	$ +0.5L_{3}^{2}m_{3} \dot{q_{1}}^{2}sin(2q_{2}+2q_{3}) +0.5m_{3}\dot{q_{1}}^{2}s_{33x}^{2}sin(2q_{2}+2q_{3}) +0.5L_{3}L_{2}m_{3} \dot{q_{1}}^{2}sin(q_{3}) $ \\ \vspace{0.1cm}
+	$+L_{3}L_{2}m_{3} \dot{q_{2}}^{2}sin(q_{3}) -0.5m_{3}L_{2}\dot{q_{1}}^{2}s_{33x}sin(q_{3}) -m_{3}L_{2}\dot{q_{2}}^{2}s_{33x}sin(q_{3}) $ \\ \vspace{0.1cm}
+	$-L_{3}m_{3}\dot{q_{1}}^{2}s_{33x}sin(2q_{2}+2q_{3}) +0.5L_{2}L_{3}m_{3}\dot{q_{1}}^{2}sin(2q_{2}+q_{3}) -0.5L_{2}m_{3}\dot{q_{1}}^{2}s_{33x}sin(2q_{2}+q_{3})$ \\
 \end{itemize}
 
+La matriz asociada a los terminos gravitatorios del robot será:
 	\[
 	Ga=
 	\begin{pmatrix}
 	0\\
 	Ga_{2}\\
 	Ga_{3}\\
-	\end{pmatrix} \] 
-	
+	\end{pmatrix} \]
+
 	\begin{itemize}
-		\item 
-		$Ga_{2}=g(L_{3}m_{3}cos(q_{2}+q_{3})-m_{2}s_{22x}cos(q_{2})-m_{3}s_{33x}cos(q_{2}+q_{3})+L_{2}m_{2}cos(q_{2})+L_{2}m_{3}cos(q_{2}))
-		$
-		
-		\item 
-		$Ga_{3}=g*m_{3}cos(q_{2}+q_{3})(L_{3}-s_{33x})
-		$
+		\item $Ga_{2}=g(L_{3}m_{3}cos(q_{2}+q_{3})-m_{2}s_{22x}cos(q_{2})-m_{3}s_{33x}cos(q_{2}+q_{3})+L_{2}m_{2}cos(q_{2})+L_{2}m_{3}cos(q_{2})) $ \\ \vspace{0.1cm}
+		\item $Ga_{3}=g*m_{3}cos(q_{2}+q_{3})(L_{3}-s_{33x})$ \\
 	\end{itemize}
-
-
