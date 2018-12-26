@@ -262,7 +262,7 @@ Inicialmente, se comparará la bondad de los modelos obtenidos con reductoras. P
 	El seguimiento de la trayectoria en el plano XYZ será:
 	\begin{figure}[h!]
 		\centering
-		\includegraphics[width=.8\textwidth]{exp3_trayPDideal}
+		\includegraphics[width=.7\textwidth]{exp3_trayPDideal}
 		\caption{Seguimiento de la trayectoria en el plano XYZ}
 	\end{figure}
 
@@ -270,7 +270,7 @@ Inicialmente, se comparará la bondad de los modelos obtenidos con reductoras. P
 
 	\begin{figure}[h!]
 		\centering
-		\includegraphics[width=.7\textwidth]{exp3_posPDidealCR}
+		\includegraphics[width=.8\textwidth]{exp3_posPDidealCR}
 		\caption{Seguimiento de referencia en posición de las variables articulares}
 	\end{figure}
 
@@ -301,3 +301,55 @@ Por tanto, se puede estimar que no se ha obtenido un mal modelo real del robot c
 
 \newpage
 \subsubsection{Comparativa del control par calculado}
+En el controlador mediante par calculado se ha desacoplado totalmente las articulaciones del robot, de tal modo que la dinámica del error resultante es un doble integrador. \\
+Además de ello, se notará más éste controlador cuando se trabaje sin reductoras, ya que las reductoras son las encargadas de desacoplar las articulaciones del robot, por tanto, si no se emplean reductoras, el encargado de desacoplar las articulaciones será el propio control implementado. \\
+Además de ello, también se buscará mostrar que, cuán más rápido se busque que sea el control, mayores serán los errores que se tendrán.\\
+
+Por tanto, en primer lugar se empleará el robot ideal sin reductoras para mostrar el efecto de pedir mayor velocidad en el movimiento del robot y, posteriormente, se comparará el modelo ideal sin reductoras y el modelo real sin reductoras.\\
+La trayectoria elegida será una trayectoria ascendente y de rotación que partirá de la posición inicial del robot.
+
+\begin{itemize}
+	\item \textbf{Comprobación del efecto del aumento de la velocidad en la trayectoria}
+	A continuación, en primer lugar se mostrará la comparativa del seguimiento de la trayectoria en el espacio articular XYZ en función del la velocidad pedida para que siga la misma. Además, cabe destacar que se ha implementado un control PD para la dinámica del error.\\
+	En primer lugar se mostrará la gráfica en la que se pedía que recorriese la trayectoria en 2 segundos, es decir, la que sería la trayectoria lenta:
+
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=.8\textwidth]{exp4_trayPDidealSR_lento}
+		\caption{Seguimiento de la trayectoria lenta en el plano XYZ}
+	\end{figure}
+
+	Ahora, se mostrará el seguimiento en posiciones articulares cuando se pide que se siga la trayectoria algo más lenta:
+
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=.8\textwidth]{exp4_posPDidealSR_lento}
+		\caption{Seguimiento de las variables articulares}
+	\end{figure}
+
+\newpage
+Se observa que, aunque existe un error en las tres variables, éste error es significativamente pequeño y asumible en el control del robot.\\
+Sin embargo, en el caso de que se pida que realice la trayectoria en la mitad de tiempo, el error se incrementará significativamente cómo se muestra a continuación:
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=.8\textwidth]{exp4_trayPDidealSR_rapido}
+	\caption{Seguimiento de la trayectoria rapida en el plano XYZ}
+\end{figure}
+
+\newpage
+Ahora, se mostrará el seguimiento en posiciones articulares cuando se pide que se siga la trayectoria en el doble de tiempo:
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=.8\textwidth]{exp4_posPDidealSR_rapido}
+	\caption{Seguimiento de las variables articulares}
+\end{figure}
+
+Por tanto, a modo de conclusión cabe destacar que, en el momento de pedirle al robot que siga una trayectoría será necesario hayar un compromiso entre la velocidad de la trayectoria y el error que se esté dispuesto a asumir en la misma.\\
+
+	\item \textbf{Comparativa del modelo ideal sin reductoras obtenido y el real}
+
+HAY QUE DEFINIR BIEN EL ROBOT REAL SIN REDUCTORAS PARA TERMINAR ÉSTE APARTADO. \\
+
+\end{itemize}
