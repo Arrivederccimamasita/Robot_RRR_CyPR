@@ -87,24 +87,24 @@
 % Im_cc3=10;
 
 
-% %Valores de tiempo atenuacion -->tetha_li(8)
-% tau1=1; tau2=1; tau3=200;
-% 
-% %%Parametros senoides
-% %Senoide I1
-% Aa_1=0.2; Ab_1=0.003;
-% wa_1=10; wb_1=3;
-% Im_cc1=0;
-% 
-% %Senoide I2
-% Aa_2=0.5; Ab_2=2;
-% wa_2=40; wb_2=3;
-% Im_cc2=0;
-% 
-% %Senoide I3
-% Aa_3=4; Ab_3=30;
-% wa_3=1; wb_3=0.5;
-% Im_cc3=1;
+%Valores de tiempo atenuacion -->tetha_li(8)
+tau1=1; tau2=1; tau3=200;
+
+%%Parametros senoides
+%Senoide I1
+Aa_1=0.2; Ab_1=0.003;
+wa_1=10; wb_1=3;
+Im_cc1=0;
+
+%Senoide I2
+Aa_2=0.5; Ab_2=2;
+wa_2=40; wb_2=3;
+Im_cc2=0;
+
+%Senoide I3
+Aa_3=4; Ab_3=30;
+wa_3=1; wb_3=0.5;
+Im_cc3=1;
 
 % %/*EXPONENCIALES*/%
 % %Valores de tiempo atenuacion
@@ -390,35 +390,35 @@
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-tau1=10; tau2=201; tau3=10;
-
-%%Parametros senoides
-%Senoide I1
-Aa_1=0.2; Ab_1=0.003;
-wa_1=10; wb_1=3;
-Im_cc1=1;
-
-%Senoide I2
-Aa_2=3; Ab_2=4;
-wa_2=10; wb_2=50;
-Im_cc2=10;
-
-%Senoide I3
-Aa_3=0.5; Ab_3=2;
-wa_3=8; wb_3=3;
-Im_cc3=3;
-
-
-%Parametros senoides
-%Senoide I1
-Aa_1=Aa_1/50; Ab_1=Ab_1/50;
-Im_cc1=Im_cc1/50;
-%Senoide I2
-Aa_2=Aa_2/30; Ab_2=Ab_2/30;
-Im_cc2=Im_cc2/30;
-%Senoide I3
-Aa_3=Aa_3/15; Ab_3=Ab_3/15;
-Im_cc3=Im_cc3/15;
+% tau1=10; tau2=201; tau3=10;
+% 
+% %%Parametros senoides
+% %Senoide I1
+% Aa_1=0.2; Ab_1=0.003;
+% wa_1=10; wb_1=3;
+% Im_cc1=1;
+% 
+% %Senoide I2
+% Aa_2=3; Ab_2=4;
+% wa_2=10; wb_2=50;
+% Im_cc2=10;
+% 
+% %Senoide I3
+% Aa_3=0.5; Ab_3=2;
+% wa_3=8; wb_3=3;
+% Im_cc3=3;
+% 
+% 
+% %Parametros senoides
+% %Senoide I1
+% Aa_1=Aa_1/50; Ab_1=Ab_1/50;
+% Im_cc1=Im_cc1/50;
+% %Senoide I2
+% Aa_2=Aa_2/30; Ab_2=Ab_2/30;
+% Im_cc2=Im_cc2/30;
+% %Senoide I3
+% Aa_3=Aa_3/15; Ab_3=Ab_3/15;
+% Im_cc3=Im_cc3/15;
 
 % %%%%%%%%%%%%%%%% Apuntes Experimentos %%%%%%%%%%%%%%%%%%%%%%%%%%
 %  Aunque se realicen los mismos experimentos que con el robot real con

@@ -168,24 +168,24 @@
    %    Intensidades constantes y bajas(Poco movimiento)
    
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%Valores de tiempo atenuacion
-tau1=1; tau2=3; tau3=0.03;
-
-%%Parametros senoides
-%Senoide I1
-Aa_1=0.2; Ab_1=0.003;
-wa_1=10; wb_1=3;
-Im_cc1=0;
-
-%Senoide I2
-Aa_2=1; Ab_2=3;
-wa_2=15; wb_2=3;
-Im_cc2=6.5;
-
-%Senoide I3
-Aa_3=0.5; Ab_3=2;
-wa_3=15; wb_3=3;
-Im_cc3=3.5;
+% %Valores de tiempo atenuacion
+% tau1=1; tau2=3; tau3=0.03;
+% 
+% %%Parametros senoides
+% %Senoide I1
+% Aa_1=0.2; Ab_1=0.003;
+% wa_1=10; wb_1=3;
+% Im_cc1=0;
+% 
+% %Senoide I2
+% Aa_2=1; Ab_2=3;
+% wa_2=15; wb_2=3;
+% Im_cc2=6.5;
+% 
+% %Senoide I3
+% Aa_3=0.5; Ab_3=2;
+% wa_3=15; wb_3=3;
+% Im_cc3=3.5;
 
 % %%%%%%%%%%%%%%%% RESULTADOS CON EL ROBOT 1 %%%%%%%%%%%%%%%%%%%%%%%%%%
 % tetha_li(10)= -6.672244e+00 Valido con varianza 3.858041e-02 

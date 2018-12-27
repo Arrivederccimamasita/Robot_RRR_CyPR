@@ -179,7 +179,7 @@ switch selec
            
        end
        
-       figure(2);plot3(xyz_Gil(:,1),xyz_Gil(:,2),xyz_Gil(:,3));title('Trayectoria Experimeto');xlabel('Posicion X');  ylabel('Posicion Y'); zlabel('Posicion Z'); grid;
+       figure(2);plot3(xyz_Gil(:,1),xyz_Gil(:,2),xyz_Gil(:,3));title('Trayectoria Experimeto \theta_{9}');xlabel('Posicion X');  ylabel('Posicion Y'); zlabel('Posicion Z'); grid;
        
         
         % %%%%%%%% Robot real solo encoder sin Reductoras %%%%%%%%
@@ -303,7 +303,7 @@ switch selec
            
        end
         
-       figure(2);plot3(xyz_Gil(:,1),xyz_Gil(:,2),xyz_Gil(:,3));title('Trayectoria Experimento \theta_{3}'); grid;
+       figure(2);plot3(xyz_Gil(:,1),xyz_Gil(:,2),xyz_Gil(:,3));title('Trayectoria Experimento \theta_{8}'); grid;
         
         %  %%%%%%%% Robot real encoder y tacometro con Reductoras %%%%%%%%
     case 5
