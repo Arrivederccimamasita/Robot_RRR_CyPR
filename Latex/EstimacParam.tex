@@ -129,7 +129,7 @@ si este resultado es diferente se debe comprobar el proceso en busca de errores.
 
 	\newpage
 
-	\subsection{Identificación y cálculos estadísticos}
+	\subsection{Identificación y estimación estadística}
 
 	Una vez que agrupados correctamente los términos linealmente independientes de nuestra estructuradas
 	\textit{phi}-\textit{theta}, se procederá a la realización de los experimentos sobre
@@ -185,7 +185,7 @@ si este resultado es diferente se debe comprobar el proceso en busca de errores.
 	de las variables de velocidad y aceleración articulares; para ello, ha sido necesario introducir filtros Butterworth, que eliminen
 	las componentes del ruido asociadas al efecto del encoder; es por ello, que ciertos experimentos, donde la variación
 	de las posiciones, era fundamental para obtener las condiciones de funcionamiento mencionadas anteriormente, eran filtradas
-	como ruido; es por ello, que se ha optado por señales exponenciales, para someter al robot real a condiciones de altas aceleraciones sin 
+	como ruido; es por esto, que se ha optado por señales exponenciales, para someter al robot real a condiciones de altas aceleraciones sin 
 	necesidad de realizar una variación senoidal cuya frecuencia esté fuera de la banda de corte del filtrado.\\
 
 	Aun así, las dificultades a la hora de la identificación de los parámetros dinámicos, se han dado principalmente,
@@ -195,11 +195,23 @@ si este resultado es diferente se debe comprobar el proceso en busca de errores.
 	en un acoplamiento entre las propias barras del robot. Es decir, la ausencia de las reductoras, dificultan en gran medida,
 	la búsqueda exclusiva del parámetro dinámico a identificar numéricamente.\\
 
+	Finalmente, una vez definidas las consignas, para la identificación de los parámetros, las formas de ondas implementadas para ello,
+	y los modelos sobre los que se han realizados dichos experimentos; se abordará la estadística detrás de la validación de estos experimentos, 
+	dando como resultado la calidad de estos.\\
+	Asumiendo que la metodologia expuesta en clase, sobre el calculo de la covarianza, en donde asumimos el error cometido como un ruido blanco,
+	y que el algoritmo para calcular la desviación estándar relativa del parámetro, explicado en diapositivas, se ha implementado correctamente en la sintaxis de 
+	Matlab, se exponen las condiciones de funcionamiento que aseguren la veracidad de este. Por un lado, y como se ha explicado en un inicio, el principio 
+	seguido para la identificación, ha sido por caso redundante, lo que se ha asumido como, la toma de datos del orden de mil veces superior, al número de 
+	parámetros dinámicos a identificar; por otro lado, no se puede tomar las medidas consecutivamente al tiempo de simulación, sino que se debe realizar una espera entre 
+	la toma de los datos de salida del robot, evitando así los errores del sensorizado producidos por conservar propiedades de la medida una vez los estímulos iniciales han desaparecido, lo que viene
+	a decir, evitar los errores por histéresis de los sensores, para ello se han tomado los datos cada 15-20 ud de tiempo de simulación, y para terminar de ha dado un umbral de error entorno al 5t.p.c. %Marco ponme esto bien pls q no se y me muero%
+	de error sobre el valor real, que en el momento en el que se marque por debajo de este, se asumirá que el parámetro se ha obtenido correctamente.\\
 
-	\begin{itemize}
-		\item HABLAR DE LOS EXPERIMENTOS DE LOS SENOS
-		\item HABLAR DE LA OPTIMIZACION Y ESTIMACIÓN DE LOS PARAMETROS
-	\end{itemize}
+	Algunas consideraciones finales, es necesario que a la hora de la realización del experimento, se tenga muy en cuenta que parámetros se están buscando, ya que,
+	el algoritmo del cálculo de la covarianza, puede dar falsos positivos, en  parámetros que ni siquiera se están acentuando, es por ello, que es recomendable
+	iniciar la identificación, por los modelos ideales, y posteriormente, con los datos del modelo real, teniendo al menos una base de apoyo a la hora de determinar que un parámetro es finalmente hallado.
+
+
 
 
 	\subsection{Parámetros y modelos obtenidos}

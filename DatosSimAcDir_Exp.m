@@ -217,24 +217,24 @@ Im_cc3=1;
 % Im_cc3=0;
 
 
-% %Valores de tiempo atenuacion -->tetha_li(5)
-% tau1=1; tau2=100; tau3=200;
-% 
-% %%Parametros senoides
-% %Senoide I1
-% Aa_1=0.2; Ab_1=0.003;
-% wa_1=10; wb_1=3;
-% Im_cc1=0;
-% 
-% %Senoide I2
-% Aa_2=0.5; Ab_2=10;
-% wa_2=1; wb_2=0.3;
-% Im_cc2=500;
-% 
-% %Senoide I3
-% Aa_3=15; Ab_3=20;
-% wa_3=0.1; wb_3=0.5;z
-% Im_cc3=40;
+%Valores de tiempo atenuacion -->tetha_li(5)
+tau1=1; tau2=100; tau3=200;
+
+%%Parametros senoides
+%Senoide I1
+Aa_1=0.2; Ab_1=0.003;
+wa_1=10; wb_1=3;
+Im_cc1=0;
+
+%Senoide I2
+Aa_2=0.5; Ab_2=10;
+wa_2=1; wb_2=0.3;
+Im_cc2=500;
+
+%Senoide I3
+Aa_3=15; Ab_3=20;
+wa_3=0.1; wb_3=0.5;
+Im_cc3=40;
 
 % %Valores de tiempo atenuacion -->tetha_li(5?)
 % tau1=1; tau2=15; tau3=600;
