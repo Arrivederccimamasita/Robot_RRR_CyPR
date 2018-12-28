@@ -647,27 +647,27 @@ Los parametros estimados, es decir, la matriz tetha linealmente independiente de
 		\hline
 		Parametro estimado & Valor obtenido & Covarianza obtenida \\
 		\hline
-		$\theta(1) $ & - & - \\
+		$\theta(1) $ & -11.07265 & 2.715 \\
 		\hline
-		$\theta(2) $ & - & - \\
+		$\theta(2) $ & 0.018174 & 0.54845 \\
 		\hline
-		$\theta(3) $ & - & - \\
+		$\theta(3) $ & 7.753 & 0.32937 \\
 		\hline
-		$\theta(4) $ & - & - \\
+		$\theta(4) $ & -7.3756 & 1.1879 \\
 		\hline
-		$\theta(5) $ & - & - \\
+		$\theta(5) $ & 0.060807 & 3.259 \\
 		\hline
-		$\theta(6) $ & - & - \\
+		$\theta(6) $ & -2.19164 & 1.3296 \\
 		\hline
-		$\theta(7) $ & - & - \\
+		$\theta(7) $ & -1.0052 & 2.889 \\
 		\hline
-		$\theta(8) $ & - & - \\
+		$\theta(8) $ & 0.10404 & 4.1499 \\
 		\hline
-		$\theta(9) $ & - & - \\
+		$\theta(9) $ & 0.006486 & 4.0307 \\
 		\hline
-		$\theta(10) $ & - & - \\
+		$\theta(10) $ & -6.7508 & 1.2175 \\
 		\hline
-		$\theta(11) $ & - & - \\
+		$\theta(11) $ & -2.217 & 4.972 \\
 		\hline
 	\end{tabular}
 \end{center}
@@ -681,7 +681,7 @@ Por lo tanto, tras multiplicar $\gamma$ y $\theta$ y derivar respecto a las vari
 	\begin{pmatrix}
 	Ma_{1,1} & 0 & 0 \\
 	0 & Ma_{2,2} & Ma_{2,3}\\
-	0 & Ma_{3,2} & -
+	0 & Ma_{3,2} & 7.56
 	\end{pmatrix}
 	\begin{pmatrix}
 	\ddot{q_{1}} \\
@@ -699,20 +699,20 @@ Por lo tanto, tras multiplicar $\gamma$ y $\theta$ y derivar respecto a las vari
 		\dot{q_{3}}
 \end{pmatrix} +
 \begin{pmatrix}
--	\\
-- \\
--
+0	\\
+54.317cos(q_2 + q_3) + 165.4cos(q_2) \\
+62.076cos(q_2 + q_3)
 \end{pmatrix}
 \]
 
 \begin{itemize}
-	\item $ Ma_{1,1}=$ \\ \vspace{0.2cm}
-	\item $ Ma_{2,2}= $ \\ \vspace{0.2cm}
-	\item $ Ma_{2,3}=$ \\ \vspace{0.2cm}
-	\item $ Ma_{3,2}=  $ \\ \vspace{0.2cm}
-	\item $ Va_{1,1}= $ \\ \vspace{0.2cm}
-	 \item $ Va_{2,1}= $ \\ \vspace{0.2cm}
-	 \item $ Va_{3,1}= $
+	\item $ Ma_{1,1}=4.434cons(2q_2 + q_3) + 5.7477cos(2q_2) + 4.434cos(q_3) + 5.7389cos(2q_2 + 2q_3) + 0.46597$ \\ \vspace{0.2cm}
+	\item $ Ma_{2,2}= 11.085cos(q_3) + 21.67$ \\ \vspace{0.2cm}
+	\item $ Ma_{2,3}=5.5425cos(q_3) + 6.3549$ \\ \vspace{0.2cm}
+	\item $ Ma_{3,2}= 6.3343cos(q_3) + 7.2628 $ \\ \vspace{0.2cm}
+	\item $ Va_{1,1}= -8.8682\dot{q_{1}}\dot{q_{2}}sin(2q_2 + q_3) - 4.4341\dot{q_{1}}\dot{q_{3}}sin(2q_2 + q_3) - 11.4956\dot{q_{1}}\dot{q_{2}}sin(2q_2)  - 4.4340\dot{q_{1}}\dot{q_{3}}sin(q_3) - 11.4779\dot{q_{1}}\dot{q_{2}}sin(2q_2 + 2q_3) - 11.4779\dot{q_{1}}\dot{q_{3}}sin(2q_2 + 2q_3) + 0.0363 $ \\ \vspace{0.2cm}
+	 \item $ Va_{2,1}= 0.15202\dot{q_{2}} - 5.5425\dot{q_{3}}^2sin(q_3) + 7.1736\dot{q_{1}}^2sin(2q_2 + 2q_3) + 5.5425\dot{q_{1}}^2sin(2q_2 + q_3) + 7.1847\dot{q_{1}}^2sin(2q_2) - 11.085\dot{q_{2}}\dot{q_{3}}sin(q_3)$ \\ \vspace{0.2cm}
+	 \item $ Va_{3,1}=  0.018533\dot{q_{3}} + 3.1671\dot{q_{1}}^{2}sin(q_3) + 6.3343\dot{q_{2}}^{2}sin(q_3) + 8.1984\dot{q_{1}}^{2}sin(2q_2 + 2q_3) + 3.1671\dot{q_{1}}^{2}sin(2q_2 + q_3)$
 \end{itemize}
 
 
