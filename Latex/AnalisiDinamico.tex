@@ -12,7 +12,7 @@ En primer lugar, nos basamos en el modelo estructural que permite obtener dicha 
 	K_tRI_m=(M(q)+J_mR^2)\ddot{q}+(C(q,\dot{q})+B_mR^2)\dot{q}+G(q)+F(\dot{q})
 	\end{equation}\\
 
-En la ecuación anterior, se tiene; en el término de la izquierda, las matrices de constantes de par de cada motor ($K_t$) y de reductoras ($R$) e intensidades ($I_m$) aplicadas a cada motor; por otro lado, en el término de la derecha encontramos las matrices de inercia de los eslabones ($M(q)$) y de los motores ($J_m$), la matriz de términos de Coriolis ($C(q,\dot{q})$) y la de términos viscosos de los motores ($B_m$), y las matrices de términos gravitatorios ($G(q)$) y de fricciones ($F(\dot{q})$), donde esta última no se tendrá en cuenta para la estimación del modelo.\\
+En la ecuación anterior, se tiene; en el término de la izquierda, las matrices de constantes de par de cada motor ($K_t$) y de reductoras ($R$) e intensidades ($I_m$) aplicadas a cada motor; por otro lado, en el término de la derecha encontramos las matrices de inercia de los eslabones ($M(q)$) y de los motores ($J_m$), la matriz de términos de Coriolis ($C(q,\dot{q})$) y la de términos viscosos de los motores ($B_m$), y las matrices de términos gravitatorios ($G(q)$) y las fuerzas externas que puedan ser aplicadas sobre el robot, ($F(\dot{q})$), donde ésta última no se tendrá en cuenta para la estimación del modelo.\\
 
 Aparecen también los vectores columna $q$, $\dot{q}$ y $\ddot{q}$ que corresponden, respectivamente, a los valores de posición, velocidad y aceleración de las articulaciones.\\
 
@@ -44,7 +44,7 @@ Tras definir las incógnitas inerciales, y el conocimiento geométrico del robot
  matrices que definen nuestro modelo. Para ello, se va a realizar un método recursivo que se basa en la segunda ley de
  Newton denominado algoritmo de Newton-Euler, el cual obtiene los esfuerzos/pares aplicados en cada articulación.\\
  Dicho algoritmo ha sido proporcionado en clase por lo que no se explicará aquí; sí decir, que del robot sólo se conocen
- las longitudes de los eslabones y algunos parámetros dinámicos (reductoras y constantes de par) se realizará el cálculo
+ las longitudes de los eslabones y algunos parámetros dinámicos (reductoras y constantes de par), por tanto, se realizará el cálculo
  con las incertidumbres dinámicas definidas como variables simbólicas que serán estimadas y sustituidas más adelante.\\
 
 El resultado que se desea obtener con dicho algoritmo es el siguiente:\\
@@ -54,26 +54,32 @@ El resultado que se desea obtener con dicho algoritmo es el siguiente:\\
 donde el término $V(q,\dot{q})$ hace referencia al producto $C(q,\dot{q})\dot{q}$.\\
 
 Como el algoritmo anterior obtiene el resultado total, se debe derivar el mismo para poder hallar las matrices aisladas. Por ello, el resultado $\tau$ se deriva respecto a $\ddot{q}$ para obtener la matriz $M(q)$. Acto seguido restar la matriz obtenida multiplicada por $\ddot{q}$ al valor de $\tau$ para eliminarlo y obtener las otras dos matrices.\\
-\begin{equation}
-M(q)=\dfrac{\partial{\tau}}{\partial{\ddot{q}}},
-\end{equation}
+\begin{center}
+$M(q)=\dfrac{\partial{\tau}}{\partial{\ddot{q}}}$
+\end{center}
 
 El siguiente paso consiste en derivar la nueva $\tau$ respecto a la constante de gravedad $g$, puesto que aparece únicamente en los términos gravitatorios. Así, y multiplicando por $g$ a posteriori, se obtiene la matriz $G(q)$. Para hallar la matriz $V(q,\dot{q})$ basta con restar a la $\tau$ resultante de extraer la matriz de inercia la $G(q)$ anterior.\\
+\begin{center}
+$\tau_{nueva}=\tau-\dfrac{\partial{\tau}}{\partial{\ddot{q}}}\ddot{q}$
+$\rightarrow$
+$G(q)=\dfrac{\partial{\tau_{nueva}}}{\partial{g}}$
+$\rightarrow$
+$V(q,\dot{q})=\tau_{nueva}-G(q)$
+\end{center}
+
+Una de las características que hay que tener en cuenta del algoritmo de Newton-Euler es que no tiene en cuenta las viscosidades e inercias de los motores, por lo que hay que añadirlas a posteriori obteniendo las matrices:
 \begin{equation}
-\tau_{new}=\tau-\dfrac{\partial{\tau}}{\partial{\ddot{q}}}\ddot{q},
+ Ma(q)=M(q)+J_mR^2
+ \end{equation}
+
+ \begin{equation}
+ Va(q,\dot{q})=V(q,\dot{q})+B_mR^2\dot{q}
 \end{equation}
 
 \begin{equation}
-G(q)=\dfrac{\partial{\tau_{new}}}{\partial{g}},
+  Ga(q)=G(q)
 \end{equation}
-
-\begin{equation}
-V(q,\dot{q})=\tau_{new}-G(q).
-\end{equation}
-
-Una de las características que hay que tener en cuenta del algoritmo de Newton-Euler es que no tiene en cuenta las viscosidades e inercias de los motores, por lo que hay que añadirlas a posteriori obteniendo las matrices $Ma(q)=M(q)+J_mR^2$ ; $Va(q,\dot{q})=V(q,\dot{q})+B_mR^2\dot{q}$ y $Ga(q)=G(q)$.\\
-
-Una vez realizado todo esto se ha obtenido el modelo dinámico simbólico del robot, que se va a suponer correcto pues únicamente consiste en seguir unos pasos descritos en clase, pero que, si se desease, se podría comparar con un robot diseñado en Robotics Toolbox de Matlab asignando valores a los parámetros y realizando un mismo experimento para ambos modelos, tomando como referencia correcta el último de ellos.\\
+Al fín de éste desarrollo matemático, se habrá obtenido el modelo dinámico simbólico del robot. Es un proceso sistematico, ya que únicamente consiste en seguir unos pasos descritos en clase, pero que, si se desease, se podría comparar con un robot diseñado en Robotics Toolbox diseñado por \textit{Peter Corke} para Matlab asignando valores a los parámetros y realizando un mismo experimento para ambos modelos.\\
 
 Las ecuaciones dinámicas simbólicas que definen las articulaciones del robot se muestran a continuación: \\
 \[
@@ -165,21 +171,17 @@ Va_{3}\\
 
 La matriz asociada a los terminos gravitatorios del robot será:
 	\[
-	Ga=
+	Ga=g
 	\begin{pmatrix}
 	0\\
-	Ga_{2}\\
-	Ga_{3}\\
-	\end{pmatrix} \]
+	(L_{3}m_{3}cos(q_{2}+q_{3})-m_{2}s_{22x}cos(q_{2})-m_{3}s_{33x}cos(q_{2}+q_{3})+L_{2}m_{2}cos(q_{2})\\
+	m_{3}cos(q_{2}+q_{3})(L_{3}-s_{33x})\\
+\end{pmatrix} \]
 
-	\begin{itemize}
-		\item $Ga_{2}=g(L_{3}m_{3}cos(q_{2}+q_{3})-m_{2}s_{22x}cos(q_{2})-m_{3}s_{33x}cos(q_{2}+q_{3})+L_{2}m_{2}cos(q_{2})+L_{2}m_{3}cos(q_{2})) $ \\ \vspace{0.1cm}
-		\item $Ga_{3}=g*m_{3}cos(q_{2}+q_{3})(L_{3}-s_{33x})$ \\
-	\end{itemize}
 
 	\subsection{Obtención de los parámetros dinámicos del robot}
-	Al obtener las matrices del modelo dinámico, ya seremos capaces de predecir el comportamiento de nuestro robot en la realidad;
-una vez que determinemos las incertidumbres paramétricas que se especificaron al inicio del apartado anterior.
+	Al obtener las matrices del modelo dinámico, ya seremos capaces de modelar el comportamiento del robot de trabajo;
+una vez se determinen las incertidumbres paramétricas que se especificaron al inicio del apartado anterior.
 Osea se, que aunque tengamos estructuradas las matrices, no seremos capaces de determinar el comportamiento
 del robot, ya que, tenemos un compendio de incertidumbres, que deberán ser determinadas numéricamente.\\
 
@@ -189,8 +191,8 @@ incógnitas definidas en Matlab como variables simbólicas:
 
 	\subsubsection{Identificalion y Linealizacion de parámetros dinámicos}
 		Primero reestructuraremos nuestro modelo dinámico en dos matrices en las que, por un lado,
-		se agrupen las incertidumbres paramétricas en una matriz \textit{theta}, y por otro, el resto de nuestro modelo
-		dinámico en una matriz \textit{phi} que dependerá de las variables articulares del robot.
+		se agrupen las incertidumbres paramétricas en una matriz denominada \textit{theta}, y por otro, el resto de nuestro modelo
+		dinámico en una matriz denominada \textit{phi} que dependerá de las variables articulares del robot.
 
 		\begin{equation}
 			\tau=M(q)\ddot{q}+V(q,\dot{q})+G(q) \hspace{1.25cm}  \rightarrow \hspace{1.25cm} \tau=\phi(x) \hspace{0.25cm} \theta
@@ -233,13 +235,11 @@ incógnitas definidas en Matlab como variables simbólicas:
 		agrupar aquellos términos que no sean linealmente independientes y eliminar los términos asociados
 		a las columnas de ceros, ya que significará que no tienen relevancia en nuestro modelo dinámico.\\
 
-		Para poder agrupar los parámetros linealmente independientes, nos apoyaremos en Matlab para poder gestionar
-		estas matrices de gran tamaño.\\
-		Se deben asignar valores aleatorios a los parámetros articulares que aparecerán en la matriz \textit{phi}, y sustituir estos
-		valores dentro de la matriz; posteriormente se elegirán otros valores para las variables articulares,  y se concatenarán
-		con la matriz anterior. Este proceso se repetirá hasta obtener una matriz concatenada de iguales dimensiones de ancho y largo.\\
+		Con el fín de agrupar los parámetros linealmente independientes, se empleará Matlab para poder gestionar estas matrices de gran tamaño.\\
+		Se iran asignando valores aleatorios a los parámetros articulares que aparecerán en la matriz \textit{phi} y se sustituiran estos valores dentro de la matriz; se iran asignando valores aleatorios a las variables articulares,  y se concatenarán
+		con la matriz anterior. Este proceso se repetirá hasta obtener una matriz concatenada de iguales dimensiones de ancho y largo, es decir, hasta que la matriz sea cuadrada.\\
 
-		Obteniendo esta matriz cuadrada podremos ejecutar el comando \textit{rref()} que nos devolverá las relaciones entre las columnas de la matriz \textit{phi}, y que serán las mismas relaciones dentro de las filas del vector de incertidumbres \textit{theta}.\\
+		Obteniendo esta matriz cuadrada podremos ejecutar el comando \textit{rref()} que nos devolverá las relaciones entre las columnas de la matriz \textit{phi}, las cuales serán las mismas relaciones dentro de las filas del vector de incertidumbres \textit{theta}.\\
 
 Por tanto, la matriz $\theta$ linealmente independiente obtenida será:
 			\[
@@ -283,26 +283,17 @@ Por otro lado, la matriz $\gamma$ obtenida, la cuál únicamente también posee 
 \item $\gamma_{3,6}=-\frac{\dot{q_1}^{2}sin(2q_2 + 2q_3)}{2} $\\ \vspace{0.2cm}
 \item $\gamma_{3,11}=- 2L_{3}\ddot{q_2} - 2L_3\ddot{q_3} - g*cos(q_2 + q_3) - \frac{L_{2}\dot{q_1}^{2}sin(q_3)}{2} - L_2\dot{q_2}^{2}sin(q_3) - $\\ \vspace{0.1cm}
 $-\frac{L_2\dot{q_1}^{2}sin(2q_2 + q_3)}{2} - L_{3}\dot{q_1}^{2}sin(2q_2 + 2q_3) - L_2\ddot{q_2}cos(q_3) $\\
-
-
-Para verificar que no se ha cometido errores en este procedimiento basta con multiplicar las dos matrices obtenidas, y restarlo al modelo dinámico
-que se obtuvo con el algoritmo de Newton-Euler, ya que, al ser una reorientación de parámetros, este resultado debe ser 0; por lo que
-si este resultado es diferente se debe comprobar el proceso en busca de errores.
 \end{itemize}
 
-	\begin{itemize}
+Para verificar que no se ha cometido errores en este procedimiento basta con multiplicar las dos matrices obtenidas, y restarlo al modelo dinámico que se obtuvo con el algoritmo de Newton-Euler, ya que, al ser una reorientación de parámetros, este resultado debe ser 0; por lo que si este resultado es diferente se debe comprobar el proceso en busca de errores.
 
-		\item HABLAR DE COMO SE OBTUVO GAMMA SIM Y TETHA SIM
-		\item HABLAR DE LA SIMPLIFICACION A PARAMETROS LI
-
-
-
-	\end{itemize}
+% \begin{itemize}
+%		\item HABLAR DE COMO SE OBTUVO GAMMA SIM Y TETHA SIM
+%		\item HABLAR DE LA SIMPLIFICACION A PARAMETROS LI
+%	\end{itemize}
 
 	\newpage
-
-	\subsubsection{Estimación estadística}
-
+	\subsubsection{Estimación estadística de los parámetros linealmente independientes}
 	Una vez que agrupados correctamente los términos linealmente independientes de nuestra estructuradas
 	\textit{phi}-\textit{theta}, se procederá a la realización de los experimentos sobre
 	el robot en cuestión, y la determinación de estas incertidumbres dinámicas.\\
@@ -312,10 +303,9 @@ si este resultado es diferente se debe comprobar el proceso en busca de errores.
 	de incertidumbres que tenemos en la matriz \textit{theta} linealmente independiente. Además, se deberá hacer
 	un mínimo diseño de los experimentos a los que se va a someter el robot para la búsqueda de estos parámetros.\\
 
-	Sobre los experimentos y la metodología seguida; Tenemos unos parámetros están fuertemente asociados a determinados
-	valores de las variables articulares; se puede ver esta dependencia al analizar el modelo dinámico de Newton-Euler.
-	 Ante esto, podemos deducir a priori, que ciertos parámetros estarán mas representados ante ciertas condiciones de funcionamiento; esto será lo que determinara la
-	veracidad del experimento, y de donde sacaremos las consignas para el diseño de estos.\\
+	A continuación, se tratará obre los experimentos y la metodología seguida.\\
+	Se tienen unos parámetros que se encuentran fuertemente asociados a determinados valores de las variables articulares; se puede ver esta dependencia al analizar el modelo dinámico de Newton-Euler.\\
+	Ante esto, podemos deducir a priori, que ciertos parámetros estarán mas representados ante ciertas condiciones de funcionamiento; esto será lo que determinara la validez del experimento, y de donde sacaremos las consignas para el diseño de estos.\\
 
 	\begin{itemize}
 		\item Términos Gravitatorios $ \rightarrow $ representados por velocidades bajas y constantes
@@ -325,7 +315,7 @@ si este resultado es diferente se debe comprobar el proceso en busca de errores.
 			\includegraphics[width=0.3\textwidth]{Traytheta10y11}
 			% \caption{Comparativa Variables articulares del modelo obtenido con medidas ideales y sin reductoras}
 		\end{figure}
-	
+
 		\item Términos Viscosos $ \rightarrow $ valores de velocidad altas, y aceleraciones constantes
 			\begin{figure}[h]
 			\centering
@@ -334,6 +324,7 @@ si este resultado es diferente se debe comprobar el proceso en busca de errores.
 			% \caption{Comparativa Variables articulares del modelo obtenido con medidas ideales y sin reductoras}
 		\end{figure}
 
+\newpage
 		\item Términos Inerciales $ \rightarrow $ consignas de aceleraciones altas; movimientos breves y bruscos en las articulaciones
 		\begin{figure}[h]
 			\centering
@@ -341,50 +332,38 @@ si este resultado es diferente se debe comprobar el proceso en busca de errores.
 			\includegraphics[width=0.3\textwidth]{Traytheta8}
 			% \caption{Comparativa Variables articulares del modelo obtenido con medidas ideales y sin reductoras}
 		\end{figure}
-		
-
 	\end{itemize}
 
-	Para implementar las condiciones de funcionamiento han sido necesarias dos metodologias digerentes;
-	por un lado, la propuesta en clase, que basa el diseño de las intensidades de entrada al robot,
-	mediante dos señales senoidales, pudiendo variar de estas su amplitud, frecuencia y atenuacion; 
-	y por otro, se ha usado señales exponenciales, en la que se han podido variar tanto la pendiente como la curvatura de la señal.	El uso de estas dos maneras de diseño de las señales de intensidad, es justificado debido a las problemáticas
-	de los modelos a identificar.\\
-	
-	Se han identificado los modelos reales e ideales, con y sin reductoras, del robot propuesto. 
-	En el caso del robot real, solo se han tomado los datos procedentes de las posiciones, a las que se le ha introducido,
-	el efecto del encoder, para asemejar estos resultados a los obtenidos en la realidad; y sucesivas derivadas, para la obtención
-	de las variables de velocidad y aceleración articulares; para ello, ha sido necesario introducir filtros Butterworth, que eliminen
-	las componentes del ruido asociadas al efecto del encoder; es por ello, que ciertos experimentos, donde la variación
-	de las posiciones, era fundamental para obtener las condiciones de funcionamiento mencionadas anteriormente, eran filtradas
-	como ruido; es por esto, que se ha optado por señales exponenciales, para someter al robot real a condiciones de altas aceleraciones sin 
-	necesidad de realizar una variación senoidal cuya frecuencia esté fuera de la banda de corte del filtrado.\\
+	Para implementar las condiciones de funcionamiento han sido necesarias dos metodologias diferentes:\\
 
-	Aun así, las dificultades a la hora de la identificación de los parámetros dinámicos, se han dado principalmente,
-	por el robot real sin reductoras; en este, se ha observado, que no solo se tiene que aumentar las intensidades
-	de entrada de los experimentos, ya que, desde el el punto de la articulación, la ausencia de las reductoras se traduce en un par del motor menor;
-	sino que, las perturbaciones externas que ocurren en las otras articulaciones o eslabones, cobran mucha mas relevancia, al no tener la amortiguación de las reductoras; lo que se traduce
-	en un acoplamiento entre las propias barras del robot. Es decir, la ausencia de las reductoras, dificultan en gran medida,
-	la búsqueda exclusiva del parámetro dinámico a identificar numéricamente.\\
+% SERIA INTERESANTE AÑADIR ENLACE AL PAPER DONDE APARECE EXPLICADO ESTA MIERDA
+Por un lado, la propuesta en clase, que basa el diseño de las intensidades de entrada al robot, mediante la suma de dos señales senoidales, pudiendo variar de estas su amplitud, frecuencia y atenuacion.\\
+Por otro, se han empleado señales exponenciales, en la que se han podido variar tanto la pendiente como la curvatura de la señal.	El uso de estas dos maneras de diseño de las señales de intensidad, es justificado debido a las problemáticas
+de los modelos a identificar.\\
 
-	Finalmente, una vez definidas las consignas, para la identificación de los parámetros, las formas de ondas implementadas para ello,
-	y los modelos sobre los que se han realizados dichos experimentos; se abordará la estadística detrás de la validación de estos experimentos, 
-	dando como resultado la calidad de estos.\\
-	Asumiendo que la metodologia expuesta en clase, sobre el calculo de la covarianza, en donde asumimos el error cometido como un ruido blanco,
-	y que el algoritmo para calcular la desviación estándar relativa del parámetro, explicado en diapositivas, se ha implementado correctamente en la sintaxis de 
-	Matlab, se exponen las condiciones de funcionamiento que aseguren la veracidad de este. Por un lado, y como se ha explicado en un inicio, el principio 
-	seguido para la identificación, ha sido por caso redundante, lo que se ha asumido como, la toma de datos del orden de mil veces superior, al número de 
-	parámetros dinámicos a identificar; por otro lado, no se puede tomar las medidas consecutivamente al tiempo de simulación, sino que se debe realizar una espera entre 
-	la toma de los datos de salida del robot, evitando así los errores del sensorizado producidos por conservar propiedades de la medida una vez los estímulos iniciales han desaparecido, lo que viene
-	a decir, evitar los errores por histéresis de los sensores, para ello se han tomado los datos cada 15-20 ud de tiempo de simulación, y para terminar de ha dado un umbral de error entorno al 5t.p.c. %Marco ponme esto bien pls q no se y me muero%
-	de error sobre el valor real, que en el momento en el que se marque por debajo de este, se asumirá que el parámetro se ha obtenido correctamente.\\
+Se han identificado los modelos reales e ideales, con y sin reductoras, del robot propuesto.\\
+En el caso del robot real, solo se han tomado los datos procedentes de las posiciones, a las que se le ha introducido, el efecto del encoder, para asemejar estos resultados a los obtenidos en la realida.Tras ello, se aplicarion sucesivas derivadas, para la obtención de las variables de velocidad y aceleración articulares.\\
 
-	Algunas consideraciones finales, es necesario que a la hora de la realización del experimento, se tenga muy en cuenta que parámetros se están buscando, ya que,
-	el algoritmo del cálculo de la covarianza, puede dar falsos positivos, en  parámetros que ni siquiera se están acentuando, es por ello, que es recomendable
-	iniciar la identificación, por los modelos ideales, y posteriormente, con los datos del modelo real, teniendo al menos una base de apoyo a la hora de determinar que un parámetro es finalmente hallado.
+Ha sido necesario introducir filtros Butterworth, un filtro paso bajo, que eliminen las componentes de alta frecuencia del ruido asociadas al efecto del encoder; es por ello, que en ciertos experimentos, donde la variación de las posiciones era fundamental para obtener las condiciones de funcionamiento mencionadas anteriormente, eran filtradas como ruido. \\
+Es por esto, que se buscaron nuevas posibilidades, y se optó por la implementación de señales exponenciales, para someter al robot real a condiciones de altas aceleraciones sin necesidad de realizar una variación senoidal cuya frecuencia esté fuera de la banda de corte del filtrado.\\
 
+Aun así, las dificultades a la hora de la identificación de los parámetros dinámicos, se han dado principalmente, por el robot real sin reductoras.\\
+En este, se ha observado, que no solo se tiene que aumentar las intensidades de entrada de los experimentos, ya que, desde el punto de vista de la articulación, la ausencia de las reductoras se traduce en un par del motor menor; sino que, además de ello, los efectos externos que ocurren en las otras articulaciones o eslabones, cobran mucha mas relevancia, al no tener la amortiguación de las reductoras. \\
+Es decir, al no emplear reductoras el robot no se encontrará desacoplado y, una accion en una articulación, sea del tipo que sea, afectará a la siguiente.\\
+En conclusión, la ausencia de las reductoras dificultan en gran medida la búsqueda exclusiva del parámetro dinámico a identificar numéricamente.\\
 
+Finalmente, una vez definidas las consignas para la identificación de los parámetros, las formas de ondas de las señales aplicadas al robot para ello, y los modelos sobre los que se han realizados dichos experimentos, se abordará el cálculo  estadístico detrás de la validación de estos experimentos, dando como resultado la calidad de estos.\\
 
+\newpage
+Partiendo de la metodologia expuesta en clase sobre el calculo de la covarianza, dónde se asume que el error cometido en la medida de las señales es análogo a un ruido blanco, y que el algoritmo para calcular la desviación estándar relativa del parámetro, el cuál se encuentra en las diapositivas de la asignatura, se ha implementado correctamente en el código de programación de Matlab, se pasa a exponer las condiciones que aseguren la veracidad de este. \\
+Por un lado, y como se explicó al inicio de éste punto, el principio seguido para la identificación ha sido por caso redundante, es decir, la toma de datos del orden de mil veces superior, al número de parámetros dinámicos a identificar.\\
+Por otro lado, cabe destacar que no se puede tomar las medidas consecutivas en el tiempo, sino que se debe realizar una espera entre la toma de los datos de salida del robot, evitando así los errores del sensorizado producidos por conservar propiedades de la medida una vez los estímulos iniciales han desaparecido.\\
+Esto viene a decir,que para evitar los errores por histéresis de los sensores, se han tomado los datos cada 15-20 ud de tiempo de simulación.\\
+Finalmente, tambien se ha impuesto un umbral entorno al 5\% del error sobre el valor real. En el momento en el que la desviación tipica entre las medidas se encuentre por debajo de este, se asumirá que el parámetro se ha obtenido correctamente.\\
+
+A modo de consideraciones finales, cabe destacar que a la hora de la realización del experimento, se debe tener muy en cuenta que parámetros se están buscando, ya que,	el algoritmo del cálculo de la covarianza, puede dar falsos positivos, en  parámetros que ni siquiera se están acentuando.\\
+
+Es por ello, que es recomendable iniciar la identificación, por los modelos ideales, y posteriormente, con los datos del modelo real, teniendo al menos una base de apoyo a la hora de determinar si un parámetro ha sido hayado correctamente o ha sido un falso válido.
 
 	\subsection{Parámetros y modelos obtenidos}
 	A continuación, se mostrarán los parámetros obtenidos para cada configuración del robot, así cómo la covarianza con la que se han obtenido los mismos.\\
@@ -399,7 +378,7 @@ si este resultado es diferente se debe comprobar el proceso en busca de errores.
 La matriz $\gamma$ obtenida que, multiplicada por los valores numéricos de $\theta$, resultarán las ecuaciones dinámicas del robot estudiado, se muestra a continuación:
 
 
-
+\newpage
 	\subsubsection{Robot medidas ideales con reductoras}
 	Los parametros estimados, es decir, la matriz tetha linealmente independiente de 11 parámetros, obtenida para desarrollar el modelo del robot con medidas ideales con reductoras en los motores será:
 	\begin{center}
