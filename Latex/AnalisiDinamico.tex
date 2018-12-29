@@ -767,3 +767,25 @@ Por tanto, la magnitud de los errores obtenidos se muestra a continuación:
 \end{figure}
 
 \subsubsection{Robot medidas reales sin reductoras}
+Aunque se haya obtenido el modelo con medidas reales suponiendo que no se tienen tacómetros y que, por tanto, no se puede conocer la velocidad articular del robot, para realizar análisis de control y para análizar el modelo obtenido sí se conocerá la velocidad articular, es decir, se supondrá que se tienen tacómetros. De ese modo se evitará la necesidad de implementar un filtro no causal. \\
+Los filtros no causales se caracterizan por el hecho de se emplean valores futuros de la señal, algo que sólo se podrá hacer de manera computacional una vez se hayan tomado todos los datos.\\
+
+Por tanto, se compararán las medidas reales de velocidad y posición del robot con las medidas ideales del modelo obtenido. La grafica comparativa se muestra a continuación:
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=.7\textwidth]{EstimacParam_SisMod_In1_RealSR}
+	\caption{Comparativa Variables articulares del modelo obtenido con medidas reales sin reductoras}
+\end{figure}
+
+\newpage
+debido a que este modelo es el que se encuentra más acoplado y, ha sido necesario la aplicación de filtros se observa que el modelo no será un buen modelo, ya que aunque en algúnos valores pueda parecer que se asemeje, el error entre las medidas del robot real y el modelo obtenido es significativo, cómo se muestra a continuación:
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=1\textwidth]{EstimacParam_SisModError_In1_RealSR}
+	\caption{Error del modelo obtenido con medidas reales y sin reductoras}
+\end{figure}
+
+Es por ello que, aunque se diseñarán controladores para éste modelo, ya que de ese modo se verá que se obtienen malos resultados, no será posible asumir éste modelo cómo válido.\\
+Finalmente, una posible opción, sería realizar un reajuste del modelo a posteriori, es decir, a partir de las gráficas en las que se compara la respues de éste modelo y el robot real, intentar estimar qué parametros del robot están peor estimados en el modelo e intentar compensarlos. Sin embargo, debido a a la falta de tiempo ésta técnica no ha sido aplicada.
