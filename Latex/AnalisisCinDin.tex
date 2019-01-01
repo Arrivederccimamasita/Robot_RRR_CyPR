@@ -154,4 +154,39 @@ donde será de ayuda despejar la función A en una suma de un término por el se
 		$\theta_{2}=atan2(\pm \sqrt{1-(\frac{A}{\rho})^{2}},\frac{A}{\rho})-\alpha$ \\
 		$\theta_{3}=\beta -atan2(sin(\theta_{3}),cos(\theta_{3}))=\beta-atan2(\pm \sqrt{1-(\frac{C-L2^{2}-L3^{2}}{2L2L3})^{2}},\frac{C-L2^{2}-L3^{2}}{2L2L3} )$
 	\end{center}
+
 	\subsection{Jacobiano del robot y análisis de puntos singulares}
+Aunque éste apartado no cabe en este proyecto, es interesante llevar a cabo el análisis de los puntos singulares del robot, los cuales se obtendrían hayando qué valores de las variables articulares del robot hacen nulo el jacobiano de velocidades, ya que esos valores de las variables articulares serán los que generen velocidades infinitas en las articulaciones del robot.\\
+El jacobiano analítico de velocidades se define del siguiente modo:
+
+\begin{equation}
+	J_{a} =
+	\begin{pmatrix}
+	\dfrac{\partial px}{\partial \theta_{1}} & \cdots & \dfrac{\partial px}{\partial \theta_{n}} \\
+	\vdots  & \ddots & \vdots  \\
+	\dfrac{\partial \psi}{\partial \theta_{1}} & \cdots & \dfrac{\partial \psi}{\partial \theta_{n}}
+	\end{pmatrix}
+\end{equation}
+
+sin embargo, debido a que no se empleará efector final y el robot posee 3 grados de libertad, no se tendrán en cuenta los angulos de Euler que especifican la orientación del mismo, resultando la matriz jacobiana cuadrada.\\
+
+\newpage
+La relación entre velocidades angulares y velocidades en el efector final se relacionan mediante el jacobiano inverso.
+\begin{equation}
+\begin{pmatrix}
+\dot{\theta_{1}} \\
+\vdots  \\
+\dot{\theta_{n}}
+\end{pmatrix}
+= J^{-1}
+\begin{pmatrix}
+\dot{px} \\
+\vdots  \\
+\dot{\psi} \\
+\end{pmatrix}
+\end{equation}
+Por definición, la inversa de una matriz se define como:\\
+\begin{center}
+	$ J^{-1}=\dfrac{(adj(J))^{T}}{det(J)}$
+\end{center}
+Por ello, si el determinante es nulo, el jacobiano inverso valdrá infinito y, por extensión, las velocidades en las articulaciones también lo será.\\
