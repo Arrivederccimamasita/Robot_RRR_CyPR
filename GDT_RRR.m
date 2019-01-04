@@ -14,13 +14,27 @@ t_init   = in(8);
 t_tray   = in(9);
 t    = in(10);
 
-%% Obtencion de la trayectoria en el espacio cartesiano
-pos_init=[x_init y_init z_init];
-pos_fin=[x_fin y_fin z_fin];    
 
-x_tray=linspace(x_init,x_fin,n_ptos+2) ; % El +2 es para no tener en cuenta en la interpolacion el pto inicial y final
-y_tray=linspace(y_init,y_fin,n_ptos+2);
-z_tray=linspace(z_init,z_fin,n_ptos+2);
+ %% Inicializacion de variables para testear la funcion
+% % Puntos iniciales y finales
+% xyz_init=CinematicaDirecta([0;pi/4;-pi/4]);
+% xyz_fin=CinematicaDirecta([pi/2;pi/3;-pi/3]);
+% % Puntos intermedios
+% n_ptos=4;
+% % Inicio trayectoria
+% t_init=2;
+% % Duracion trayectoria
+% t_tray=1;
+% % Tiempo de simulacion completa
+% t_sim=5;
+
+%% Obtencion de la trayectoria en el espacio cartesiano
+pos_init=[x_init y_init z_init]';
+pos_fin=[x_fin y_fin z_fin]';    
+
+x_tray=linspace(pos_init(1),pos_fin(1),n_ptos+2) ; % El +2 es para no tener en cuenta en la interpolacion el pto inicial y final
+y_tray=linspace(pos_init(2),pos_fin(2),n_ptos+2);
+z_tray=linspace(pos_init(3),pos_fin(3),n_ptos+2);
 
 %Una vez se han ontenido los puntos interpolados, se aplica el MCI a dichos
 %puntos para pasarlo al espacio articular.
@@ -122,9 +136,9 @@ end
 
 %  figure;
 %   Tm=0.001;
-%   for t=0:Tm:(t_init+t_tray)+5 % La instruccion 'for' solo es valida para plotear el resultado, se debe eliminar al tener l entrada de reloj
+%   for t=0:Tm:t_sim % La instruccion 'for' solo es valida para plotear el resultado, se debe eliminar al tener l entrada de reloj
 
-if(t>=t_init && t<=(t_init+t_tray))
+if(t>=t_init && t<(t_init+t_tray))
     offset=(floor(t_init/T)-1);
     selec=(floor(t/T)-offset);    
     Aq1=poliq1(selec,2); Bq1=poliq1(selec,3); Cq1=poliq1(selec,4); Dq1=poliq1(selec,5);
@@ -139,10 +153,16 @@ if(t>=t_init && t<=(t_init+t_tray))
 %     Aq3=poliq3(selec,2); Bq3=poliq3(selec,3); Cq3=poliq3(selec,4); Dq3=poliq3(selec,5);
 %     t_tramo=t-((t_init+t_tray)-poliq2(selec,1));
     
-elseif (t<(t_init+t_tray) || t>(t_init+t_tray))
-    Aq1=0; Bq1=0; Cq1=0; Dq1=0;
-    Aq2=0; Bq2=0; Cq2=0; Dq2=0;
-    Aq3=0; Bq3=0; Cq3=0; Dq3=0;
+elseif (t<(t_init) )
+    Aq1=0; Bq1=0; Cq1=0; Dq1=q_r(1,1);
+    Aq2=0; Bq2=0; Cq2=0; Dq2=q_r(1,2);
+    Aq3=0; Bq3=0; Cq3=0; Dq3=q_r(1,3);
+    t_tramo=t; %Esto hara que el polinomio al evaluarlo de 0
+        
+else
+    Aq1=0; Bq1=0; Cq1=0; Dq1=q_r(length(qaux),1);
+    Aq2=0; Bq2=0; Cq2=0; Dq2=q_r(length(qaux),2);
+    Aq3=0; Bq3=0; Cq3=0; Dq3=q_r(length(qaux),3);
     t_tramo=t; %Esto hara que el polinomio al evaluarlo de 0
         
  end
@@ -166,7 +186,7 @@ qdd3_r = 6*Aq3*( t-t_tramo ) + 2*Bq3;
 
 % %//Testeo//%
 %     hold on; 
-
+% 
 % %     Ploteo Posiciones 
 %     plot(t,q1_r,'*');grid
 %     plot(t,q2_r,'*');grid
@@ -181,7 +201,7 @@ qdd3_r = 6*Aq3*( t-t_tramo ) + 2*Bq3;
 %     plot(t,qdd1_r,'*');grid
 %     plot(t,qdd2_r,'*');grid
 %     plot(t,qdd3_r,'*');grid
-%     
+% %     
 %  end % [Fin bucle para Testeo]
 
 % Se devuelve la posicion, velocidad y aceleracion de referencia
