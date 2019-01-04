@@ -1,19 +1,21 @@
-\section{Control Cinematico del robot}
+\section{Control Cinemático del robot}
+Una vez estudiado el análisis cinemático del modelo de brazo manipulador, y obtenidas las ecuaciones cinemáticas inversa 
+y directa de este, se terminará de abordar el problema cinemático, al ser capaces de desarrollar el control sobre esta; para ello, 
+se requiere poder generar trayectorias dentro del espacio articular, con tal de que el brazo manipulador pueda cumplir una ordenes de 
+movimiento conocidas, en este caso dadas en un espacio cartesiano.\\
+
 \begin{itemize}
-	\item HABLAR SOBRE QUE ES EL CONTROL CINEMATICO Y LAS MOVIDAS DE LOS GENERADORES DE TRAYECTORIAS
-\\Una vez estudiado el análisis cinemático del modelo de brazo manipulador, y obtenidas las ecuaciones cinemáticas inversa y directa de este, se terminará de abordar el problema cinemático, al ser capaces de desarrollar el control sobre esta; para ello, se requiere poder generar trayectorias dentro del espacio articular, con tal de que el brazo manipulador pueda cumplir una ordenes de movimiento conocidas, en este caso dadas en un espacio cartesiano.\\
 
-\item TIPOS DE TRAYECTORIAS. COMO LA GENERAMOS
-\\Visto esto, tenemos que conocer las consignas de movimiento, mejor vistas como condiciones de contorno o exigencias, que se le piden al robot; ejemplificado en este proyecto, el movimiento del efector final entre dos puntos del espacio cartesiano del robot, dado un tiempo limite para su realización.\\
+\item TIPOS DE TRAYECTORIAS. COMO LA GENERAMOS \\
+Visto esto, tenemos que conocer las consignas de movimiento, mejor vistas como condiciones de contorno o exigencias, que se le piden al robot; ejemplificado en este proyecto, el movimiento del efector final entre dos puntos del espacio cartesiano del robot, dado un tiempo limite para su realización.\\
 
-	\item INTERPOLADORES DE TRAYECTORIAS
+	\item INTERPOLADORES DE TRAYECTORIAS \rightarrow SPLINE y TRAPEZOIDAL
 	\item IMPLEMENTACION, GRAFICAS Y CONCLUSCIONES
 \end{itemize}
-	\subsection{Generador de trayectorias punto a punto}
+\subsection{Tipos de Trayectorias Generadas}
+	\subsubsection{Generador de trayectorias lineal}
 
-	\subsection{Generador de trayectorias lineal}
-
-	\subsection{Generador de trayectorias circulares}
+	\subsubsection{Generador de trayectorias circular}
 	El generador de trayectorias circulares es similar al generador de trayectorias lineal, excepto por el cálculo de la trayectoria en sí, es decir, una vez obtenidos los puntos que definen la trayectoria, se realizan los mismos cálculos para la obtención de las posiciones, velocidades y aceleraciones articulares. Se empleará también el método heurístico para definir las velocidades de paso.\\
 
 	Para empezar, se deben introducir 3 puntos, a diferencia de los generadores lineales, que definirán la curva como punto inicial($P_1$), punto intermedio($P_2$) y punto final ($P_3$). Tras ello, se calculara el centro de la circunferencia.\\
@@ -89,7 +91,20 @@ Tras ello, la trayectoria ejemplo que podría seguirse en el plano XYZ será:
 	\caption{Posición del efector final}
 	\end{figure}
 
+	
+	\subsection{Interpoladores}
+	\begin{itemize}
+		\item SPLINE CÚBICO
+		\item TRAPEZOIDAL
+	\end{itemize}
+	
+	
+	
+	
 	\subsection{Pruebas y conclusiones}
+	\begin{itemize}
+		\item Comentar algo sobre el muestre en base a las consignas articulares generadas.gráfica?
+	\end{itemize}
 		Necesidad para el trabajo-->
 		 Ser capaces de que nuestro modelo de brazo manipulador ejecute ordenes de movimientos basados en trayectorias.
 
