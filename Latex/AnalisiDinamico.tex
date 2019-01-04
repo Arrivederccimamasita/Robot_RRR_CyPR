@@ -287,11 +287,6 @@ $-\frac{L_2\dot{q_1}^{2}sin(2q_2 + q_3)}{2} - L_{3}\dot{q_1}^{2}sin(2q_2 + 2q_3)
 
 Para verificar que no se ha cometido errores en este procedimiento basta con multiplicar las dos matrices obtenidas, y restarlo al modelo dinámico que se obtuvo con el algoritmo de Newton-Euler, ya que, al ser una reorientación de parámetros, este resultado debe ser 0; por lo que si este resultado es diferente se debe comprobar el proceso en busca de errores.
 
-% \begin{itemize}
-%		\item HABLAR DE COMO SE OBTUVO GAMMA SIM Y TETHA SIM
-%		\item HABLAR DE LA SIMPLIFICACION A PARAMETROS LI
-%	\end{itemize}
-
 	\newpage
 	\subsubsection{Estimación estadística de los parámetros linealmente independientes}
 	Una vez que agrupados correctamente los términos linealmente independientes de nuestra estructuradas
@@ -698,8 +693,8 @@ Por lo tanto, tras multiplicar $\gamma$ y $\theta$ y derivar respecto a las vari
 \newpage
 \subsection{Verificación de los modelos obtenidos}
 Tras obtener éstos modelos, se hará una simple prueba antes de comenzar a controlar el robot para poder analizar la bondad del modelo obtenido.\\
-Se ha optado por, para comprobar dicha bondad, introducirle al robot dado por el profesor, es decir, el robot real valores de intensidades unitarios y lo
-mismo al modelo, de ese modo se podrá observar y comparar la respuesta del robot real y el modelo obtenido.\\
+Este experimento consistirá en darle un valor de unitario a la intensidad, es decir, valores constantes unitarios a todas las articulaciones. \\
+Se ha optado por, para comprobar dicha bondad, introducirle al robot dado por el profesor, es decir, el robot real valores de intensidades unitarios y lo mismo al modelo, de ese modo se podrá observar y comparar la respuesta del robot real y el modelo obtenido.\\
 
 Cabe destacar que, debido a que no se controlará el robot durante más de 5 segudos aproximadamente, durante ese tiempo es dónde interesa observar la bondad del modelo.
 \subsubsection{Robot medidas ideales con reductoras}
