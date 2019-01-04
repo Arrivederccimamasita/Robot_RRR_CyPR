@@ -2,23 +2,31 @@
 	\subsection{Modelo Cinemático Directo}
 	\subsubsection{Parámetros y estudio del MCD según Denavit-Hartemberg}
 	Uno de los modos de estudio del problema cinemático directo de un robot es el procedimiento de Denavit-Hartemberg, el cual se basa en la realización de cambios de sistema de referencia empleando las matrices de transformación homogéneas. Siguiendo una serie de pasos, se llegará a obtener los siguientes parámetros que definen la cinemática directa del robot.\\
-	%Tabla de Denavit-Hartenberg
-	\begin{center}
-		\begin{tabular}{|c||c|c|c|c|}
-			\hline
-			Articulación & $\theta_{i}$ & $d_{i}$ & $a_{i}$ & $\alpha_{i}$ \\
-			\hline
-			1 & $\theta_{1}$     				 &   L0+L1    &  			0 			 &  $\frac{\pi}{2}$  \\
-			\hline
-			2 & $\theta_{2}$ 				 &    0     &L2 & 0  \\
-			\hline
-			3 & $\theta_{3}$ &    L3    & 			 L2			 &  0\\
-			\hline
-		\end{tabular}
-	\end{center}
+Por tanto, los sistemas de referencia definidos se muestran a continuación:
 	% %%%%%%%%%%%%%%%%%
 	% anadir foto del analisis del brazo
 	% %%%%%%%%%%%%%%%%%
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=.5\textwidth]{ejes_DH}
+		\caption{Sistemas de referencia definidos}
+	\end{figure}
+
+En base a esos sistemas de referencia, los parámetros de Denavit-Hartemberg obtenidos serán:
+%Tabla de Denavit-Hartenberg
+\begin{center}
+	\begin{tabular}{|c||c|c|c|c|}
+		\hline
+		Articulación & $\theta_{i}$ & $d_{i}$ & $a_{i}$ & $\alpha_{i}$ \\
+		\hline
+		1 & $\theta_{1}$     				 &   L0+L1    &  			0 			 &  $\frac{\pi}{2}$  \\
+		\hline
+		2 & $\theta_{2}$ 				 &    0     &L2 & 0  \\
+		\hline
+		3 & $\theta_{3}$ &    L3    & 			 L2			 &  0\\
+		\hline
+	\end{tabular}
+\end{center}
 
 	\subsubsection{Matrices de transformación homogéneas del robot}
 	A continuación, se mostrarán las matrices de transformación homogéneas que definen los cambios de sistema de referencia que han hecho posible relacionar el sistema de referencia base con el del efector final. La matriz de transformación homogénea que relaciona un sistema de referencia con el siguiente se define como:\\
