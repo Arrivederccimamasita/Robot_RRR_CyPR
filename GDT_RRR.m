@@ -1,10 +1,6 @@
 %% GENERADOR DE TRAYECTORIAS DEL ROBOT RRR Lineal
 % En primera instancia se disenara un GDT lineal.
 
-% SOLO ESTA IMPLEMENTADO EN SIMULINK LA POSICION, HABRIA QUE ANADIR TAMBIEN
-% LA VELOCIDAD Y LA ACELERACION. SIN EMBARGO, DA PROBLEMAS CON EL TEMA DE
-% LAS ENTRADAS Y SALIDAS DE LOS BLOQUES.
-
 function [ref] = GDT_RRR(in)
 % Variables de entrada en la funcion
 x_init   = in(1);
@@ -18,11 +14,6 @@ t_init   = in(8);
 t_tray   = in(9);
 t    = in(10);
 
- %% Inicializacion de variables para testear la funcion
-% x_init=1.8000; y_init=0; z_init=1.2000;
-% x_fin =1.566; y_fin=0 ; z_fin=0.634;
-% n_ptos=5; t_init=2; t_tray=2;
-
 %% Obtencion de la trayectoria en el espacio cartesiano
 pos_init=[x_init y_init z_init];
 pos_fin=[x_fin y_fin z_fin];    
@@ -30,10 +21,6 @@ pos_fin=[x_fin y_fin z_fin];
 x_tray=linspace(x_init,x_fin,n_ptos+2) ; % El +2 es para no tener en cuenta en la interpolacion el pto inicial y final
 y_tray=linspace(y_init,y_fin,n_ptos+2);
 z_tray=linspace(z_init,z_fin,n_ptos+2);
-
-% % Grafica de la trayectoria deseada en XYZ
-% figure();plot3(x_tray,y_tray,z_tray,'b',x_tray,y_tray,z_tray,'*r');...
-%     legend('Recta interpolada obtenida','Puntos interpolados');grid;
 
 %Una vez se han ontenido los puntos interpolados, se aplica el MCI a dichos
 %puntos para pasarlo al espacio articular.
@@ -46,7 +33,6 @@ for i=1:length(x_tray)
     esp_articular=[esp_articular; i, (t_init+(i-1)*T),CinematicaInversa([x_tray(i) y_tray(i) z_tray(i)])'];
     
 end
-esp_articular;
 
 % Obtencion de las velocidades articulares intermedias
 tiempo=esp_articular(:,2);
@@ -138,7 +124,7 @@ end
 %   Tm=0.001;
 %   for t=0:Tm:(t_init+t_tray)+5 % La instruccion 'for' solo es valida para plotear el resultado, se debe eliminar al tener l entrada de reloj
 
-if(t>=t_init && t<(t_init+t_tray))
+if(t>=t_init && t<=(t_init+t_tray))
     offset=(floor(t_init/T)-1);
     selec=(floor(t/T)-offset);    
     Aq1=poliq1(selec,2); Bq1=poliq1(selec,3); Cq1=poliq1(selec,4); Dq1=poliq1(selec,5);
@@ -146,18 +132,18 @@ if(t>=t_init && t<(t_init+t_tray))
     Aq3=poliq3(selec,2); Bq3=poliq3(selec,3); Cq3=poliq3(selec,4); Dq3=poliq3(selec,5);
     t_tramo=poliq2(selec,1);
     
-elseif(t>=(t_init+t_tray))
-    selec=length(poliq1);
-    Aq1=poliq1(selec,2); Bq1=poliq1(selec,3); Cq1=poliq1(selec,4); Dq1=poliq1(selec,5);
-    Aq2=poliq2(selec,2); Bq2=poliq2(selec,3); Cq2=poliq2(selec,4); Dq2=poliq2(selec,5);
-    Aq3=poliq3(selec,2); Bq3=poliq3(selec,3); Cq3=poliq3(selec,4); Dq3=poliq3(selec,5);
-    t_tramo=t-((t_init+t_tray)-poliq2(selec,1));
+% elseif(t>=(t_init+t_tray))
+%     selec=length(poliq1);
+%     Aq1=poliq1(selec,2); Bq1=poliq1(selec,3); Cq1=poliq1(selec,4); Dq1=poliq1(selec,5);
+%     Aq2=poliq2(selec,2); Bq2=poliq2(selec,3); Cq2=poliq2(selec,4); Dq2=poliq2(selec,5);
+%     Aq3=poliq3(selec,2); Bq3=poliq3(selec,3); Cq3=poliq3(selec,4); Dq3=poliq3(selec,5);
+%     t_tramo=t-((t_init+t_tray)-poliq2(selec,1));
     
-elseif (t<(t_init+t_tray))
+elseif (t<(t_init+t_tray) || t>(t_init+t_tray))
     Aq1=0; Bq1=0; Cq1=0; Dq1=0;
     Aq2=0; Bq2=0; Cq2=0; Dq2=0;
     Aq3=0; Bq3=0; Cq3=0; Dq3=0;
-    t_tramo=t; %Esto hará que el polinomio al evaluarlo de 0
+    t_tramo=t; %Esto hara que el polinomio al evaluarlo de 0
         
  end
 
