@@ -60,6 +60,40 @@
 	mlshowsectionrules = true,
 }
 
+% %%%%%%%%% INTRODUCIR CODIGO DE C %%%%%%%%%%%%%%%%%%%%%%
+\usepackage{listings}
+\usepackage{xcolor} % for setting colors
+
+% set the default code style
+%:Paquete para modificar los colores de diferentes elementos del codigo
+
+\definecolor{mGreen}{rgb}{0,0.6,0}
+\definecolor{mGray}{rgb}{0.5,0.5,0.5}
+\definecolor{mPurple}{rgb}{0.58,0,0.82}
+\definecolor{backgroundColour}{rgb}{0.95,0.95,0.92}
+
+%Definimos el estilo del codigo de C
+\lstdefinestyle{CStyle}{
+	backgroundcolor=\color{backgroundColour},
+	commentstyle=\color{mGreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{mGray},
+	stringstyle=\color{mPurple},
+	basicstyle=\footnotesize,
+	breakatwhitespace=false,
+	breaklines=true,
+	captionpos=b,
+	keepspaces=true,
+	numbers=left,
+	numbersep=5pt,
+	showspaces=false,
+	showstringspaces=false,
+	showtabs=false,
+	tabsize=2,
+	language=C
+}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 % Pie de pagina
 %\fancyfoot{} % limpia el pie
 \fancyfoot[C]{- \thepage -} % número de página centrado
@@ -96,10 +130,11 @@
 \tableofcontents
 \newpage
 % %%%%%%%%%%%   INTRODUCCION %%%%%%%%%%%%%%%%%%
-\section{Introducción al proyecto}
-	Como objetivo de este trabajo se encuentra el análisis cinemático y dinámico, así como la estimación de ciertos parámetros dinámicos del robot, como pueden ser inercias o fricciones viscosas. Además de ello, se diseñará un control cinemático y dinámico del brazo robático.\\
-	El brazo sujeto a análisis será del tipo RRR, es decir, de tres articulaciones rotacionales.
+\begin{abstract}
+	En las páginas que siguen, se realizará un análisis cinemático y dinámico de un robot de 3 grados de libertad, cuyas articulaciones serán todas de rotación. Además de ello, debido a que únicamente se considerarán conocidas las longuitudes del robot, se deberá realizar una estimación de ciertos parámetros dinámicos del robot, como pueden ser inercias o fricciones viscosas. Finalmente, se diseñará un control cinemático y dinámico del brazo robático.\\
+\end{abstract}
 
+\section{Introducción al proyecto}
 	El robot que se va a estudiar, representado por la estructura de la portada de este trabajo, posee los siguientes parámetros estructurales:
 	\begin{center}
 		$L_0 = 0.60 m$ \hspace{0.5 cm} $L_1 = 0.60 m$ \hspace{0.5 cm}  $L_2 = 1.00 m$\hspace{0.5 cm}  $L_3 = 0.80 m$
@@ -123,7 +158,9 @@ Para el robot con medidas reales, se evaluará qué condición es mas favorable.
 
 Una vez se hayan obtenido los modelos matemáticos de las articulaciones de los robots, se diseñará un control cinemático del mismo, el cual será un generador de trayectorias que, a partir de una posición inicial, una posición real, un número de puntos y el tiempo en que se desea que vaya de un punto a otro, generará una trayectoria de las variables articulares del robot.\\
 
-Por último, se diseñarán una serie de controladores dinámicos para el robot, en los cuales se observe la mejoría o empeoramiento de los mismos en función del tipo de robot empleado frente a otros.
+Por último, se diseñarán una serie de controladores dinámicos para el robot, en los cuales se observe la mejoría o empeoramiento de los mismos en función del tipo de robot empleado frente a otros y del tipo de experimento realizado.\\
+Además de ello, éste análisis dinámico servirá para evaluar la bondad de los modelos obtenidos para las diferentes condiciones.
+
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 \include{AnalisisCinDin}
