@@ -23,25 +23,43 @@ t_sim=5;
 sim('sl_GDT_RRR');
 
 % Se grafican resultados
-figure();
-subplot(331);plot(t,qr(:,1));grid; subplot(332);plot(t,qr(:,2));grid; subplot(333);plot(t,qr(:,3));grid;
-subplot(334);plot(t,qdr(:,1));grid; subplot(335);plot(t,qdr(:,2));grid; subplot(336);plot(t,qdr(:,3));grid;
-subplot(337);plot(t,qddr(:,1));grid; subplot(338);plot(t,qddr(:,2));grid; subplot(339);plot(t,qddr(:,3));grid;
+% figure();
+% subplot(331);plot(t,qr(:,1));grid; subplot(332);plot(t,qr(:,2));grid; subplot(333);plot(t,qr(:,3));grid;
+% subplot(334);plot(t,qdr(:,1));grid; subplot(335);plot(t,qdr(:,2));grid; subplot(336);plot(t,qdr(:,3));grid;
+% subplot(337);plot(t,qddr(:,1));grid; subplot(338);plot(t,qddr(:,2));grid; subplot(339);plot(t,qddr(:,3));grid;
 
 % Se lanza la simulacion
 sim('sl_GDT_PROFESOR');
 
-figure();
-subplot(331);plot(t,qr1(:,1));grid; subplot(332);plot(t,qr1(:,2));grid; subplot(333);plot(t,qr1(:,3));grid;
-subplot(334);plot(t,qdr1(:,1));grid; subplot(335);plot(t,qdr1(:,2));grid; subplot(336);plot(t,qdr1(:,3));grid;
-subplot(337);plot(t,qddr1(:,1));grid; subplot(338);plot(t,qddr1(:,2));grid; subplot(339);plot(t,qddr1(:,3));grid;
-%figure();
+% figure();
+% subplot(331);plot(t,qr1(:,1));grid; subplot(332);plot(t,qr1(:,2));grid; subplot(333);plot(t,qr1(:,3));grid;
+% subplot(334);plot(t,qdr1(:,1));grid; subplot(335);plot(t,qdr1(:,2));grid; subplot(336);plot(t,qdr1(:,3));grid;
+% subplot(337);plot(t,qddr1(:,1));grid; subplot(338);plot(t,qddr1(:,2));grid; subplot(339);plot(t,qddr1(:,3));grid;
+% %figure();
 %plot3(xr,yr,zr);grid;
 
-% Error entre ambas graficas
+% % Error entre ambas graficas
+% 
+% figure();
+% subplot(331);plot(t,qr(:,1)- qr1(:,1));grid; subplot(332);plot(t,qr(:,2)-qr1(:,2));grid; subplot(333);plot(t,qr(:,3)-qr1(:,3));grid;
+% subplot(334);plot(t,qdr(:,1)-qdr1(:,1));grid; subplot(335);plot(t,qdr(:,2)-qdr1(:,2));grid; subplot(336);plot(t,qdr(:,3)-qdr1(:,3));grid;
+% subplot(337);plot(t,qddr(:,1)-qddr1(:,1));grid; subplot(338);plot(t,qddr(:,2)-qddr1(:,2));grid; subplot(339);plot(t,qddr(:,3)-qddr1(:,3));grid;
 
-figure();
-subplot(331);plot(t,qr(:,1)- qr1(:,1));grid; subplot(332);plot(t,qr(:,2)-qr1(:,2));grid; subplot(333);plot(t,qr(:,3)-qr1(:,3));grid;
-subplot(334);plot(t,qdr(:,1)-qdr1(:,1));grid; subplot(335);plot(t,qdr(:,2)-qdr1(:,2));grid; subplot(336);plot(t,qdr(:,3)-qdr1(:,3));grid;
-subplot(337);plot(t,qddr(:,1)-qddr1(:,1));grid; subplot(338);plot(t,qddr(:,2)-qddr1(:,2));grid; subplot(339);plot(t,qddr(:,3)-qddr1(:,3));grid;
+%Grafica DEFENSA
+figure(1);
+
+for i=1:9
+    
+    if(i<4)
+        { subplot(3,3,i); plot(t,qr(:,i)); xlabel('Tiempo [s]');  title([' Articulacion \theta_{',num2str(i),'}']);ylabel('Pos[rad]');};grid;
+        
+    elseif(i<7)
+        { subplot(3,3,i);  plot(t,qdr(:,i-3)); xlabel('Tiempo [s]');ylabel('Vel[rad/s]');};grid;
+        
+    elseif(i<10)
+        { subplot(3,3,i) ; plot(t,qddr(:,i-6)); xlabel('Tiempo [s]');  ylabel('Acel[rad/s^{2}]'); };grid;
+        
+    end
+    
+end
 

@@ -159,7 +159,7 @@ elseif (t<(t_init) )
     Aq3=0; Bq3=0; Cq3=0; Dq3=q_r(1,3);
     t_tramo=t; %Esto hara que el polinomio al evaluarlo de 0
         
-else
+elseif (t>=(t_init+t_tray))
     Aq1=0; Bq1=0; Cq1=0; Dq1=q_r(length(qaux),1);
     Aq2=0; Bq2=0; Cq2=0; Dq2=q_r(length(qaux),2);
     Aq3=0; Bq3=0; Cq3=0; Dq3=q_r(length(qaux),3);
