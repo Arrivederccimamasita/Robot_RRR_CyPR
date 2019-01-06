@@ -67,4 +67,4 @@ XYZ_fin =CinematicaDirecta([pi/2;pi/3;-pi/3]);
  sim('sl_ControlRobotReal_RRR');
 
 % Si todo ha ido bien, se grafican resultados
- graficas_controladores(t_D,qr_D,qdi_D,qr1,qdr,ref,xyz_D,Im_D);
+ graficas_controladores(t_D,qi_D,qdi_D,qr1,qdr,ref,xyz_D,Im_D);
