@@ -1,4 +1,0 @@
-/* DIRECTIVAS DE TIPO #define */
-
-
-

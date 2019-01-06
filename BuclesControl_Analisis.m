@@ -1,5 +1,0 @@
-%% ANALISIS DE LOS SISTEMAS DE CONTROL EN BUCLE CERRADO Y ABIERTO
-
-C1=(1/G1)*tf((3/0.05),[1 0]);
-Gba1=G1*C1;
-Gbc1=minreal((Gba1)/(1+Gba1));
