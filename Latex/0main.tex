@@ -131,7 +131,7 @@
 \newpage
 % %%%%%%%%%%%   INTRODUCCION %%%%%%%%%%%%%%%%%%
 \begin{abstract}
-	En las páginas que siguen, se realizará un análisis cinemático y dinámico de un robot de 3 grados de libertad, cuyas articulaciones serán todas de rotación. Además de ello, debido a que únicamente se considerarán conocidas las longuitudes del robot, se deberá realizar una estimación de ciertos parámetros dinámicos del robot, como pueden ser inercias o fricciones viscosas. Finalmente, se diseñará un control cinemático y dinámico del brazo robático.\\
+	En las páginas que siguen, se realizará un análisis cinemático y dinámico de un robot de 3 grados de libertad, cuyas articulaciones serán todas de rotación. Además de ello, debido a que únicamente se considerarán conocidas las longitudes del robot, se deberá realizar una estimación de ciertos parámetros dinámicos del robot, como pueden ser inercias o fricciones viscosas. Finalmente, se diseñará un control cinemático y dinámico del brazo robótico.\\
 \end{abstract}
 
 \section{Introducción al proyecto}
@@ -145,21 +145,20 @@
 		$R_1 = 50; R_2 = 30; R_3 = 15$\\ \vspace{0.2 cm}
 		$K_{t1} = 0.5 \frac{Nm}{A}; K_{t2} = 0.4 \frac{Nm}{A}; K_{t3} = 0.35 \frac{Nm}{A}$
 	\end{center}
-
 En primer lugar, se desarrollará un análisis cinemático del brazo robótico, tanto directo como inverso, es decir, se hallará la posición cartesiana del efector final en función de las variables articulares del brazo y viceversa.\\
-Tras ello, será necesario estimar los parámetros dinámicos del brazo, ya que únicamente se conocen las longitudes del mismo. Se obtendrán diferentes parámetros en función de las condiciones supuestas para el brazo, principalmente las condiciones que se emplearan serán:
+Tras ello, será necesario estimar los parámetros dinámicos del brazo, ya que únicamente se conocen las longitudes del mismo. Se obtendrán diferentes parámetros en función de las condiciones supuestas para el brazo y las que principalmente se emplearan serán:
 \begin{itemize}
 	\item Robot con medidas ideales con reductoras.
 	\item Robot con medidas ideales de accionamiento directo.
 	\item Robot con medidas reales con reductoras.
 	\item Robot con medidas reales de accionamiento directo.
 \end{itemize}
-Para el robot con medidas reales, se evaluará qué condición es mas favorable. Por ejemplo, si se obtiene un mejor modelo matemático del robot empleando únicamente encoders que conozcan las posiciones de las variables articulares y derivando numéricamente para conocer las velocidades y las aceleraciones de las mismas, o el caso en el que se empleen encoders que conozcan la posición y tacómetros que conozcan las velocidades pero derivando numéricamente para obtener las aceleraciones.\\
+Para el robot con medidas reales, se evaluará qué condición es más favorable. Por ejemplo, si se obtiene un mejor modelo matemático del robot empleando únicamente encoders que conozcan las posiciones de las variables articulares y derivando numéricamente para conocer las velocidades y las aceleraciones de las mismas, o el caso en el que se empleen encoders que conozcan la posición y tacómetros que conozcan las velocidades pero derivando numéricamente para obtener las aceleraciones.\\
 
 Una vez se hayan obtenido los modelos matemáticos de las articulaciones de los robots, se diseñará un control cinemático del mismo, el cual será un generador de trayectorias que, a partir de una posición inicial, una posición real, un número de puntos y el tiempo en que se desea que vaya de un punto a otro, generará una trayectoria de las variables articulares del robot.\\
 
 Por último, se diseñarán una serie de controladores dinámicos para el robot, en los cuales se observe la mejoría o empeoramiento de los mismos en función del tipo de robot empleado frente a otros y del tipo de experimento realizado.\\
-Además de ello, éste análisis dinámico servirá para evaluar la bondad de los modelos obtenidos para las diferentes condiciones.
+Además de ello, este análisis dinámico servirá para evaluar la bondad de los modelos obtenidos para las diferentes condiciones.
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
