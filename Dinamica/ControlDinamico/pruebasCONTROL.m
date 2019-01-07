@@ -53,8 +53,6 @@ XYZ_fin =CinematicaDirecta([pi/2;pi/3;-pi/3]);
  t_mov=1;                    % Duracion del movimiento
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Definicion de las variables articulares iniciales del robot
-% q1_init=0; q2_init=0; q3_init=0;
 % IMPORTANTE -> MARCAR CASILLA EN EL ROBOT SI TRABAJAMOS SIN REDUCTORAS
 
 % Se compila la computadora (Seria interesante poder pasarle el robot que

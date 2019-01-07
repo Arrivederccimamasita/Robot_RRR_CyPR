@@ -1,9 +1,3 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% FUNCI�N EMPLEADA PARA EJECUTAR LOS DATOS OBTENIDOS A TRAV�S DEL SCRIPT  %
-% "DinamicaRobotNE.m" EN SIMULINK MEDIANTE DEL ARCHIVO                    %
-% "sl_R3GDL_Mfunction.mdl"                                                %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 function [qdd] = ModeloDinamico_RobotReal_sR(in)
 % Variables de entrada en la funcion: [q(3)  qd(3)  Tau(3)]
 q1        = in(1);
@@ -34,15 +28,12 @@ V=[ -1.3878e-18*qd1*(6.3901e18*qd2*sin(2.0*q2 + q3) + 3.195e18*qd3*sin(2.0*q2 + 
 G=[                                           0;
  2.5*g*(2.217*cos(q2 + q3) + 6.7509*cos(q2));
                        6.3343*g*cos(q2 + q3)];
-%M=vpa(M,5); V=vpa(V,5); G=vpa(G,5);
 
 % Ecuaci�n del robot
-%    Im = M*qpp + V + G
 Im=[Im1;Im2;Im3];
 
 
 % Por lo que:
 % Aceleraciones
 %La inversa de M siempore existe porque es simetrica y definida positiva
-% qdd = inv(M)*((Im.*(Kt.*R))-V-G);
 qdd=inv(M)*(Im-V-G);

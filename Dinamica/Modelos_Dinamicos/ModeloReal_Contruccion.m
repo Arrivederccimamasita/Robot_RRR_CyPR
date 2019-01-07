@@ -1,43 +1,33 @@
-%% CONTRUCCION DEL MODELO REAL SIN REDUCTORAS A PARTIR DE REALIZAR EXPERIMENTOS
-% Se han realizado una serie de experimentos para obtener cada parametro
-% por separado
+%% CONTRUCCION DEL MODELO REAL A PARTIR DE REALIZAR EXPERIMENTOS
 
 syms q1 q2 q3 qd1 qd2 qd3 qdd1 qdd2 qdd3  g real
 L0=0.6; L1=0.6; L2=1; L3=0.8;
 Kt1=0.5; Kt2=0.4; Kt3 =0.35; Kt=diag([Kt1; Kt2; Kt3]);
-R1=1; R2=1; R3=1; 
-R=diag([R1 ;R2 ;R3]);   % Reductoras=1
+R1=50; R2=30; R3=15; 
+R=diag([R1 ;R2 ;R3]);   % Reductoras
 KtR=Kt*R;
     
 % Matriz gamma CON reductoras
-gamma_li=[ qdd1, qd1, qdd1/2 - (qdd1*cos(2*q2))/2 + qd1*qd2*sin(2*q2),    0,   0, qdd1/2 - (qdd1*cos(2*q2 + 2*q3))/2 + qd1*qd2*sin(2*q2 + 2*q3) + qd1*qd3*sin(2*q2 + 2*q3),           0,    0,   0, -L2*(qdd1 + qdd1*cos(2*q2) - 2*qd1*qd2*sin(2*q2)), 2*L3*qd1*qd2*sin(2*q2 + 2*q3) - L2*qdd1*cos(2*q2 + q3) - L3*qdd1*cos(2*q2 + 2*q3) - L2*qdd1*cos(q3) - L3*qdd1 + 2*L3*qd1*qd3*sin(2*q2 + 2*q3) + L2*qd1*qd3*sin(q3) + 2*L2*qd1*qd2*sin(2*q2 + q3) + L2*qd1*qd3*sin(2*q2 + q3);
-    0,   0,                            -(qd1^2*sin(2*q2))/2, qdd2, qd2,                                                              -(qd1^2*sin(2*q2 + 2*q3))/2, qdd2 + qdd3,    0,   0,      - L2*sin(2*q2)*qd1^2 - 2*L2*qdd2 - g*cos(q2),                                                 L2*qd3^2*sin(q3) - 2*L3*qdd3 - g*cos(q2 + q3) - 2*L3*qdd2 - L2*qd1^2*sin(2*q2 + q3) - L3*qd1^2*sin(2*q2 + 2*q3) - 2*L2*qdd2*cos(q3) - L2*qdd3*cos(q3) + 2*L2*qd2*qd3*sin(q3);
-    0,   0,                                               0,    0,   0,                                                              -(qd1^2*sin(2*q2 + 2*q3))/2, qdd2 + qdd3, qdd3, qd3,                                                 0,                                                               - 2*L3*qdd2 - 2*L3*qdd3 - g*cos(q2 + q3) - (L2*qd1^2*sin(q3))/2 - L2*qd2^2*sin(q3) - (L2*qd1^2*sin(2*q2 + q3))/2 - L3*qd1^2*sin(2*q2 + 2*q3) - L2*qdd2*cos(q3)];
+gamma_li=[ qdd1, 2500*qd1, qdd1/2 - (qdd1*cos(2*q2))/2 + qd1*qd2*sin(2*q2),    0,       0, qdd1/2 - (qdd1*cos(2*q2 + 2*q3))/2 + qd1*qd2*sin(2*q2 + 2*q3) + qd1*qd3*sin(2*q2 + 2*q3),           0,        0,       0, -L2*(qdd1 + qdd1*cos(2*q2) - 2*qd1*qd2*sin(2*q2)), 2*L3*qd1*qd2*sin(2*q2 + 2*q3) - L2*qdd1*cos(2*q2 + q3) - L3*qdd1*cos(2*q2 + 2*q3) - L2*qdd1*cos(q3) - L3*qdd1 + 2*L3*qd1*qd3*sin(2*q2 + 2*q3) + L2*qd1*qd3*sin(q3) + 2*L2*qd1*qd2*sin(2*q2 + q3) + L2*qd1*qd3*sin(2*q2 + q3);
+    0,        0,                            -(qd1^2*sin(2*q2))/2, qdd2, 900*qd2,                                                              -(qd1^2*sin(2*q2 + 2*q3))/2, qdd2 + qdd3,        0,       0,      - L2*sin(2*q2)*qd1^2 - 2*L2*qdd2 - g*cos(q2),                                                 L2*qd3^2*sin(q3) - 2*L3*qdd3 - g*cos(q2 + q3) - 2*L3*qdd2 - L2*qd1^2*sin(2*q2 + q3) - L3*qd1^2*sin(2*q2 + 2*q3) - 2*L2*qdd2*cos(q3) - L2*qdd3*cos(q3) + 2*L2*qd2*qd3*sin(q3);
+    0,        0,                                               0,    0,       0,                                                              -(qd1^2*sin(2*q2 + 2*q3))/2, qdd2 + qdd3, 225*qdd3, 225*qd3,                                                 0,                                                               - 2*L3*qdd2 - 2*L3*qdd3 - g*cos(q2 + q3) - (L2*qd1^2*sin(q3))/2 - L2*qd2^2*sin(q3) - (L2*qd1^2*sin(2*q2 + q3))/2 - L3*qd1^2*sin(2*q2 + 2*q3) - L2*qdd2*cos(q3)];
 
 % Paramelos obtenidos mediante la sucesion de experimentos
 tetha_expr=zeros(11,1);
-
-tetha_expr(1)= -1.107265e+01; % benne
-tetha_expr(2)= 1.817417e-02; % un orden mag menos
-
-tetha_expr(3)= 7.753990e+00; % benne
-tetha_expr(4)= -7.375660e+00 ; % benne
-tetha_expr(5)= 6.080764e-02; % un orden mag menos
-
-tetha_expr(6)= -2.191643e+00 ; % benne
-tetha_expr(7)= -1.005242e+00; %Valido con varianza 2.875130e+00 
-tetha_expr(8)= 1.040467e-01 ;  % un orden mag menos
-tetha_expr(9)= 6.486531e-03 ; % benne
-tetha_expr(10)= -6.750857e+00; %benne
-tetha_expr(11)= -2.217005e+00; %tetha_expr(11)= 3.741175e-03;
-
+% SERA NECESARIO RELLENAR TETHA_EXP CON LOS VALORES OBTENIDOS DE LOS 
+% EXPERIMENTOS DE LOS PARAMETROS ANTES DE SEGUIR
+% 
+% tetha_expr(1)= ;
+% tetha_expr(2)= ;
+% ...
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Intensidades 
 Im_estimadas=gamma_li*tetha_expr;
 Im_est1=Im_estimadas(1,:);
 Im_est2=Im_estimadas(2,:);
 Im_est3=Im_estimadas(3,:);
 
- % Se aplicarï¿½ un proceso de derivadas iterativas que nos ayudarï¿½n a
+ % Se aplicará un proceso de derivadas iterativas que nos ayudarán a
     % dejar el modelo en funcion de aceleraciones, velocidades y posiciones
     % del robot.
 
@@ -103,7 +93,7 @@ Im_est3=Im_estimadas(3,:);
     G=[G1; G2; G3];
    
     % Una vez obtenida M, V y G, se deben multiplicar por (KtR^)-1, ya que
-    % el modelo nos darï¿½ pares, sin embargo, los motores se deben controlar
+    % el modelo nos dará pares, sin embargo, los motores se deben controlar
     % en intensidad, por tanto: tau=Kt*R*Im -> Im=inv(KtR)*tau.
     Ma=vpa(M,5); Ma=inv(KtR)*Ma;
     Va=vpa(V,5); Va=inv(KtR)*Va;

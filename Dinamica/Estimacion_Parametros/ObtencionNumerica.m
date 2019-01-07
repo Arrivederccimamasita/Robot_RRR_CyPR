@@ -1,18 +1,4 @@
-%% %%%%%%%%%%% OBTENCION NUMERICA DE LOS PARAMETROS DINAMICOS %%%%%%%%%%%%
-% Sera necesario correr el montaje de simulink para tener datos reales del
-% robot. Ademas de ello, es necesario tener definidas las matrices gamma y
-% tetha.
-
-%%Datos Necesaios
-%gamma_li;
-%tetha_li;
-
-%Entradas Vectorizadas en funcion del tiempo
-% Im_D;
-% qi_D;
-% qdi_D;
-% qddi_D;
-
+%% %%%%%%%%%%% OBTENCION NUMERICA DE LOS PARAMETROS DINAMICOS %%%%%%%%%
 % La funcion recibira un vector de intensidades, otro de posiciones y otro
 % de aceleraciones. En funcion del modo de trabajo seleccionado, se le
 % pasaran unos parametros u otros.
@@ -22,7 +8,6 @@ function ObtencionNumerica(t,Im,q,qd,qdd,R1,R2,R3)
 % Seria conveniente optimizar el codigo para no tener que correr siempre
 % este script al inicio de esta ejecucion.
 [gamma_li,tetha_li]=Identificacion_ParamLI(R1,R2,R3)   % Se corre este script para obtener tetha_li y gamma_li
-
 
 % %% ESTIMACION DE LOS PARAMETROS DINAMICOS %%%%%% 
 % Valores de simulacion
