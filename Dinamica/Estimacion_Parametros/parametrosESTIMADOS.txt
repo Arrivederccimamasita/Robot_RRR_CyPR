@@ -1,0 +1,53 @@
+%% ROBOT IDEAL CON REDUCTORAS
+tetha_li(1)= 1.563217e+01 Valido con varianza 3.377704e-02 
+tetha_li(2)= 1.200064e-03 Valido con varianza 2.180869e-02 
+tetha_li(3)= 7.389009e+00 Valido con varianza 4.809091e-02 
+tetha_li(4)= 5.511390e+01 Valido con varianza 8.094139e-04 
+tetha_li(5)= 8.504246e-04 Valido con varianza 2.743602e-02 
+tetha_li(6)= 2.084184e+00 Valido con varianza 4.786803e-02 
+tetha_li(7)= -2.041468e+00 Valido con varianza 6.237249e-03 
+tetha_li(8)= 5.074000e-02 Valido con varianza 1.135601e-03 
+tetha_li(9)= 1.499010e-03 Valido con varianza 3.271395e-02 
+tetha_li(10)= -6.665522e+00 Valido con varianza 5.383873e-04 
+tetha_li(11)= -2.221688e+00 Valido con varianza 1.126687e-03 
+
+%% ROBOT IDEAL ACCIONAMIENTO DIRECTO
+tetha_li(1)= -9.314765e+00 Valido con varianza 3.645039e-03 
+tetha_li(2)= 1.193912e-03 Valido con varianza 2.868001e+00 
+tetha_li(3)= 7.380304e+00 Valido con varianza 3.680273e-03 
+tetha_li(4)= -7.234084e+00 Valido con varianza 3.692238e-03 
+tetha_li(5)= 1.214007e-03 Valido con varianza 5.890269e+00 
+tetha_li(6)= 2.078458e+00 Valido con varianza 3.582345e-03 
+tetha_li(7)= -2.033541e+00 Valido con varianza 3.592809e-03 
+tetha_li(8)= 5.063999e-02 Valido con varianza 1.483466e-02 
+tetha_li(9)= 1.464027e-03 Valido con varianza 2.189983e+00 
+tetha_li(10)= -6.658589e+00 Valido con varianza 3.620952e-03 
+tetha_li(11)= -2.217005e+00 Valido con varianza 3.562410e-03 
+
+%% ROBOT REAL CON REDUCTORAS
+% tetha_li(1)= 1.699503e+01 Valido con varianza 4.057306e+00 
+% tetha_li(2)= 1.223191e-03 Valido con varianza 2.537974e-01 
+% tetha_li(3)= 1.239397e+01 Valido con varianza 1.290980e+00 
+% tetha_li(4)= 3.828013e+01 Valido con varianza 1.947205e+00 
+% tetha_li(5)= 1.292382e-03 Valido con varianza 9.407260e-01
+% tetha_li(6)= 1.434048e+00 Valido con varianza 9.174805e-01 
+%  tetha_li(7)= 4.037223e+00 Valido con varianza 4.545900e+00 
+% tetha_li(8)= 4.914669e-02 Valido con varianza 1.234847e+00 
+% tetha_li(9)= 1.511168e-03 Valido con varianza 1.468039e+00
+% tetha_li(10)= -6.672244e+00 Valido con varianza 3.858041e-02 
+% tetha_li(11)= -2.198972e+00 Valido con varianza 8.916358e-02   
+ 
+
+%% ROBOT REAL ACCIONAMIENTO DIRECTO
+% tetha_li(1)= -1.107265e+01 Valido con varianza 2.715765e+00 
+% tetha_li(2)= 1.817417e-02 Valido con varianza 5.484565e-01
+% tetha_li(3)= 7.753990e+00 Valido con varianza 3.293765e-01 
+% tetha_li(4)= -7.375660e+00 Valido con varianza 1.187990e+00 
+% tetha_li(5)= 6.080764e-02 Valido con varianza 3.259390e+00 
+%  tetha_li(6)= -2.191643e+00 Valido con varianza 1.329618e+00 
+%  tetha_li(7)= -1.005242e+00 Valido con varianza 2.889390e+00
+% tetha_li(8)= 1.040467e-01 Valido con varianza 4.149944e+00 
+% tetha_li(9)= 6.486531e-03 Valido con varianza 4.030778e+00 
+% tetha_li(10)= -6.750857e+00 Valido con varianza 1.217596e-01 
+% tetha_li(11)= 3.741175e-03 Valido con varianza 4.972433e+00 
+
