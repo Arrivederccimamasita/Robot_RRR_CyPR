@@ -22,26 +22,29 @@ t_sim=5;
 % Se lanza la simulacion
 sim('sl_GDT_RRR');
 
-figure();
- subplot(331);plot(t,qr1(:,1));grid; subplot(332);plot(t,qr1(:,2));grid; subplot(333);plot(t,qr1(:,3));grid;
- subplot(334);plot(t,qdr1(:,1));grid; subplot(335);plot(t,qdr1(:,2));grid; subplot(336);plot(t,qdr1(:,3));grid;
- subplot(337);plot(t,qddr1(:,1));grid; subplot(338);plot(t,qddr1(:,2));grid; subplot(339);plot(t,qddr1(:,3));grid;
-figure();
-plot3(xr,yr,zr);grid;
+% figure(4);
+%  subplot(331);plot(t,qr1(:,1));grid; subplot(332);plot(t,qr1(:,2));grid; subplot(333);plot(t,qr1(:,3));grid;
+%  subplot(334);plot(t,qdr1(:,1));grid; subplot(335);plot(t,qdr1(:,2));grid; subplot(336);plot(t,qdr1(:,3));grid;
+%  subplot(337);plot(t,qddr1(:,1));grid; subplot(338);plot(t,qddr1(:,2));grid; subplot(339);plot(t,qddr1(:,3));grid;
+% figure();
+% plot3(xr,yr,zr);grid;
 
  % Error entre ambas graficas
- 
- figure();
- subplot(331);plot(t,qr(:,1)- qr1(:,1));grid; subplot(332);plot(t,qr(:,2)-qr1(:,2));grid; subplot(333);plot(t,qr(:,3)-qr1(:,3));grid;
- subplot(334);plot(t,qdr(:,1)-qdr1(:,1));grid; subplot(335);plot(t,qdr(:,2)-qdr1(:,2));grid; subplot(336);plot(t,qdr(:,3)-qdr1(:,3));grid;
- subplot(337);plot(t,qddr(:,1)-qddr1(:,1));grid; subplot(338);plot(t,qddr(:,2)-qddr1(:,2));grid; subplot(339);plot(t,qddr(:,3)-qddr1(:,3));grid;
+%  
+%  figure();
+%  subplot(331);plot(t,qr(:,1)- qr1(:,1));grid; subplot(332);plot(t,qr(:,2)-qr1(:,2));grid; subplot(333);plot(t,qr(:,3)-qr1(:,3));grid;
+%  subplot(334);plot(t,qdr(:,1)-qdr1(:,1));grid; subplot(335);plot(t,qdr(:,2)-qdr1(:,2));grid; subplot(336);plot(t,qdr(:,3)-qdr1(:,3));grid;
+%  subplot(337);plot(t,qddr(:,1)-qddr1(:,1));grid; subplot(338);plot(t,qddr(:,2)-qddr1(:,2));grid; subplot(339);plot(t,qddr(:,3)-qddr1(:,3));grid;
+figure(1);
+
+plot3(xr,yr,zr); title(['Nº puntos intermedios = ',int2str(n_ptos)]);xlabel('Posicion X');  ylabel('Posicion Y'); zlabel('Posicion Z'); grid;
 
 %Grafica DEFENSA
-figure(1);
+figure(2);
 
 for i=1:9
     
-    if(i<4)
+    if(i<4) 
         { subplot(3,3,i); plot(t,qr(:,i)); xlabel('Tiempo [s]');  title([' Articulacion \theta_{',num2str(i),'}']);ylabel('Pos[rad]');};grid;
         
     elseif(i<7)
@@ -53,4 +56,7 @@ for i=1:9
     end
     
 end
+
+
+
 
