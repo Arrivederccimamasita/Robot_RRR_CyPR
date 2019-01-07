@@ -22,11 +22,18 @@ que cumplan con la trayectoria del movimiento exigido, este primer apartado del 
 \begin{itemize} 
 	\item \textsc{Generador de trayectorias lineal}\\
 
-	Este primer generador de trayectoria trabaja con los puntos del espacio cartesiado, y con los tiempos de ejecucion del movimiento; como datos iniciales del
-	movimiento.
+	Este primer generador de trayectoria trabaja con los puntos del espacio cartesiado, y con los tiempos de ejecución del movimiento; como datos 
+	iniciales de la orden de movimiento.
 	El generador de trayectorias lineal trabaja con las ordenes de movimiento de entrada en el espacio cartesiano, y el numero de puntos intermedios
 	en una trayectoria rectilinea. Con estos datos de entrada y el calculo matemático de la trayectoria se puede entregar un muestreo del número de puntos 
 	indicados, equidistantes en la trayectoria deseada.\\
+
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=.4\textwidth]{Lineal_4puntos} \hspace{0.25cm} \includegraphics[width=.4\textwidth]{Lineal_20puntos}
+		\caption{Generador Trayectorias lineal}
+		\end{figure}
+	
 \end{itemize}
 	
 \begin{itemize}
@@ -113,10 +120,6 @@ Tras ello, la trayectoria ejemplo que podría seguirse en el plano XYZ será:
 \end{itemize}
 
 
-
-
-
-
 \subsection{Interpoladores}
 Una vez obtenidos estos puntos de referencia, echaremos mano de las herramientas cedidas del análisis cinemático, ya que, se hace uso
 del \textit{Modelo Cinematico Inverso}, para la obtención de los puntos de la trayectoria, representadas en el espacio de trabajo
@@ -144,7 +147,7 @@ de forma continua. A continuación se tratara el interpolador utilizado.
 			\end{itemize}
 		\end{center}
 		El trabajo matricial de esta ecuación en el espacio articular permite obtener tantos 
-		polinomios como muestras en la trayectoria sean exigidas; pero, para ello debemos asignar valores a 
+		polinomios como tramos en la trayectoria sean exigidas por el número de puntos intermedios; pero, para ello debemos asignar valores a 
 		los parámetros \textit{a, b, c y d}; para estos que contengan parámetros de velocidad, se utilizará 
 		el método heurístico para la asignación de velocidades articulares.\\
 
@@ -153,7 +156,7 @@ de forma continua. A continuación se tratara el interpolador utilizado.
 		dirección del movimiento; y una media entre ambas velocidades, si se aportan a la misma dirección de giro. Véase: \\
 
 		\[
-		\dot{q}_{1}= \left\{ \begin{array}{ll} 
+		\dot{q}_{i}= \left\{ \begin{array}{ll} 
 			0 & \textrm{si signo $(q_{i}-q_{i-1})$ $\neq$ signo $(q_{i+1}- q_{i})$} \\
 			\frac{(q_{i+1}- q_{i})+(q_{i}-q_{i-1})}{2T} & \textrm{si signo $(q_{i}-q_{i-1})$ = signo $(q_{i+1}- q_{i})$}
 																														
@@ -168,10 +171,38 @@ de forma continua. A continuación se tratara el interpolador utilizado.
 	
 	\subsection{Pruebas y conclusiones}
 	\begin{itemize}
-		\item Comentar algo sobre el muestre en base a las consignas articulares generadas.gráfica?
-	\end{itemize}
-		Necesidad para el trabajo-->
-		 Ser capaces de que nuestro modelo de brazo manipulador ejecute ordenes de movimientos basados en trayectorias.
+		\item Objetivos: \\
+		Ser capaces de que nuestro modelo de brazo manipulador ejecute ordenes de movimientos basados en trayectorias.\\
 
-	    Como lo conseguimos-->
-	   		Generar trayectorias de referencia en el espacio articular de nuestro modelo brazo manipulador, para conseguir
+		\item Necesidad para el trabajo: \\
+		Generar trayectorias de referencia en el espacio articular de nuestro modelo brazo manipulador.\\
+
+		\item ¿Como lo hacemos? \\ 
+		Herramientas matemáticas. que traduzcan las funcionalidades de la Orden de movimiento. \\ 
+		Análisis Cinemático previo. Debemos poder trasladas las ordenes del espacio cartesiano, al articular del robot.
+		Generar Señal de referencia. Aqui asignamos las caracteristicas de la señal de referencia; asegurar condiciones 
+		especificas de velocidad y aceleraciones, además de la continuidad en las consignas de referencia, apoyados en algoritmos
+		de interpolación. 
+
+		\begin{figure}[h!]
+			\centering
+			\includegraphics[width=.4\textwidth]{GeneradorTrayLineal}
+			\caption{Referencia Generada Vs Referencia Entregada al Modelo}
+		\end{figure}
+
+		
+
+
+		\item Resultados: \\ 		
+		\begin{figure}[h!]
+			\centering
+			\includegraphics[width=.4\textwidth]{ZoHComparativa} \hspace{0.2cm} \includegraphics[width=.4\textwidth]{ZoHComparativaDetalle}
+			\caption{Referencia Generada Vs Referencia Entregada al Modelo}
+		\end{figure}
+					
+		
+			
+
+	\end{itemize}
+			  
+	
