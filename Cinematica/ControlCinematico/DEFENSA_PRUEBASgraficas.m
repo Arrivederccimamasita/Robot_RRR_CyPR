@@ -45,7 +45,8 @@ figure(2);
 for i=1:9
     
     if(i<4) 
-        { subplot(3,3,i); plot(t,qr(:,i)); xlabel('Tiempo [s]');  title([' Articulacion \theta_{',num2str(i),'}']);ylabel('Pos[rad]');};grid;
+        { subplot(3,3,i); plot(t,qr(:,i),t(2201),qr(2201,i),'r*',t(2401),qr(2401,i),'r*',...
+         t(2601),qr(2601,i),'r*',t(2801),qr(2801,i),'r*');xlabel('Tiempo [s]');  title([' Articulacion \theta_{',num2str(i),'}']);ylabel('Pos[rad]');};grid;
         
     elseif(i<7)
         { subplot(3,3,i);  plot(t,qdr(:,i-3)); xlabel('Tiempo [s]');ylabel('Vel[rad/s]');};grid;
