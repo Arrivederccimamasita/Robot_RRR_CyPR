@@ -1,4 +1,6 @@
-function [qdd] = ModeloDinamico_RobotReal_sR(in)
+% MODELO OBTENIDO TRAS EL REAJUSTE EL PARAMETRO NUMERO 11 DE THETA
+
+function [qdd] = ModeloDinamico_RobotReal_sR_BUENO(in)
 % Variables de entrada en la funcion: [q(3)  qd(3)  Tau(3)]
 q1        = in(1);
 q2        = in(2);

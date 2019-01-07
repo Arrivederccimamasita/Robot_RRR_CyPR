@@ -49,5 +49,8 @@ tetha_li(11)= -2.217005e+00 Valido con varianza 3.562410e-03
 % tetha_li(8)= 1.040467e-01 Valido con varianza 4.149944e+00 
 % tetha_li(9)= 6.486531e-03 Valido con varianza 4.030778e+00 
 % tetha_li(10)= -6.750857e+00 Valido con varianza 1.217596e-01 
+    VALOR SIN REAJUSTAR
 % tetha_li(11)= 3.741175e-03 Valido con varianza 4.972433e+00 
+    VALOR REAJUSTADO
+% tetha_li(11)= -2.17
 

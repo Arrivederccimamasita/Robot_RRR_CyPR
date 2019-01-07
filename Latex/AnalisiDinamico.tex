@@ -195,8 +195,8 @@ incógnitas definidas en Matlab como variables simbólicas:
 		dinámico en una matriz denominada \textit{phi} que dependerá de las variables articulares del robot.
 
 		\begin{equation}
-			\tau=M(q)\ddot{q}+V(q,\dot{q})+G(q) \hspace{1.25cm}  \rightarrow \hspace{1.25cm} \tau=\phi(x) \hspace{0.25cm} \theta
-			\end{equation}
+			\tau=M(q)\ddot{q}+V(q,\dot{q})+G(q) \hspace{1.25cm}  \rightarrow \hspace{1.25cm} \tau=\phi(q) \hspace{0.25cm} \theta
+		\end{equation}
 
 
 	Agrupando en \textit{theta} el conjunto de las incertidumbres obtenemos el vector de términos resultante.
@@ -621,7 +621,7 @@ Los parametros estimados, es decir, la matriz tetha linealmente independiente de
 		\hline
 		Parametro estimado & Valor obtenido & Covarianza obtenida \\
 		\hline
-		$\theta(1) $ & -1.107265 & 2.715 \\
+		$\theta(1) $ & -11.07265 & 2.715 \\
 		\hline
 		$\theta(2) $ & 0.018174 & 0.54845 \\
 		\hline
@@ -645,6 +645,7 @@ Los parametros estimados, es decir, la matriz tetha linealmente independiente de
 		\hline
 	\end{tabular}
 \end{center}
+Sin embargo, cabe destacar que el ultimo parametro, debido a que durante la simuacion se observó que el modelo era malo, se ha optado por realizar un reajuste del mismo a posteriori. Debido a que es un parámetro al que solo le afectan los terminos gravitatorios, se pudo reajustar dandole un valor de -2.17 aproximadamente. \\
 Por lo tanto, tras multiplicar $\gamma$ y $\theta$ y derivar respecto a las variables articulares, se definirán las ecuaciones dinámicas del robot ideal con reductoras cómo:\\
 \[
 	\begin{pmatrix}

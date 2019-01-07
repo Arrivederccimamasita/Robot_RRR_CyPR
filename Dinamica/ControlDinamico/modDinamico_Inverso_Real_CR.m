@@ -36,7 +36,5 @@ G=[                                               0;
      0.083333*g*(2.199*cos(q2 + q3) + 6.6722*cos(q2));
       0.41885*g*cos(q2 + q3)];
   
-  
-udd=M*qddr+Vaux*qd+G;
-                                                                                                                                                                                                udd=[M(1,1)*qddr1 M(2,2)*qddr2 M(3,3)*qddr3];                       
+udd=M*qddr+Vaux*qd+G;                                                                                                                                                                           udd=[M(1,1)*qddr1 M(2,2)*qddr2 M(3,3)*qddr3];                       
 return
