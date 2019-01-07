@@ -334,6 +334,7 @@ técnicas de regresión lineal y la realización de experimentos sobre el propio
 
 incógnitas definidas en Matlab como variables simbólicas:
 
+<<<<<<< HEAD
 
 
 \subsubsection{Identificación y Linealización de parámetros dinámicos}
@@ -432,6 +433,59 @@ con la matriz anterior. Este proceso se repetirá hasta obtener una matriz conca
 Obteniendo esta matriz cuadrada podremos ejecutar el comando \textit{rref()} que nos devolverá las relaciones entre las columnas de la matriz \textit{phi}, las cuales serán las mismas relaciones dentro de las filas del vector de incertidumbres \textit{theta}.\\
 
 
+=======
+	\subsubsection{Identificalion y Linealizacion de parámetros dinámicos}
+		Primero reestructuraremos nuestro modelo dinámico en dos matrices en las que, por un lado,
+		se agrupen las incertidumbres paramétricas en una matriz denominada \textit{theta}, y por otro, el resto de nuestro modelo
+		dinámico en una matriz denominada \textit{phi} que dependerá de las variables articulares del robot.
+
+		\begin{equation}
+			\tau=M(q)\ddot{q}+V(q,\dot{q})+G(q) \hspace{1.25cm}  \rightarrow \hspace{1.25cm} \tau=\phi(q) \hspace{0.25cm} \theta
+		\end{equation}
+
+
+	Agrupando en \textit{theta} el conjunto de las incertidumbres obtenemos el vector de términos resultante.
+	\begin{equation}
+		\theta=
+			\begin{pmatrix}
+				I_{11xx} \\
+				I_{11yy}\\
+				I_{11zz}\\
+				Jm_{1} \\
+				Bm_{1} \\
+				I_{22xx} \\
+				I_{22yy}\\
+				I_{22zz}\\
+				Jm_{2} \\
+				Bm_{2} \\
+				I_{33xx} \\
+				I_{33yy}\\
+				I_{33zz}\\
+				Jm_{3} \\
+				Bm_{3} \\
+				m_{1}s_{11z}^{2} \\
+				m_{1}s_{11z} \\
+				m_{1}\\
+				m_{2}s_{22x}^{2} \\
+				m_{2}s_{22x} \\
+				m_{2}\\
+				m_{3}s_{33x}^{2} \\
+				m_{3}s_{33x} \\
+				m_{3}
+				\end{pmatrix}
+		\end{equation}
+
+		Si usamos este vector \textit{theta} como base para re-ordenar nuestro modelo dinámico, vemos, en la matriz resultante \textit{phi},
+		que existen columnas repletas de ceros, o relaciones lineales entre las columnas, por lo que, se deberán
+		agrupar aquellos términos que no sean linealmente independientes y eliminar los términos asociados
+		a las columnas de ceros, ya que significará que no tienen relevancia en nuestro modelo dinámico.\\
+
+		Con el fín de agrupar los parámetros linealmente independientes, se empleará Matlab para poder gestionar estas matrices de gran tamaño.\\
+		Se iran asignando valores aleatorios a los parámetros articulares que aparecerán en la matriz \textit{phi} y se sustituiran estos valores dentro de la matriz; se iran asignando valores aleatorios a las variables articulares,  y se concatenarán
+		con la matriz anterior. Este proceso se repetirá hasta obtener una matriz concatenada de iguales dimensiones de ancho y largo, es decir, hasta que la matriz sea cuadrada.\\
+
+		Obteniendo esta matriz cuadrada podremos ejecutar el comando \textit{rref()} que nos devolverá las relaciones entre las columnas de la matriz \textit{phi}, las cuales serán las mismas relaciones dentro de las filas del vector de incertidumbres \textit{theta}.\\
+>>>>>>> 7d873bcaffe091ffaa76bf13dbca4a4879fa8faa
 
 Por tanto, la matriz $\theta$ linealmente independiente obtenida será:
 
@@ -1087,9 +1141,13 @@ Los parámetros estimados, es decir, la matriz theta linealmente independiente d
 		Parámetro estimado & Valor obtenido & Covarianza obtenida \\
 		
 		\hline
+<<<<<<< HEAD
 		
 		$\theta(1) $ & -11.07265 & 2.715 \\
 		
+=======
+		$\theta(1) $ & -11.07265 & 2.715 \\
+>>>>>>> 7d873bcaffe091ffaa76bf13dbca4a4879fa8faa
 		\hline
 		
 		$\theta(2) $ & 0.018174 & 0.54845 \\
@@ -1135,9 +1193,13 @@ Los parámetros estimados, es decir, la matriz theta linealmente independiente d
 	\end{tabular}
 	
 \end{center}
+<<<<<<< HEAD
 
 Sin embargo, cabe destacar que el ultimo parámetro, debido a que durante la simulación se observó que el modelo era malo, se ha optado por realizar un reajuste del mismo a posteriori. Debido a que es un parámetro al que solo le afectan los términos gravitatorios, se pudo reajustar dándole un valor de -2.17 aproximadamente. \\
 
+=======
+Sin embargo, cabe destacar que el ultimo parametro, debido a que durante la simuacion se observó que el modelo era malo, se ha optado por realizar un reajuste del mismo a posteriori. Debido a que es un parámetro al que solo le afectan los terminos gravitatorios, se pudo reajustar dandole un valor de -2.17 aproximadamente. \\
+>>>>>>> 7d873bcaffe091ffaa76bf13dbca4a4879fa8faa
 Por lo tanto, tras multiplicar $\gamma$ y $\theta$ y derivar respecto a las variables articulares, se definirán las ecuaciones dinámicas del robot ideal con reductoras cómo:\\
 
 \[

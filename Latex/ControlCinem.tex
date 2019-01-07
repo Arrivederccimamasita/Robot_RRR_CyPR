@@ -189,6 +189,7 @@ de forma continua. A continuación se tratara el interpolador utilizado.
 
 
 
+<<<<<<< HEAD
 \subsection{Pruebas y conclusiones}
 
 \begin{itemize}
@@ -204,6 +205,28 @@ Ser capaces de que nuestro modelo de brazo manipulador ejecute ordenes de movimi
 Generar trayectorias de referencia en el espacio articular de nuestro modelo brazo manipulador.\\
 
 
+=======
+	\subsection{Pruebas y conclusiones}
+	\begin{itemize}
+		\item Objetivos: \\
+		Ser capaces de que nuestro modelo de brazo manipulador ejecute ordenes de movimientos basados en trayectorias.\\
+
+		\item Necesidad para el trabajo: \\
+		Generar trayectorias de referencia en el espacio articular de nuestro modelo brazo manipulador.\\
+
+		\item ¿Como lo hacemos? \\ 
+		Herramientas matemáticas. que traduzcan las funcionalidades de la Orden de movimiento. \\ 
+		Análisis Cinemático previo con el que poder trasladar las ordenes del espacio cartesiano, al articular del robot.
+		Generar Señal de referencia: Aqui asignamos las características de la señal de referencia; asegurar condiciones 
+		especificas de velocidad y aceleraciones, además de la continuidad en las consignas de referencia, apoyados en algoritmos
+		de interpolación. \\ 
+
+		\begin{figure}[h!]
+			\centering
+			\includegraphics[width=.7\textwidth]{GeneradorTrayLineal}
+			\caption{Salida del Control Cinemático con Generador Lineal, e Interpolador cúbico}
+		\end{figure}
+>>>>>>> 7d873bcaffe091ffaa76bf13dbca4a4879fa8faa
 
 \item ¿Como lo hacemos? \\ 
 

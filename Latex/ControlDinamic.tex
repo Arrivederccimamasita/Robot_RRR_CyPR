@@ -672,6 +672,7 @@ La trayectoria elegida será una trayectoria ascendente y de rotación que parti
 		\caption{Seguimiento de las variables articulares}
 		
 	\end{figure}
+<<<<<<< HEAD
 	
 	
 	
@@ -719,6 +720,31 @@ La trayectoria elegida será una trayectoria ascendente y de rotación que parti
 	
 	\newpage
 	
+=======
+
+\newpage
+Se observa que, aunque existe un error en las tres variables, éste error es significativamente pequeño y asumible en el control del robot.\\
+Sin embargo, en el caso de que se pida que realice la trayectoria en la mitad de tiempo, el error se incrementará significativamente cómo se muestra a continuación:
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=.8\textwidth]{exp4_trayPDidealSR_rapido}
+	\caption{Seguimiento de la trayectoria rapida en el plano XYZ}
+\end{figure}
+
+\newpage
+Ahora, se mostrará el seguimiento en posiciones articulares cuando se pide que se siga la trayectoria en el doble de tiempo:
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=.8\textwidth]{exp4_posPDidealSR_rapido}
+	\caption{Seguimiento de las variables articulares}
+\end{figure}
+
+Por tanto, a modo de conclusión cabe destacar que, en el momento de pedirle al robot que siga una trayectoría será necesario hayar un compromiso entre la velocidad de la trayectoria y el error que se esté dispuesto a asumir en la misma.\\
+
+\newpage
+>>>>>>> 7d873bcaffe091ffaa76bf13dbca4a4879fa8faa
 	\item \textbf{Comparativa del modelo ideal sin reductoras obtenido y el real} \\
 	
 	Para comprobar la bondad del modelo real sin reductoras obtenido, se trazará con este la primera trayectoria descrita en este apartado, es decir, la que va más despacio y de ese modo, se podrá ver de manera significativa la comparativa entre el modelo ideal sin reductoras y el modelo real sin reductoras obtenido. \\
