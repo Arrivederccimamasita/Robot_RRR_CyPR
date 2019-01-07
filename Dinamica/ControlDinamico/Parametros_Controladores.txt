@@ -1,0 +1,143 @@
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ROBOT IDEAL CON REDUCTORAS 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% PARAMETROS PD IDEAL CON REDUCTORAS
+ Kp1=698.59; Td1=0.092; 
+ Kp2=3387.6; Td2=0.086;
+ Kp3=1044.9;  Td3=0.097;
+
+% PARAMETROS PID IDEAL CON REDUCTORAS
+ Ti1=2*0.18; Td1=(0.18^2)/(0.18*2);   Kp1=1652.2*Ti1;
+ Ti2=2*0.2; Td2=(0.2^2)/(0.2*2);   Kp2=5227.8*Ti2; 
+ Ti3=2*0.18; Td3=(0.18^2)/(0.18*2);   Kp3=2761.4*Ti3; 
+
+% PAR�METROS PD IDEAL FEEDFORWARD CON REDUCTORAS
+  Td1=0.089; Kp1=747.26;
+  Td2=0.096; Kp2=2691.1; 
+  Td3=0.1; Kp3=985.12;
+
+% PAR�METROS PID IDEAL FEEDFORWARD CON REDUCTORAS
+  Ti1=0.36; Td1=0.09; Kp1=591.264;
+  Ti2=0.36; Td2=0.09; Kp2=2474.1; 
+  Ti3=0.36; Td3=0.09; Kp3=982.008;
+  
+%PAR�METROS PD IDEAL PAR CALCULADO CON REDUCTORA
+  Td1=0.082; Kp1=1468.3;
+  Td2=0.082; Kp2=1468.3; 
+  Td3=0.092; Kp3=1468.3;
+
+%PAR�METROS PID IDEAL PAR CALCULADO CON REDUCTORA
+  Ti1=0.36; Td1=0.09; Kp1=1107.7;
+  Ti2=0.36; Td2=0.09; Kp2=1107.7; 
+  Ti3=0.36; Td3=0.09; Kp3=1107.7;
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ROBOT IDEAL ACCIONAMIENTO DIRECTO
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% PARAMETROS PD IDEAL SIN REDUCTORAS
+ Kp1=19173; Td1=0.1; 
+ Kp2=30077; Td2=0.1;
+ Kp3=6180.8;  Td3=0.091;
+
+% PARAMETROS PID IDEAL SIN REDUCTORAS
+ Ti1=2*0.2; Td1=(0.2^2)/(0.2*2);   Kp1=40444*Ti1;
+ Ti2=2*0.2; Td2=(0.2^2)/(0.2*2);   Kp2=63451*Ti2; 
+ Ti3=2*0.2; Td3=(0.2^2)/(0.2*2);   Kp3=10775*Ti3; 
+  
+% PARAMETROS FF_PD IDEAL SIN REDUCTORAS
+  Kp1=19173; Td1=0.1; 
+  Kp2=30078; Td2=0.1;
+  Kp3=5109.6;  Td3=0.1;
+ 
+% PARAMETROS FF_PID IDEAL SIN REDUCTORAS
+  Ti1=0.4; Td1=0.1;   Kp1=40444*Ti1;
+  Ti2=0.4; Td2=0.1;   Kp2=63444*Ti2; 
+  Ti3=0.4; Td3=0.1;   Kp3=10777*Ti3; 
+ 
+% PARAMETROS PC_PD IDEAL SIN REDUCTORAS
+  Kp1=400; Td1=0.1; 
+  Kp2=400; Td2=0.1;
+  Kp3=400;  Td3=0.1;
+ 
+% PARAMETROS PC_PID IDEAL SIN REDUCTORAS
+  Ti1=0.48; Td1=0.095;   Kp1=1063*Ti1;
+  Ti2=0.48; Td2=0.095;   Kp2=1062.9*Ti2; 
+  Ti3=0.48; Td3=0.095;   Kp3=1063.2*Ti3; 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ROBOT REAL CON REDUCTORAS 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% PARAMETROS PD REAL CON REDUCTORAS
+  Kp1=1386.4; Td1=0.066; 
+  Kp2=4075.9; Td2=0.07;
+  Kp3=956.67;  Td3=0.1;
+
+% PARAMETROS PID REAL  CON REDUCTORAS 
+  Ti1=0.34; Td1=0.0850;   Kp1=88.846*Ti1;
+  Ti2=0.34; Td2=0.0850;   Kp2=513.04*Ti2; 
+  Ti3=0.34; Td3=0.0850;   Kp3=542.09*Ti3; 
+
+%PARAMETROS PD REAL  FEEDFORWARD CON REDUCTORAS
+  Td1=0.082; Kp1=1468.3;
+  Td2=0.098; Kp2=2085.2; 
+  Td3=0.096; Kp3=1078.4;
+
+%PARAMETROS PID REAL  FEEDFORWARD CON REDUCTORAS
+  Ti1=0.36; Td1=0.09; Kp1=591.264;
+  Ti2=0.36; Td2=0.09; Kp2=2474.1; 
+  Ti3=0.36; Td3=0.09; Kp3=982.008;
+  
+  
+%PARAMETROS PD REAL  PAR CALCULADO CON REDUCTORA
+  Td1=0.1; Kp1=400;
+  Td2=0.1; Kp2=400; 
+  Td3=0.1; Kp3=400;
+
+%PARAMETROS PID REAL  PAR CALCULADO CON REDUCTORA
+  Ti1=0.36; Td1=0.09; Kp1=1107.7;
+  Ti2=0.36; Td2=0.09; Kp2=1107.7; 
+  Ti3=0.36; Td3=0.09; Kp3=1107.7;
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ROBOT REAL ACCIONAMIENTO DIRECTO 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% PARAMETROS PD REAL SIN REDUCTORAS
+ Kp1=16655;   Td1=0.1; 
+ Kp2=32753;   Td2=0.1;
+ Kp3=8638.9;  Td3=0.1;
+
+% PARAMETROS PID REAL SIN REDUCTORAS
+ Ti1=2*0.19;  Td1=(0.19^2)/(0.19*2);   Kp1=39521*Ti1;
+ Ti2=2*0.2;   Td2=(0.2^2)/(0.2*2);     Kp2=69071*Ti2; 
+ Ti3=2*0.19;  Td3=(0.19^2)/(0.19*2);   Kp3=21703*Ti3;  
+  
+% PARAMETROS FF_PD REAL SIN REDUCTORAS
+  Kp1=16656; Td1=0.1; 
+  Kp2=32755; Td2=0.1;
+  Kp3=8640.8;  Td3=0.1;
+ 
+% PARAMETROS FF_PID REAL SIN REDUCTORAS
+  Ti1=0.3800; Td1=0.0950;   Kp1=44304*Ti1;
+  Ti2=0.3800; Td2=0.0950;   Kp2=87042*Ti2; 
+  Ti3=0.3800; Td3=0.0950;   Kp3=22964*Ti3; 
+
+% PARAMETROS PC_PD REAL SIN REDUCTORAS
+  Kp1=400; Td1=0.1; 
+  Kp2=400; Td2=0.1;
+  Kp3=400;  Td3=0.1;
+
+% PARAMETROS PC_PID REAL SIN REDUCTORAS
+  Ti1=0.3600; Td1=0.0900;   Kp1=1185.6*Ti1;
+  Ti2=0.3800; Td2=0.0950;   Kp2=1062.9*Ti2; 
+  Ti3=0.3800; Td3=0.0950;   Kp3=1061.6*Ti3; 
+  

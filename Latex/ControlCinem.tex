@@ -1,7 +1,7 @@
 \section{Control Cinemático del robot}
-Una vez estudiado el análisis cinemático del modelo de brazo manipulador, y obtenidas las ecuaciones cinemáticas inversa 
-y directa de este, se terminará de abordar el problema cinemático, al ser capaces de desarrollar el control sobre esta; para ello, 
-se requiere poder generar trayectorias dentro del espacio articular, con tal de que el brazo manipulador pueda cumplir una ordenes de 
+Una vez estudiado el análisis cinemático del modelo de brazo manipulador, y obtenidas las ecuaciones cinemáticas inversa
+y directa de este, se terminará de abordar el problema cinemático, al ser capaces de desarrollar el control sobre esta; para ello,
+se requiere poder generar trayectorias dentro del espacio articular, con tal de que el brazo manipulador pueda cumplir una ordenes de
 movimiento conocidas.\\
 
 Las ordenes de movimiento, en primer lugar conocidas, tendrán que especificar aquellas posiciones del espacio de trabajo,
@@ -10,8 +10,8 @@ que cumplan con la trayectoria del movimiento exigido, este primer apartado del 
 % \begin{itemize}
 
 % 	\item TIPOS DE TRAYECTORIAS. COMO LA GENERAMOS. \\
-% 	Visto esto, tenemos que conocer las consignas de movimiento, mejor vistas como condiciones de contorno o exigencias, 
-% 	que se le piden al robot; ejemplificado en este proyecto, el movimiento del efector final entre dos puntos del espacio cartesiano 
+% 	Visto esto, tenemos que conocer las consignas de movimiento, mejor vistas como condiciones de contorno o exigencias,
+% 	que se le piden al robot; ejemplificado en este proyecto, el movimiento del efector final entre dos puntos del espacio cartesiano
 % 	del robot, dado un tiempo limite para su realización.\\
 
 % 	\item INTERPOLADORES DE TRAYECTORIAS \rightarrow SPLINE y TRAPEZOIDAL
@@ -19,13 +19,13 @@ que cumplan con la trayectoria del movimiento exigido, este primer apartado del 
 % \end{itemize}
 
 \subsection{Tipos de Trayectorias Generadas}
-\begin{itemize} 
+\begin{itemize}
 	\item \textsc{Generador de trayectorias lineal}\\
 
-	Este primer generador de trayectoria trabaja con los puntos del espacio cartesiado, y con los tiempos de ejecución del movimiento; como datos 
+	Este primer generador de trayectoria trabaja con los puntos del espacio cartesiado, y con los tiempos de ejecución del movimiento; como datos
 	iniciales de la orden de movimiento.
 	El generador de trayectorias lineal trabaja con las ordenes de movimiento de entrada en el espacio cartesiano, y el numero de puntos intermedios
-	en una trayectoria rectilinea. Con estos datos de entrada y el calculo matemático de la trayectoria se puede entregar un muestreo del número de puntos 
+	en una trayectoria rectilinea. Con estos datos de entrada y el calculo matemático de la trayectoria se puede entregar un muestreo del número de puntos
 	indicados, equidistantes en la trayectoria deseada.\\
 
 	\begin{figure}[h!]
@@ -33,12 +33,12 @@ que cumplan con la trayectoria del movimiento exigido, este primer apartado del 
 		\includegraphics[width=.4\textwidth]{Lineal_4puntos} \hspace{0.25cm} \includegraphics[width=.4\textwidth]{Lineal_20puntos}
 		\caption{Generador Trayectorias lineal}
 		\end{figure}
-	
+
 \end{itemize}
-	
+
 \begin{itemize}
 	\item \textsc{Generador de trayectorias circular}\\
-	
+
 	El generador de trayectorias circulares es similar al generador de trayectorias lineal, excepto por el cálculo de la trayectoria en sí, es decir, una vez obtenidos los puntos que definen la trayectoria, se realizan los mismos cálculos para la obtención de las posiciones, velocidades y aceleraciones articulares. Se empleará también el método heurístico para definir las velocidades de paso.\\
 
 	Para empezar, se deben introducir 3 puntos, a diferencia de los generadores lineales, que definirán la curva como punto inicial($P_1$), punto intermedio($P_2$) y punto final ($P_3$). Tras ello, se calculara el centro de la circunferencia.\\
@@ -115,8 +115,8 @@ Tras ello, la trayectoria ejemplo que podría seguirse en el plano XYZ será:
 	\end{figure}
 
 
-	
-	
+
+
 \end{itemize}
 
 
@@ -126,8 +126,8 @@ del \textit{Modelo Cinematico Inverso}, para la obtención de los puntos de la t
 articular del robot.\\
 
 
-Una vez llegadas aquí, ya tenemos un numero de referencias articulares , que puede conllevar a un control punto a punto; 
-en nuestro caso, deberemos realizar un linealización de los puntos ya que debemos ser capaces de generar referencias a nuestro sistema 
+Una vez llegadas aquí, ya tenemos un numero de referencias articulares , que puede conllevar a un control punto a punto;
+en nuestro caso, deberemos realizar un linealización de los puntos ya que debemos ser capaces de generar referencias a nuestro sistema
 de forma continua. A continuación se tratara el interpolador utilizado.
 
 	\begin{itemize}
@@ -146,29 +146,29 @@ de forma continua. A continuación se tratara el interpolador utilizado.
 				\item $T=t_{i+1}-t_{1}$
 			\end{itemize}
 		\end{center}
-		El trabajo matricial de esta ecuación en el espacio articular permite obtener tantos 
-		polinomios como tramos en la trayectoria sean exigidas por el número de puntos intermedios; pero, para ello debemos asignar valores a 
-		los parámetros \textit{a, b, c y d}; para estos que contengan parámetros de velocidad, se utilizará 
+		El trabajo matricial de esta ecuación en el espacio articular permite obtener tantos
+		polinomios como tramos en la trayectoria sean exigidas por el número de puntos intermedios; pero, para ello debemos asignar valores a
+		los parámetros \textit{a, b, c y d}; para estos que contengan parámetros de velocidad, se utilizará
 		el método heurístico para la asignación de velocidades articulares.\\
 
-		Le método Heurístico se basta con el análisis de la variación de las posiciones 
-		articulares de las muestras para asignar una velocidad de la articulación igual a cero, en el caso de que se varíe la 
+		Le método Heurístico se basta con el análisis de la variación de las posiciones
+		articulares de las muestras para asignar una velocidad de la articulación igual a cero, en el caso de que se varíe la
 		dirección del movimiento; y una media entre ambas velocidades, si se aportan a la misma dirección de giro. Véase: \\
 
 		\[
-		\dot{q}_{i}= \left\{ \begin{array}{ll} 
+		\dot{q}_{i}= \left\{ \begin{array}{ll}
 			0 & \textrm{si signo $(q_{i}-q_{i-1})$ $\neq$ signo $(q_{i+1}- q_{i})$} \\
 			\frac{(q_{i+1}- q_{i})+(q_{i}-q_{i-1})}{2T} & \textrm{si signo $(q_{i}-q_{i-1})$ = signo $(q_{i+1}- q_{i})$}
-																														
-		\end{array}\right.				
+
+		\end{array}\right.
 		\]
 
-		
+
 	\end{itemize}
-	
-	
-	
-	
+
+
+
+
 	\subsection{Pruebas y conclusiones}
 	\begin{itemize}
 		\item Objetivos: \\
@@ -200,10 +200,8 @@ de forma continua. A continuación se tratara el interpolador utilizado.
 			\includegraphics[width=.4\textwidth]{ZoHComparativa} \hspace{0.2cm} \includegraphics[width=.4\textwidth]{ZoHComparativaDetalle}
 			\caption{Referencia Generada Vs Referencia Entregada al Modelo}
 		\end{figure}
-					
-		
-			
+
+
+
 
 	\end{itemize}
-			  
-	

@@ -1,33 +1,10 @@
-%% PROYECTO FUNDAMENTOS DE ROBÓTICA
+%% ANALISIS CINEMATICO
 % Robot RRR 
 clear;clc;startup_rvc;
 %% ANALISIS CINEMÁTICO DIRECTO (SIMBOLICO)
 % Definicion variables simbolicas
 syms L0 L1 L2 L3 q1 q2 q3 real
 pi1=sym('pi');
-
-% Matriz DH para Robotics Toolbox
-L(1)= Link([  0   L0+L1   0   pi/2 , 0]);  
-L(2)= Link([  0     0    L2    0   , 0]);
-L(3)= Link([  0     0    L3    0   , 0]);
-
-% Se unen las articulaciones
-robot=SerialLink(L);
-
-T=simplify( robot.fkine( [q1 q2 q3] ) )
-% Se pinta el robot para verificar los parámetros obtenidos visualmente
-robot.teach();
-
-%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Ahora se obtendrán las matrices de manera matematica para comparar la
-% matriz de transformacion directa matematica con la obtenida mediante el
-% toolbox.
-
-% Definicion de la matriz de DH para obtener el Modelo Cinematico Directo
-L(1)= Link([  0   L0+L1   0   pi1/2 , 0]);  
-L(2)= Link([  0     0    L2     0   , 0]);
-L(3)= Link([  0     0    L3     0   , 0]);
-robot=SerialLink(L);
 
 % Obtencion de la MCD a partir de las matrices de transformacion homogeneas
 A01=fun_MDH( q1 , L0+L1 , 0  , pi1/2 )

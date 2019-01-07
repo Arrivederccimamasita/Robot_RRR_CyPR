@@ -89,7 +89,7 @@
 % tetha_li(1)= 1.699503e+01 Valido con varianza 4.057306e+00 
 % 
 % tetha_li(3)= 1.239397e+01 Valido con varianza 1.290980e+00 
-% tetha_li(4)= 3.828013e+01 Valido con varianza 1.947205e+00 git
+% tetha_li(4)= 3.828013e+01 Valido con varianza 1.947205e+00 
 % tetha_li(6)= 1.434048e+00 Valido con varianza 9.174805e-01 
 %  tetha_li(7)= 4.037223e+00 Valido con varianza 4.545900e+00 
 % tetha_li(8)= 4.914669e-02 Valido con varianza 1.234847e+00 
