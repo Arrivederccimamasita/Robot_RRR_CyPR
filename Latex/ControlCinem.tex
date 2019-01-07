@@ -179,21 +179,22 @@ de forma continua. A continuación se tratara el interpolador utilizado.
 
 		\item ¿Como lo hacemos? \\ 
 		Herramientas matemáticas. que traduzcan las funcionalidades de la Orden de movimiento. \\ 
-		Análisis Cinemático previo. Debemos poder trasladas las ordenes del espacio cartesiano, al articular del robot.
-		Generar Señal de referencia. Aqui asignamos las caracteristicas de la señal de referencia; asegurar condiciones 
+		Análisis Cinemático previo con el que poder trasladar las ordenes del espacio cartesiano, al articular del robot.
+		Generar Señal de referencia: Aqui asignamos las características de la señal de referencia; asegurar condiciones 
 		especificas de velocidad y aceleraciones, además de la continuidad en las consignas de referencia, apoyados en algoritmos
-		de interpolación. 
+		de interpolación. \\ 
 
 		\begin{figure}[h!]
 			\centering
 			\includegraphics[width=.4\textwidth]{GeneradorTrayLineal}
-			\caption{Referencia Generada Vs Referencia Entregada al Modelo}
+			\caption{Salida del Control Cinemático con Generador Lineal, e Interpolador cúbico}
 		\end{figure}
 
-		
+		Una vez conseguidas estas referencias, y al no poder sen entregadas, como intensidades que varien de forma continua a los motores
+		de nuestro modelo de robot, es necesaria la adicion de Mantenedores de Orden Cero, \textit{ZoH}, para ajustar la señal a escalones
+		de referencias, que puedan ser referencias reales a nuestro modelo de robot en intensidades.
 
-
-		\item Resultados: \\ 		
+	
 		\begin{figure}[h!]
 			\centering
 			\includegraphics[width=.4\textwidth]{ZoHComparativa} \hspace{0.2cm} \includegraphics[width=.4\textwidth]{ZoHComparativaDetalle}
