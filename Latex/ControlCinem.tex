@@ -148,64 +148,19 @@ de forma continua. A continuación se tratara el interpolador utilizado.
 		\end{center}
 	El trabajo matricial de esta ecuación en el espacio articular permite obtener tantos
 	polinomios como tramos en la trayectoria sean exigidas por el número de puntos intermedios; pero, para ello debemos asignar valores a
-	
 	los parámetros \textit{a, b, c y d}; para estos que contengan parámetros de velocidad, se utilizará
-	
 	el método heurístico para la asignación de velocidades articulares.\\
-	
-	
-	
-	Le método Heurístico se basta con el análisis de la variación de las posiciones
-	
-	articulares de las muestras para asignar una velocidad de la articulación igual a cero, en el caso de que se varíe la
-	
-	dirección del movimiento; y una media entre ambas velocidades, si se aportan a la misma dirección de giro. Véase: \\
-	
-	
-	
-	\[	
+
+	El método Heurístico se basta con el análisis de la variación de las posiciones articulares de las muestras para asignar una velocidad de la articulación igual a cero, en el caso de que se varíe la dirección del movimiento; y una media entre ambas velocidades, si se aportan a la misma dirección de giro. Véase: \\
+
+	\[
 	\dot{q}_{i}= \left\{ \begin{array}{ll}
-	
 	0 & \textrm{si signo $(q_{i}-q_{i-1})$ $\neq$ signo $(q_{i+1}- q_{i})$} \\
-	
 	\frac{(q_{i+1}- q_{i})+(q_{i}-q_{i-1})}{2T} & \textrm{si signo $(q_{i}-q_{i-1})$ = signo $(q_{i+1}- q_{i})$}
-	
-	
-	
 	\end{array}\right.
 	\]
-	
-	
-	
-	
-	
 \end{itemize}
 
-
-
-
-
-
-
-
-
-<<<<<<< HEAD
-\subsection{Pruebas y conclusiones}
-
-\begin{itemize}
-
-\item Objetivos: \\
-
-Ser capaces de que nuestro modelo de brazo manipulador ejecute ordenes de movimientos basados en trayectorias.\\
-
-
-
-\item Necesidad para el trabajo: \\
-
-Generar trayectorias de referencia en el espacio articular de nuestro modelo brazo manipulador.\\
-
-
-=======
 	\subsection{Pruebas y conclusiones}
 	\begin{itemize}
 		\item Objetivos: \\
@@ -214,72 +169,28 @@ Generar trayectorias de referencia en el espacio articular de nuestro modelo bra
 		\item Necesidad para el trabajo: \\
 		Generar trayectorias de referencia en el espacio articular de nuestro modelo brazo manipulador.\\
 
-		\item ¿Como lo hacemos? \\ 
-		Herramientas matemáticas. que traduzcan las funcionalidades de la Orden de movimiento. \\ 
-		Análisis Cinemático previo con el que poder trasladar las ordenes del espacio cartesiano, al articular del robot.
-		Generar Señal de referencia: Aqui asignamos las características de la señal de referencia; asegurar condiciones 
-		especificas de velocidad y aceleraciones, además de la continuidad en las consignas de referencia, apoyados en algoritmos
-		de interpolación. \\ 
 
-		\begin{figure}[h!]
-			\centering
-			\includegraphics[width=.7\textwidth]{GeneradorTrayLineal}
-			\caption{Salida del Control Cinemático con Generador Lineal, e Interpolador cúbico}
-		\end{figure}
->>>>>>> 7d873bcaffe091ffaa76bf13dbca4a4879fa8faa
-
-\item ¿Como lo hacemos? \\ 
-
-Herramientas matemáticas que traduzcan las funcionalidades de la Orden de movimiento. \\ 
-
+\item ¿Como lo hacemos? \\
+Herramientas matemáticas que traduzcan las funcionalidades de la Orden de movimiento. \\
 Análisis Cinemático previo con el que poder trasladar las ordenes del espacio cartesiano, al articular del robot.
-
-Generar Señal de referencia: Aquí asignamos las características de la señal de referencia; asegurar condiciones 
-
+Generar Señal de referencia: Aquí asignamos las características de la señal de referencia; asegurar condiciones
 especificas de velocidad y aceleraciones, además de la continuidad en las consignas de referencia, apoyados en algoritmos
-
-de interpolación. \\ 
-
-
+de interpolación. \\
 
 \begin{figure}[h!]
-	
 	\centering
-	
-	\includegraphics[width=1\textwidth]{GeneradorTrayLineal}
-	
+	\includegraphics[width=.7\textwidth]{GeneradorTrayLineal}
 	\caption{Salida del Control Cinemático con Generador Lineal, e Interpolador cúbico}
-	
 \end{figure}
 
-
-
 Una vez conseguidas estas referencias, y al no poder sen entregadas, como intensidades que varíen de forma continua a los motores
-
 de nuestro modelo de robot, es necesaria la adición de Mantenedores de Orden Cero, \textit{ZoH}, para ajustar la señal a escalones
-
 de referencias, que puedan ser referencias reales a nuestro modelo de robot en intensidades.
 
 
-
-
-
 \begin{figure}[h!]
-	
 	\centering
-	
 	\includegraphics[width=.45\textwidth]{ZoHComparativa} \hspace{0.05cm} \includegraphics[width=.45\textwidth]{ZoHComparativaDetalle}
-	
 	\caption{Referencia Generada Vs Referencia Entregada al Modelo}
-	
 \end{figure}
-
-
-
-
-
-
-
-
-
 \end{itemize}
